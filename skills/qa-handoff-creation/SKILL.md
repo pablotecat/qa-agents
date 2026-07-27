@@ -12,7 +12,7 @@ compatibility:
 
 Genera el handoff JSON minimo de cualquier agente productor QA. Esta skill es compartida: no pertenece a un agente en particular, se referencia parametrizando `{agent}` con el nombre del agente que la invoca (ej. `QA.documentation`).
 
-> **Opcionalidad:** esta skill NO es prerrequisito de ningún workflow. Las skills de workflow (`qa-documentation-workflow`, `qa-generator-workflow`, `qa-planner-workflow`) generan su reporte markdown de forma autónoma; el handoff JSON solo se crea si el invocador (agente o usuario) decide llamar a esta skill una vez cerrado el workflow.
+> **Opcionalidad:** esta skill NO es prerrequisito de ningún workflow. Las skills de workflow (`qa-documentation`, `qa-generator`, `qa-planner`) generan su reporte markdown de forma autónoma; el handoff JSON solo se crea si el invocador (agente o usuario) decide llamar a esta skill una vez cerrado el workflow.
 
 > Nota: el handoff es un recibo minimo de validacion para quien consume el resultado del agente, no un payload de contenido. Todo el contenido de trabajo vive en el markdown de resumen del agente (`summary_md`), no en este JSON.
 

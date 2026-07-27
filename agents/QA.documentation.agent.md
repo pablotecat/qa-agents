@@ -22,6 +22,6 @@ Extraer requisitos desde cualquier fuente (documentación, especificación técn
 
 ## Flujo de trabajo
 
-1. DEBES ejecutar esta skill: `.github/skills/qa-documentation-workflow/SKILL.md`, pasándole `to <output_dir>`  y la carpeta del agente como `<output_dir>`.
+1. DEBES ejecutar esta skill: `.github/skills/qa-documentation/SKILL.md`, pasándole `to <output_dir>`  y la carpeta del agente como `<output_dir>`.
 2. DEBES crear un handoff usando esta skill: `.github/skills/qa-handoff-creation/SKILL.md`
 

@@ -78,9 +78,9 @@ Los agentes QA están disponibles en .github/. Ya puedes invocarlos desde GitHub
 | `agents/` | 3 | Agentes `QA.*.agent.md`: `documentation`, `planner`, `generator` (los archivos marcados como `old.*` se excluyen de la copia) |
 | `instructions/` | 4 | Instrucciones `QA.*.instructions.md` por agente + `QATesting-general` |
 | `prompts/` | 1 | Prompts de inicialización (`test-documentation-init.md`) |
-| `skills/` | 5 dirs | `qa-handoff-creation`, `qa-documentation-workflow`, `qa-generator-workflow`, `qa-planner-workflow`, `qa-test-prioritization-report` (cada una con `SKILL.md` + `steps/`/`references/`/`examples/`/`assets/`) |
+| `skills/` | 5 dirs | `qa-handoff-creation`, `qa-documentation`, `qa-generator`, `qa-planner`, `qa-test-prioritization-report` (cada una con `SKILL.md` + `steps/`/`references/`/`examples/`/`assets/`) |
 
-Los agentes son **invocables directamente** por el usuario. Las skills de workflow (`qa-documentation-workflow`, `qa-generator-workflow`, `qa-planner-workflow`) también son **invocables de forma autónoma** mediante slash command, sin necesidad de pasar por un agente.
+Los agentes son **invocables directamente** por el usuario. Las skills de workflow (`qa-documentation`, `qa-generator`, `qa-planner`) también son **invocables de forma autónoma** mediante slash command, sin necesidad de pasar por un agente.
 
 ## Invocación
 
@@ -97,7 +97,7 @@ Cuando una skill de workflow se invoca sin agente, la skill resuelve la ruta de 
 2. **`preview` o `no-save`** → modo chat-only: el reporte se muestra por chat, no se escribe nada a disco.
 3. En caso contrario → default `./qa-tmp/<skill-name>/<timestamp>/` (relativo al cwd del workspace).
 
-Ejemplo: `/qa-documentation-workflow <solicitud QA y fuentes>` escribe a `./qa-tmp/qa-documentation-workflow/20260724-153020/`. Para chat-only: `/qa-documentation-workflow preview <solicitud>`.
+Ejemplo: `/qa-documentation <solicitud QA y fuentes>` escribe a `./qa-tmp/qa-documentation/20260724-153020/`. Para chat-only: `/qa-documentation preview <solicitud>`.
 
 > Nota: el modo standalone **no** inicializa la estructura de sesión (`session-counter.json`, carpeta `session_{N}_{id}/`) — esa gestión la realiza solo el agente. El default `qa-tmp/` es un fallback funcional, no un reemplazo de la sesión estructurada. Recomendable añadir `qa-tmp/` al `.gitignore` del proyecto destino.
 
