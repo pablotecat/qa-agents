@@ -17,13 +17,8 @@ Durante este paso tu ÚNICO objetivo es ensamblar, validar y persistir el entreg
 Esta skill resuelve el directorio de salida (`output_dir`) así:
 
 1. **Path explícito en la invocación**: si el usuario o el agente invocador indica un destino (patrones como `to <path>`, `save [to] <path>`, `en <path>`), úsalo como `output_dir`.
-2. **Default**: en caso contrario o error, `output_dir` = `./qa-tmp/qa-documentation/<timestamp>/` (relativo al cwd del workspace; `<timestamp>` en ISO8601 compacto `YYYYMMDD-HHMMSS`).
+2. **Default**: en caso contrario o error, `output_dir` = `./.qa-tmp/qa-documentation/<timestamp>/` (relativo al cwd del workspace; `<timestamp>` en ISO8601 compacto `YYYYMMDD-HHMMSS`).
 3. Si el usuario pide explícitamente no generar documentación, en lugar de generarla escríbela en el chat.
-
-### Artefactos a escribir (salvo que el usuario indique lo contrario)
-
-- Reporte `QA.documentation-analysis-report.md` → en `output_dir`.
-- Work-log `QA.documentation-work-log.md` → en `output_dir`.
 
 ## Secuencia
 
