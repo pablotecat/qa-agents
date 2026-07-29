@@ -15,7 +15,7 @@ DEBES incluir las siguientes secciones, en este orden. Las secciones marcadas co
 - Productor
 - Fecha/Hora
 - Estado
-- Modo de entrada (planner-handoff o documentation/requisitos directos)
+- Modo de entrada (planning-done o no-planning)
 - Modelo Usado
 
 ### Secciones Base (obligatorias)
@@ -27,9 +27,9 @@ DEBES incluir las siguientes secciones, en este orden. Las secciones marcadas co
 - Hallazgos relevantes (sin priorizar)
 
 2. Modo de Entrada
-- Tipo de documento de entrada consumido (planner-handoff vs documentation/requisitos directos)
-- En modo documentation/requisitos directos: agrupación ligera por área funcional aplicada (solo para enlazar test↔requisito)
-- Disclaimer obligatorio: esta skill NO crea Test Plan profundo en modo documentation/requisitos directos (sin coverage %, sin precondiciones estructurales, sin dependencias inter-suite, sin localizar gaps).
+- Tipo de documento de entrada consumido (planning-done vs no-planning)
+- En modo no-planning: agrupación ligera por área funcional aplicada (solo para enlazar test↔requisito)
+- Disclaimer obligatorio: esta skill NO crea Test Plan profundo en modo no-planning (sin coverage %, sin precondiciones estructurales, sin dependencias inter-suite, sin localizar gaps).
 
 3. Test Cases
 - Bloque por cada Test Case siguiendo la plantilla OBLIGATORIA `assets/test-case-template.md` (anatomía B)
@@ -48,9 +48,7 @@ DEBES incluir las siguientes secciones, en este orden. Las secciones marcadas co
 - Checklist de completitud del set de Test Cases
 
 7. Artefactos Generados
-- Handoff JSON principal
-- Este archivo markdown
-- Log de trabajo
+- lista de Artefactos generados
 
 8. Notas de Cierre para Revisión Humana
 - Puntos que un revisor humano podría querer mirar a continuación
@@ -77,10 +75,5 @@ Antes de dar la tarea por finalizada, recorrer este checklist y confirmar que se
 - [ ] En splits, los `TEST-ID` derivan como `{original_id}a/b/...` y `Original ID` se preserva.
 - [ ] Los conteos de Test Cases, splits y PROVISIONAL son consistentes con el handoff JSON.
 - [ ] El índice de trazabilidad está completo y verifica 1:1 Test Case↔AC en lo posible.
-- [ ] **NO se ha priorizado ni clasificado en Smoke/Regresión/Exploratory.**
-- [ ] **NO se ha decidido orden de ejecución.**
-- [ ] **NO se ha automatizado ni propuesto automatización.**
-- [ ] **NO se han nombrado agentes específicos del pipeline** como predecesores o sucesores.
-- [ ] En modo documentation/requisitos directos, NO se ha creado Test Plan profundo (sin coverage %, sin precondiciones estructurales, sin dependencias inter-suite, sin localizar gaps).
 
 Si algún punto no se cumple, la tarea no debe marcarse como finalizada.

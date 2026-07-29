@@ -38,4 +38,3 @@ Para cada Test Case del índice del paso 02:
 - [ ] Se mantuvo el campo `Acceptance Criteria cubierto` por Test Case (del paso 02).
 - [ ] Los pasos no claros se escribieron como acción provisional (sin marcar todavía).
 - [ ] Los `Original ID` y los IDs derivados no se renombraron ni rederivados aquí.
-- [ ] El paso 3 está completo antes de continuar.

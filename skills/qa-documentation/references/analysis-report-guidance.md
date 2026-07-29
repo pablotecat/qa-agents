@@ -72,6 +72,6 @@ Antes de dar la tarea por finalizada, recorrer este checklist y confirmar que se
 - [ ] Estan presentes las 4 secciones base (Resumen Ejecutivo, Checklist de Validacion, Artefactos Generados, Notas de Cierre para Revision Humana).
 - [ ] Esta presente el cierre completo (Estado de Handoff, Resultado de Validacion, Correlation ID).
 - [ ] Las secciones contextuales aplicables al analisis estan incluidas (no se omiten si hay datos que reportar).
-- [ ] Los conteos de requisitos y gaps son consistentes con el handoff JSON.
+- [ ] Los conteos de requisitos y gaps son consistentes con la documentacion.
 - [ ] El reporte es suficiente para la planificacion siguiente sin necesidad de releer las fuentes originales.
 

@@ -21,7 +21,7 @@ Durante este paso tu unico objetivo es leer y entender. Solo asimila el handoff 
 
 ## Manejo de bloqueos por documentación insuficiente
 
-Si detectas que la documentación entrante es insuficiente para diseñar cobertura contiúa sin detenerte, tu única responsabilidad es dejar registrado el problema y dejar la decisión en manos del usuario.
+Si detectas que la documentación entrante es insuficiente para diseñar cobertura continúa sin detenerte, tu única responsabilidad es dejar registrado el problema en pasos posteriores y dejar la decisión en manos del usuario.
 
 
 ## Checklist de completitud

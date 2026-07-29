@@ -37,4 +37,3 @@ Durante este paso tu unico objetivo es verificar trazabilidad bidireccional. No 
 - [ ] Se verificó la trazabilidad bidireccional Test Case ↔ Acceptance Criteria.
 - [ ] Se identificaron los Test Cases sin AC asociado, los ACs sin Test Case que los cubra y los Test Cases sin `Original ID` o con IDs inconsistentes.
 - [ ] Los pendientes de trazabilidad se recopilaron en un listado.
-- [ ] El paso 5 está completo antes de continuar.

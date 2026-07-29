@@ -10,23 +10,26 @@ Usa el modelo de razonamiento mas potente disponible para este paso. Es la fase 
 
 ## Enfoque Exclusivo
 
-Durante este paso tu unico objetivo es leer y entender. No diseñes Test Cases todavía, ni particiones por AC, ni pasos numerados, ni marques provisionales. Asimila el documento de entrada y, en modo requisitos directos, pre-armas una agrupación ligera por área (sin modelamiento de cobertura ni dependencias inter-suite — eso es responsabilidad de otros agentes).
+Durante este paso tu unico objetivo es leer y entender. No diseñes Test Cases todavía, ni particiones por AC, ni pasos numerados, ni marques provisionales. Asimila el documento de entrada y, en modo requisitos directos, pre-armas una agrupación ligera por área (sin modelamiento de cobertura ni dependencias inter-suite).
 
 ## Secuencia
 
 1. Detecta el tipo de documento de entrada:
-   - Si contiene handoff JSON + execution-summary (o equivalente) con suites y "escenarios" como nombres de tests (id, title, sin pasos), es modo **planner-handoff** (caso preferido).
-   - Si contiene un analysis-report o requisitos sueltos con Acceptance Criteria pero sin suites organizadas, es modo **documentation/requisitos directos** (caso alternativo).
+   - Si contiene suites y "escenarios" como nombres de tests (id, title, sin pasos), es modo **planning-done** (caso preferido).
+   - Si contiene un analysis-report o requisitos sueltos con Acceptance Criteria pero sin suites organizadas, es modo **no-planning** (caso alternativo).
 2. Lee el documento de entrada completo.
-3. Si el modo es planner-handoff, extrae: suites (suite_id, name, description, requirements origen), escenarios (id, title), Acceptance Criteria cubiertos por cada escenario, gaps y dependencias inter-suite estructurales.
-4. Si el modo es documentation/requisitos directos, lee los Acceptance Criteria explícitos; pre-armar una agrupación ligera por área funcional SOLO para enlazar Test Case con requisito. No crear Test Plan profundo: sin modelamiento de cobertura, sin precondiciones estructurales, sin dependencias inter-suite, sin localizar gaps (es responsabilidad de otros agentes).
-5. Recopila ambigüedades o faltantes detectados (AC sin definir claramente, requisitos sin contexto, escenarios sin Acceptance Criteria asociado) como GAP preliminar y continúa sin detenerte.
+3. Dependiendo del modo:
+   - **Si el modo es planning-done:** Extrae: suites (suite_id, name, description, requirements origen), escenarios (id, title), Acceptance Criteria cubiertos por cada escenario, gaps y dependencias inter-suite estructurales.
+   - **Si el modo es no-planning:** Lee los Acceptance Criteria explícitos; pre-armar una agrupación ligera por área funcional SOLO para enlazar Test Case con requisito. No crear Test Plan profundo: sin modelamiento de cobertura, sin precondiciones estructurales, sin dependencias inter-suite, sin localizar gaps.
+
+## Manejo de bloqueos por documentación insuficiente
+
+Recopila ambigüedades o faltantes detectados (AC sin definir claramente, requisitos sin contexto, escenarios sin Acceptance Criteria asociado) como GAP preliminar y continúa sin detenerte.
 
 ## Checklist de completitud
 
-- [ ] Se identificó el modo de entrada (planner-handoff vs documentation/requisitos directos).
+- [ ] Se identificó el modo de entrada (planning-done vs no-planning).
 - [ ] Se leyó el documento de entrada completo.
-- [ ] En modo planner-handoff: se extrajeron suites, escenarios (id, title), ACs cubiertos, gaps y dependencias.
-- [ ] En modo documentation/requisitos directos: se identificaron Acceptance Criteria y se preparó agrupación ligera por área.
+- [ ] En modo planning-done: se extrajeron suites, escenarios (id, title), ACs cubiertos, gaps y dependencias.
+- [ ] En modo no-planning: se identificaron Acceptance Criteria y se preparó agrupación ligera por área.
 - [ ] Se registraron ambigüedades o faltantes como GAP preliminar sin detener el flujo.
-- [ ] El paso 1 está completo antes de continuar.

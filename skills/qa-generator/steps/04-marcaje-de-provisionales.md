@@ -38,4 +38,3 @@ Mientras tanto, la lógica actual es heurística: marca todo lo que no esté cla
 - [ ] Cada paso marcado tiene documentado su motivo (qué input falta).
 - [ ] Se recopiló el listado de pasos PROVISIONAL con TEST-ID, número de paso y motivo.
 - [ ] El marcaje no ha implicado rediseño de pasos.
-- [ ] El paso 4 está completo antes de continuar.

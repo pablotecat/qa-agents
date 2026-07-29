@@ -2,13 +2,13 @@
 
 > Este es un **ejemplo completo** de salida de la skill `qa-generator`. No es plantilla; la plantilla OBLIGATORIA está en `assets/test-case-template.md`.
 >
-> Fuente de entrada simulada: `execution-summary-example.md` (modo planner-handoff). En este ejemplo se ha spliteado `registration_001` en `registration_001a` y `registration_001b` porque el escenario cubría dos Acceptance Criteria. También se incluye un paso marcado `🟡 PROVISIONAL/NO DEFINIDO` para ilustrar el marcaje.
+> Fuente de entrada simulada: `execution-summary-example.md` (modo planning-done). En este ejemplo se ha spliteado `registration_001` en `registration_001a` y `registration_001b` porque el escenario cubría dos Acceptance Criteria. También se incluye un paso marcado `🟡 PROVISIONAL/NO DEFINIDO` para ilustrar el marcaje.
 
 **Session ID:** `<SESSION_ID>`
 **Productor:** QA.generator (ejemplo)
 **Fecha/Hora:** `<ISO_8601_TIMESTAMP>`
 **Estado de Ejecución:** ✅ COMPLETED
-**Modo de entrada:** planner-handoff
+**Modo de entrada:** planning-done
 **Modelo Usado:** `<MODEL_NAME>`
 
 ---
@@ -35,11 +35,11 @@ El agente **QA.generator** ha generado el set de Test Cases a partir del documen
 
 ## 🧭 Modo de Entrada
 
-- **Tipo de documento de entrada:** planner-handoff (handoff JSON + execution-summary del planner).
+- **Tipo de documento de entrada:** planning-done.
 - Se han respetado las suites del planner (`registration_suite`, `listing_suite` en el ejemplo completo) y se han expandido los nombres de escenarios a Test Cases.
-- En modo documentation/requisitos directos (no aplicable en este ejemplo), se aplicaría una agrupación ligera por área funcional solo para enlazar Test Case con requisito.
+- En modo no-planning (no aplicable en este ejemplo), se aplicaría una agrupación ligera por área funcional solo para enlazar Test Case con requisito.
 
-> **Disclaimer:** el agente NO crea Test Plan profundo en modo documentation/requisitos directos (sin coverage %, sin precondiciones estructurales, sin dependencias inter-suite, sin localizar gaps). Esa responsabilidad es de otros agentes.
+> **Disclaimer:** el agente NO crea Test Plan profundo en modo no-planning (sin coverage %, sin precondiciones estructurales, sin dependencias inter-suite, sin localizar gaps). Esa responsabilidad es de otros agentes.
 
 ---
 
@@ -145,22 +145,18 @@ El agente **QA.generator** ha generado el set de Test Cases a partir del documen
 - [ ] NO se ha priorizado ni clasificado en Smoke/Regresión/Exploratory.
 - [ ] NO se ha decidido orden de ejecución.
 - [ ] NO se ha automatizado ni propuesto automatización.
-- [ ] NO se han nombrado agentes del pipeline como predecesores o sucesores.
 
 ---
 
 ## 📁 Artefactos Generados
 
-La ruta de persistencia la define el invocador vía `to <path>` (default `./qa-tmp/qa-generator/<timestamp>/`, ver "Resolución de output" en `SKILL.md`). Esta skill no bifurca por modo de invocación.
+La ruta de persistencia la define el invocador vía `to <path>` (default `./.qa-tmp/qa-generator/<timestamp>/`, ver "Resolución de output" en `steps/06-generacion-de-reporte.md`). Esta skill no bifurca por modo de invocación.
 
-Artefactos que **esta skill** siempre escribe (salvo chat-only):
+Artefactos que **esta skill** siempre escribe (sólo los que se hayan creado):
 
 - **This file:** `QA.generator-test-cases.md`
-- **Work log:** `QA.generator-work-log.md`
-
-Artefacto **opcional** (no lo genera esta skill; lo gestiona el invocador vía `qa-handoff-creation` si se desea):
-
 - **Handoff JSON:** `QA.generator-handoff-<TIMESTAMP>.json`
+- **Work log:** `QA.generator-work-log.md`
 
 ---
 

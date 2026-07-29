@@ -8,9 +8,9 @@ Repite un bloque como el siguiente por cada Test Case. Sustituye los `<PLACEHOLD
 
 ### TEST-<ID>: <Title>
 
-- **Original ID:** <original_id del documento de entrada | N/A (modo documentation/requisitos directos sin ID original)>
+- **Original ID:** <original_id del documento de entrada | N/A (modo no-planning sin ID original)>
 - **Acceptance Criteria cubierto:** <ref al AC del documento de entrada, p. ej. AC-001 o REQ-NNN>
-- **Suite / Área:** <suite_id del planner | área funcional en modo documentation/requisitos directos>
+- **Suite / Área:** <suite_id del planner | área funcional en modo no-planning>
 - **Estado:** ✅ COMPLETED | 🟡 PROVISIONAL (ver pasos marcados abajo)
 
 **Prerrequisitos**
@@ -35,7 +35,7 @@ Repite un bloque como el siguiente por cada Test Case. Sustituye los `<PLACEHOLD
 1. **Header:** `### TEST-<ID>: <Title>` con el `TEST-ID` asignado. El `<Title>` puede renombrarse respecto al title del documento de entrada si describirá mejor el objetivo del Test Case (preservando siempre `Original ID`).
 
 2. **Metadatos obligatorios:** `Original ID`, `Acceptance Criteria cubierto`, `Suite / Área`, `Estado`.
-   - `Original ID` es el ID del documento de entrada (escenario del planner, p. ej. `registration_001`). En modo documentation/requisitos directos sin ID original, usar `N/A`.
+   - `Original ID` es el ID del documento de entrada (escenario del planner, p. ej. `registration_001`). Si se está en modo no-planning usar `N/A`.
    - En **splits**, `Original ID` se conserva con el valor original (p. ej. los Test Cases `registration_001a` y `registration_001b` ambos con `Original ID: registration_001`).
 
 3. **Prerrequisitos:** lista. Estado inicial, datos y configuración necesarios antes de ejecutar el Test Case. Puede estar vacía si no aplica.
@@ -55,5 +55,3 @@ Repite un bloque como el siguiente por cada Test Case. Sustituye los `<PLACEHOLD
 8. **Prueba un único AC:** En la medida de lo posible, un Test Case prueba un único Acceptance Criteria. Si el documento de entrada cubre N ACs en un solo escenario, **splitear** en N Test Cases (regla 6).
 
 9. **No priorizar, no clasificar, no automatizar:** la plantilla no incluye campos de prioridad, criticidad, tier (Smoke/Regresión/Exploratory) ni automatización. Esos son Non-goals de esta skill.
-
-10. **No nombrar agentes del pipeline:** la plantilla no referencia predecesores ni sucesores específicos del pipeline. Solo hace trazabilidad al documento de entrada vía `Original ID` y `Acceptance Criteria cubierto`.

@@ -72,9 +72,6 @@ Antes de dar la tarea por finalizada, recorrer este checklist y confirmar que se
 - [ ] Está presente el cierre completo (Estado de Handoff, Resultado de Validación, Correlation ID).
 - [ ] Los conteos de suites, escenarios, requisitos cubiertos y porcentajes son consistentes con el handoff JSON.
 - [ ] Cada suite lista solo NOMBRES de tests (sin pasos de prueba).
-- [ ] **NO se ha priorizado ni clasificado en Smoke/Regresión/Exploratory.**
-- [ ] **NO se ha definido orden de ejecución** (solo dependencias estructurales inter-suite).
-- [ ] **NO se ha evaluado automatización ni riesgo** (solo eco de la severidad de gaps proveniente de documentation.QATesting, con disclaimer explícito).
-- [ ] El reporte es suficiente para que prioritization.QATesting pueda decidir orden y tiers de automatización sin releer el handoff de documentation.QATesting.
+
 
 Si algún punto no se cumple, la tarea no debe marcarse como finalizada.
