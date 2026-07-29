@@ -10,7 +10,7 @@ Usa un modelo con buena capacidad de razonamiento analítico. La calidad de este
 
 ## Enfoque Exclusivo
 
-Durante este paso tu unico objetivo es modelar cobertura. No diseñes nuevas suites ni definas precondiciones ni trazabilidad estructural.
+Durante este paso tu unico objetivo es modelar cobertura.
 
 ## Secuencia
 
@@ -18,7 +18,12 @@ Durante este paso tu unico objetivo es modelar cobertura. No diseñes nuevas sui
 2. Calcula `coverage_percentage` por suite y `coverage_percentage` total.
 3. Identifica requisitos no cubiertos (`uncovered_requirements`) y relacionados con los gaps del handoff entrante.
 4. Documenta qué gaps quedan mitigados por cobertura (`gaps_mitigated`) y cuáles no (`gaps_unmitigated`).
-5. Si cobertura es imposible de alcanzar, marca GAP y deja registro para decisión posterior (ver sección "Manejo de Bloqueos y Retroalimentación" de SKILL.md).
+5. Si cobertura es imposible de alcanzar, marca GAP y deja registro para decisión posterior.
+
+## Manejo de bloqueos por cobertura imposible
+
+Si cobertura es imposible de alcanzar:
+- Re-diseña suites con cobertura pragmática (ej: 85% en lugar de 100%).
 
 ## Checklist de completitud
 
@@ -26,4 +31,3 @@ Durante este paso tu unico objetivo es modelar cobertura. No diseñes nuevas sui
 - [ ] Se calculó `coverage_percentage` por suite y total.
 - [ ] Los requisitos no cubiertos están identificados y relacionados con gaps.
 - [ ] `gaps_mitigated` y `gaps_unmitigated` están documentados como eco de documentation.QATesting.
-- [ ] El paso 3 esta completo antes de continuar.

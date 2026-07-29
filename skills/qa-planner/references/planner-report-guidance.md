@@ -35,7 +35,7 @@ DEBES incluir las siguientes secciones, en este orden. Las secciones marcadas co
 
 4. Cobertura de Riesgo por Gap *(ECO informativo)*
 - Tabla `Gap ID · Severidad (eco de documentation.QATesting) · Estado de Cobertura · Mitigación del planner`
-- **Disclaimer obligatorio:** la severidad del gap proviene de documentation.QATesting; el planner NO la re-evalúa, solo hace eco y reporta si su cobertura la mitiga parcial o totalmente
+- **Disclaimer obligatorio:** la severidad del gap proviene de la documentación; el planner solo hace eco y reporta si su cobertura la mitiga parcial o totalmente. 
 
 5. Decisiones de Diseño y Supuestos
 - Decisiones estructurales del planner ya tomadas (suite structure, coverage model, precondiciones por suite) — se mantienen aquí

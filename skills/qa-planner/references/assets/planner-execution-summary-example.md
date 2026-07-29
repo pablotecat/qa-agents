@@ -10,8 +10,8 @@
 
 ## 📊 Resumen Ejecutivo
 
-La skill `qa-planner` ha completado el Test Plan estructural a partir del handoff de entrada (típicamente producido por `QA.documentation` o equivalente).
-Este reporte NO prioriza ni clasifica suites en Smoke/Regresión/Exploratory; esa responsabilidad corresponde a priorización.
+La skill `qa-planner` ha completado el Test Plan estructural a partir de la documentación de entrada (típicamente producido por `QA.documentation` o equivalente).
+Este reporte NO prioriza ni clasifica suites en Smoke/Regresión/Exploratory; esa responsabilidad corresponde al usuario.
 
 ### Métricas Clave
 
@@ -149,21 +149,15 @@ Este reporte NO prioriza ni clasifica suites en Smoke/Regresión/Exploratory; es
 - [ ] Dependencias inter-suite estructurales documentadas (no es orden de ejecución).
 - [ ] NO se ha priorizado ni clasificado en Smoke/Regresión/Exploratory.
 - [ ] NO se ha evaluado riesgo ni automatización (solo eco de severidad de gaps con disclaimer).
-- [ ] Gaps no mitigados reportados en "Notas de Cierre → Decisiones Pendientes" del reporte markdown; el estado del resultado es `blocked|partial` (para que, si el invocador decide generar handoff vía `qa-handoff-creation`, se refleje en ese JSON y en su `work_performed.sections_untouched`).
+- [ ] Gaps no mitigados reportados en "Notas de Cierre → Decisiones Pendientes" del reporte markdown; el estado del resultado es `blocked|partial`.
 
 ---
 
 ## 📁 Artefactos Generados
 
-La ruta de persistencia la define el invocador vía `to <path>` (default `./qa-tmp/qa-planner/<timestamp>/`, ver "Resolución de output" en `SKILL.md`). Esta skill no bifurca por modo de invocación.
-
-Artefactos que **esta skill** siempre escribe (salvo chat-only):
-
-- **This file:** `QA.planner-execution-summary.md`
-- **Work log:** `QA.planner-work-log.md`
-
-Artefacto **opcional** (no lo genera esta skill; lo gestiona el invocador vía `qa-handoff-creation` si se desea):
-
+Ruta `./.qa-tmp/qa-planner/<timestamp>/`
+- **Execution Summary:** `QA.planner-execution-summary.md` (este archivo)
+- **Work Log:** `QA.planner-work-log.md`
 - **Handoff JSON:** `QA.planner-handoff-<TIMESTAMP>.json`
 
 ---
