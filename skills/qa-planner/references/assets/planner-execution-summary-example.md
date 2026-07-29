@@ -97,10 +97,10 @@ Este reporte NO prioriza ni clasifica suites en Smoke/Regresión/Exploratory; es
 
 > **Disclaimer:** la severidad de cada gap proviene de QA.documentation. El planner NO la re-evalúa; solo reporta si su cobertura mitiga total o parcialmente el gap.
 
-| Gap ID | Severidad (eco) | Estado de Cobertura | Mitigación del planner |
+| Gap ID | Severidad (eco) | Estado de Cobertura | Descripción (eco) | Mitigación del planner |
 |--------|-----------------|---------------------|------------------------|
-| GAP-001 | HIGH | MITIGATED | Cubierto por `registration_002` (rechazo de duplicado) |
-| GAP-002 | MEDIUM | UNMITIGATED | Sin cobertura posible; falta de especificación — escalado a decisión del usuario |
+| GAP-001 | HIGH | MITIGATED | Descripción (eco) | Cubierto por `registration_002` (rechazo de duplicado) |
+| GAP-002 | MEDIUM | UNMITIGATED | Descripción (eco) | Sin cobertura posible; falta de especificación — escalado a decisión del usuario |
 
 ---
 

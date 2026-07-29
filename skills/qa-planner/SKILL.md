@@ -2,7 +2,7 @@
 name: qa-planner
 description: Diseña suites de prueba, cobertura y precondiciones estructurales y entrega el reporte `QA.planner-execution-summary.md`.
 disable-model-invocation: true
-argument-hint: "Handoff de QA.documentation con requisitos consolidados, dependencias y gaps. Opcional: 'to <path>' para destino."
+argument-hint: "documentación con requisitos consolidados, dependencias y gaps. Opcional: 'to <path>' para destino, o 'preview'/'no-save' para chat-only."
 compatibility: 
   - agents: [QA.planner]
 ---

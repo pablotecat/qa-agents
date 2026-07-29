@@ -11,13 +11,9 @@ Workflow de documentación QA: extrae, normaliza y entrega requisitos consolidad
 
 ## Mapa de pasos
 
-DEBES leer y ejecutar los pasos de la carpeta `steps/` en este orden:
+DEBES leer y ejecutar los pasos en orden:
 
-1. `steps/01-extraccion-de-requisitos.md` — Extracción de Requisitos
-2. `steps/02-identificacion-de-gaps.md` — Identificación de Gaps
-3. `steps/03-particionado-por-area.md` — Particionado por Área
-4. `steps/04-normalizacion-y-estructuracion.md` — Normalización y Estructuración
-5. `steps/05-generacion-de-reporte.md` — Generación de Reporte
+`01 Extracción de Requisitos` → `02 Identificación de Gaps` → `03 Particionado por Área` → `04 Normalización y Estructuración` → `05 Generación de Reporte`
 
 ## Feedback al usuario
 
