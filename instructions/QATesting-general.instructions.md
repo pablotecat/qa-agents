@@ -10,8 +10,13 @@ Este documento define los guardarrailes obligatorios para todos los agentes QA. 
 
 ## Instrucciones de workflow
 - Salvo que se indique lo contrario, todos los agentes QA DEBEN seguir el flujo de trabajo definido en su skill sin saltarse ningún paso. 
-- Sólo se debe persistir en la memoria de sesión y contexto de agente  la información que se indica en el paso actual. Al finalizar el paso, todas las instrucciones de ese paso se consideran cumplidas y las instrucciones se olvidan.
+- Sólo se debe persistir en la memoria de sesión y contexto de agente la información que se indica en el paso actual. Al finalizar el paso, todas las instrucciones de ese paso se consideran cumplidas y las instrucciones se olvidan.
 - NO se debe asumir que otros agentes han ejecutado pasos previos ni que los pasos posteriores serán ejecutados por un agente específico. Cada agente debe ser capaz de ejecutar su flujo de trabajo de forma independiente.
+
+## Guardarrailes de worklog
+- Prohibido escribir el work-log completo al final. Cada fila debe escribirse (o actualizarse) en el instante en que se cierra el paso del workflow, con el timestamp real de ese momento. El archivo se edita incrementalmente con replace_string_in_file o equivalente tras cada paso, no se genera de golpe con create_file.
+- Prohibido usar timestamps estimados, planificados o "plausibles". Si no puedes obtener la hora real exacta, escribe unknown en lugar de inventar un valor.
+- El work-log no se construye en el Último paso — se va construyendo durante los todos los Pasos. El último Paso, además, lo lee para confirmar consistencia.
 
 ## Persistencia
 
@@ -32,3 +37,4 @@ El agente es responsable de:
 
 ### Idempotencia
 - Si el agente se reinvoca sobre una sesión existente, NO sobrescribir artefactos previos sin confirmación del usuario. Generar nuevos archivos con timestamp actualizado o preguntar si se desea reemplazar.
+
