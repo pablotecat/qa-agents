@@ -3,8 +3,6 @@ name: qa-worklog
 description: Construye el work-log de un workflow QA. Se aplica durante la ejecución de workflows QA o cuando se pide loguear/trazar la ejecución de un workflow QA.
 ---
 
-Skill para construir el work-log de los workflows QA.
-
 ## Log de Trabajo (traza incremental)
 
 El work-log es **traza incremental de ejecución**. Se escribe siguiendo las instrucciones de `references/work-log-guidance.md` y la plantilla `references/assets/work-log-template.md`.

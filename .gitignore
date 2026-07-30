@@ -18,3 +18,9 @@ Thumbs.db
 # Environment
 .env
 .env.local
+
+# Temporary files
+*.tmp
+
+# Presentation folder
+presentación

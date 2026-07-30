@@ -7,8 +7,6 @@ compatibility:
   - agents: [QA.planner]
 ---
 
-Workflow de planificación QA: diseña suites, cobertura y precondiciones estructurales — relaciones entre requisitos y tests, nunca orden ni priorización — y entrega el reporte QA.planner-execution-summary.md.
-
 ## Mapa de pasos
 
 DEBES leer y ejecutar los pasos de la carpeta `steps/` en este orden:

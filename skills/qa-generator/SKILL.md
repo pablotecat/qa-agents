@@ -8,8 +8,6 @@ compatibility:
   - agents: [QA.generator]
 ---
 
-Workflow de generación de Test Cases: diseña Test Cases con pasos numerados Given/When/Then y entrega el documento `QA.generator-test-cases.md`.
-
 ## Mapa de pasos
 
 DEBES leer y ejecutar los pasos de la carpeta `steps/` en este orden:

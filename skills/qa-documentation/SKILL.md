@@ -7,8 +7,6 @@ compatibility:
   - agents: [QA.documentation]
 ---
 
-Workflow de documentación QA: extrae, normaliza y entrega requisitos consolidados en un reporte markdown.
-
 ## Mapa de pasos
 
 DEBES leer y ejecutar los pasos de `steps/` en este orden:
