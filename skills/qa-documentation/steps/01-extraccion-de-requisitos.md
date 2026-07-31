@@ -20,6 +20,14 @@ Durante este paso tu ÚNICO objetivo es leer y extraer.
 4. Lista precondiciones y dependencias detectadas.
 5. Si encuentras ambiguedad o falta de informacion, anotala brevemente como GAP preliminar y continua sin detenerte.
 
+## Guardarrailes de calidad
+
+🛑 **No mezclar dominios ni ramas**:
+- Un endpoint API y su flujo UI asociado son requisitos **distintos** (uno prueba contrato, otro prueba interacción). No fusionar.
+- Cada rama observable (happy path, error HTTP, catch de red) es un requisito **distinto**. Prohibido empaquetar ok/error/catch en un solo Gherkin.
+- Cada combinación (verbo HTTP + status code) es un requisito **distinto**. No fusionar los 404 de GET/PUT/DELETE en un solo requisito.
+
+
 ## Checklist de completitud
 
 - [ ] Se revisaron todas las fuentes relevantes (documentacion, especificacion tecnica, UI y API).
@@ -27,3 +35,4 @@ Durante este paso tu ÚNICO objetivo es leer y extraer.
 - [ ] Se extrajeron criterios de aceptacion explicitos e implicitos.
 - [ ] Se listaron precondiciones y dependencias.
 - [ ] Se registraron ambiguedades o faltantes como GAP sin detener el flujo.
+- [ ] Cada rama observable y cada combinación verbo+status_code se extrajo como requisito separado (no se empaquetaron ok/error/catch juntos).

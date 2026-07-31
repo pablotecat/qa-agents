@@ -30,7 +30,29 @@ Esta skill resuelve el directorio de salida (`output_dir`) así:
 - Trabaja sobre los requisitos, gaps y agrupamiento producidos en los pasos 01–04. Si detectas un faltante en este punto, regístralo como "decisión pendiente" en el reporte (sección Notas de Cierre) y continúa.
 - La estructura y el nombre del reporte markdown: siguen la guía `references/analysis-report-guidance.md`.
 
+## Guardarrailes de calidad
+
+🛑 **Registro de conservación**:
+- Antes de cerrar el paso, verifica: `count_requisitos_extracción == count_requisitos_reporte` y `count_gaps_extracción == count_gaps_reporte`. Si hay diferencia, el paso está **bloqueado**.
+- Prohibido silently drop: ningún requisito ni gap puede quedar sin destino documentado (pista: si falta, vuelve al Paso 3 y crea la área "Miscelánea").
+
+🛑 **CRITICAL nunca desaparece**:
+- Todo gap CRITICAL generado en el Paso 2 debe figurar en el reporte. Si alguno no aparece, el reporte no pasa la puerta de calidad.
+- La severidad asignada en el Paso 2 es inmutable: no promuevas ni degradues en el reporte.
+
+🛑 **Veracidad de auditorías**:
+- Si se te pide auditoría o desglose, usa **exclusivamente** la lista real de requisitos extraídos.
+- Prohibido inventar conteos, ratios, granularidades intermedias o fabricar sub-IDs no presentes en la extracción.
+- Si no recuerdas el conteo exacto, di "no tengo el conteo en memoria" en lugar de inventar.
+
+🛑 **Métricas honestas**:
+- Los counts (requirements, gaps, áreas, endpoints) del reporte deben coincidir con el conteo **real de extracción**, no con el de la agregación.
+
 ## Checklist de completitud
 
-- [ ] Se genero `QA.documentation-analysis-report.md` con el formato esperado.
-- [ ] Los counts (req/gap/área/endpoint) del reporte son internamente consistentes y el estado del analisis queda reflejado en el reporte.
+- [ ] Se generó `QA.documentation-analysis-report.md` con el formato esperado.
+- [ ] count_requisitos_reporte == count_requisitos_extracción (Paso 1) — gate de conservación superado.
+- [ ] count_gaps_reporte == count_gaps_extracción (Paso 2) — todos los gaps figuran, sin silently drop.
+- [ ] Todo gap CRITICAL del Paso 2 aparece en el reporte (puerta de calidad superada).
+- [ ] Ninguna severidad fue reasignada (inmutabilidad de Paso 2 respetada).
+- [ ] Estado del análisis y counts por área/endpoint son internamente consistentes y reflejan la extracción real (no la agregación).
