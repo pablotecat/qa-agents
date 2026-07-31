@@ -1,7 +1,7 @@
 ---
 name: QA.planner-contract
 description: Contrato operativo para non-goals, owned decisions y guardarrailes del agente QA.planner
-applyTo: **/QA.planner.agent.md
+applyTo: "*/QA.planner.agent.md"
 ---
 
 # Test Planner Contract

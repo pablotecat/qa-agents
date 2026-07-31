@@ -1,7 +1,7 @@
 ---
 name: QA.generator-contract
 description: Contrato operativo para non-goals, owned decisions y guardarrailes del agente QA.generator
-applyTo: **/QA.generator.agent.md
+applyTo: "*/QA.generator.agent.md"
 ---
 
 # Test Generator Contract

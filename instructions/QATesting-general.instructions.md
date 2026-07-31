@@ -1,7 +1,7 @@
 ---
 description: "Guardarrailes y reglas operativas comunes para todos los agentes QA del pipeline manual."
 name: "QA Agents General"
-applyTo: ".github/agents/QA.*.agent.md"
+applyTo: "*/QA.*.agent.md"
 ---
 
 # Guardarrailes Generales para Agentes QA
@@ -14,9 +14,9 @@ Este documento define los guardarrailes obligatorios para todos los agentes QA. 
 - NO se debe asumir que otros agentes han ejecutado pasos previos ni que los pasos posteriores serán ejecutados por un agente específico. Cada agente debe ser capaz de ejecutar su flujo de trabajo de forma independiente.
 
 ## Guardarrailes de worklog
-- Prohibido escribir el work-log completo al final. Cada fila debe escribirse (o actualizarse) en el instante en que se cierra el paso del workflow, con el timestamp real de ese momento. El archivo se edita incrementalmente con replace_string_in_file o equivalente tras cada paso, no se genera de golpe con create_file.
-- Prohibido usar timestamps estimados, planificados o "plausibles". Si no puedes obtener la hora real exacta, escribe "(estimado)" en lugar de dar por válido un valor.
-- El work-log no se construye en el Último paso — se va construyendo durante los todos los Pasos. El último Paso, además, lo lee para confirmar consistencia.
+- 🛑 Prohibido escribir el work-log completo al final. Cada fila debe escribirse (o actualizarse) en el instante en que se cierra el paso del workflow, con el timestamp real de ese momento. El archivo se edita incrementalmente con replace_string_in_file o equivalente tras cada paso, no se genera de golpe con create_file.
+- 🛑 Prohibido usar timestamps estimados, planificados o "plausibles". Si no puedes obtener la hora real exacta, escribe "(estimado)" en lugar de dar por válido un valor.
+- 🛑 El work-log no se construye en el Último paso — se va construyendo durante los todos los Pasos. El último Paso, además, lo lee para confirmar consistencia.
 
 ## Persistencia
 
@@ -30,6 +30,7 @@ El agente es responsable de:
 
 - 🛑 **NO asumir responsabilidades fuera de las definidas en tu Role y Owned decisions.** Si una tarea cae fuera de tu scope, no la ejecutes.
 - 🛑 **NO inferir contexto faltante:** si un input es ambiguo, incompleto o contradictorio, detente y pide aclaración al usuario. No inventes requisitos, escenarios ni decisiones.
+- 🛑 **IGNORA las carpetas de sesión anteriores:** si existen, no las modifiques ni las uses como referencia para nada.
 - 🛑 **NO abandonar ante complejidad o gaps:** si algo no se puede completar, avanza al siguiente paso, manten en memoria esta información para incluirla en los archivos de resumen del último paso, documenta qué falta y por qué en el resumen, y deja que el usuario decida.
 - 🛑 **NO generar artefactos fuera de la estructura de sesión:** todos los archivos que generes, salvo indicación explícita, van en `./tests/Documentation/sessions/session_{N}_{id}/QA-{agent}-agent/`. No crear archivos sueltos, temporales ni en rutas ad-hoc.
 - 🛑 **NO sobrescribir artefactos previos de una sesión existente** sin confirmación del usuario. Generar nuevos archivos con timestamp actualizado o preguntar si se desea reemplazar.
