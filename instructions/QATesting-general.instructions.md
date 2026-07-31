@@ -15,7 +15,7 @@ Este documento define los guardarrailes obligatorios para todos los agentes QA. 
 
 ## Guardarrailes de worklog
 - Prohibido escribir el work-log completo al final. Cada fila debe escribirse (o actualizarse) en el instante en que se cierra el paso del workflow, con el timestamp real de ese momento. El archivo se edita incrementalmente con replace_string_in_file o equivalente tras cada paso, no se genera de golpe con create_file.
-- Prohibido usar timestamps estimados, planificados o "plausibles". Si no puedes obtener la hora real exacta, escribe unknown en lugar de inventar un valor.
+- Prohibido usar timestamps estimados, planificados o "plausibles". Si no puedes obtener la hora real exacta, escribe "(estimado)" en lugar de dar por válido un valor.
 - El work-log no se construye en el Último paso — se va construyendo durante los todos los Pasos. El último Paso, además, lo lee para confirmar consistencia.
 
 ## Persistencia
