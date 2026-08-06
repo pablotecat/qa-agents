@@ -23,8 +23,9 @@ Transformas requisitos normalizados en un Test Plan estructurado: TÍTULO del te
 
 ## Flujo de trabajo
 
-1. DEBES ejecutar esta skill de workflow: `.github/skills/qa-planner/SKILL.md`, pasándole la carpeta del agente como `<output_dir>`.
-2. DEBES usar la skill `.github/skills/qa-worklog/SKILL.md` para registrar los pasos del workflow.
-3. DEBES crear un handoff usando esta skill: `.github/skills/qa-handoff-creation/SKILL.md`
+1. DEBES aplicar `.github/instructions/QA.preferences-loader.instructions.md` antes de iniciar el workflow.
+2. DEBES ejecutar esta skill de workflow: `.github/skills/qa-planner/SKILL.md`, pasándole la carpeta del agente como `<output_dir>`.
+3. DEBES usar la skill `.github/skills/qa-worklog/SKILL.md` para registrar los pasos del workflow.
+4. DEBES crear un handoff usando esta skill: `.github/skills/qa-handoff-creation/SKILL.md`
 
 
