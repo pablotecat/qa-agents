@@ -4,20 +4,30 @@ Esta plantilla ES OBLIGATORIA. No es un ejemplo, es el formato que debe seguirse
 
 Agrupa los Test Cases por suite o área. Cada suite, cada Test Case y sus Prerrequisitos deben usar los bloques HTML `<details>` mostrados abajo, sin atributo `open`, para permanecer colapsados por defecto. Sustituye los `<PLACEHOLDERS>` con valores reales.
 
+**Emoticono de estado en los títulos:**
+- En cada Test Case, antepón al `TEST-<ID>` el emoticono según su `Estado`: `✅` Ready, `🟡` Provisional, `⛔` Blocked.
+- En cada Suite / Área, antepón el emoticono calculado a partir de los estados de sus Test Cases: `⛔` si alguno está Blocked; si no, `🟡` si alguno está Provisional; si no, `✅`.
+
 ---
 
 <details>
-<summary><strong>Suite / Área: &lt;SUITE_OR_AREA&gt; (&lt;TEST_CASE_COUNT&gt; Test Cases)</strong></summary>
+<summary><strong>&lt;SUITE_ICON&gt; Suite / Área: &lt;SUITE_OR_AREA&gt; (&lt;TEST_CASE_COUNT&gt; Test Cases)</strong></summary>
 
 Repite el siguiente bloque por cada Test Case de la suite o área.
 
 <details>
-<summary><strong>TEST-&lt;ID&gt;: &lt;Title&gt;</strong></summary>
+<summary><strong>&lt;TEST_ICON&gt; TEST-&lt;ID&gt;: &lt;Title&gt;</strong></summary>
+
+**Estado:** Ready | Provisional | Blocked
+
+<details>
+<summary><strong>Traza</strong></summary>
 
 - **Original ID:** <original_id del documento de entrada | N/A (modo no-planning sin ID original)>
 - **Acceptance Criteria cubierto:** <ref al AC del documento de entrada, p. ej. AC-001 o REQ-NNN>
 - **Suite / Área:** <suite_id del planner | área funcional en modo no-planning>
-- **Estado:** ✅ COMPLETED | 🟡 PROVISIONAL (ver pasos marcados abajo)
+
+</details>
 
 <details>
 <summary><strong>Prerrequisitos</strong></summary>
@@ -45,9 +55,13 @@ Repite el siguiente bloque por cada Test Case de la suite o área.
 
 ## Reglas de la plantilla (anatomía B)
 
-1. **Estructura colapsable:** agrupa los Test Cases por `Suite / Área` en un `<details>` colapsado. Dentro, cada Test Case debe tener su propio `<details>` colapsado, con `<summary>` `TEST-<ID>: <Title>`. Los **Prerrequisitos** van en un tercer `<details>` anidado y colapsado.
+1. **Estructura colapsable:** agrupa los Test Cases por `Suite / Área` en un `<details>` colapsado. Dentro, cada Test Case debe tener su propio `<details>` colapsado, con `<summary>` `<TEST_ICON> TEST-<ID>: <Title>` donde `<TEST_ICON>` refleja su `Estado` (`✅` Ready, `🟡` Provisional, `⛔` Blocked). El `<summary>` de la Suite antepone `<SUITE_ICON>`, calculado como `⛔` si algún Test Case está Blocked, `🟡` si alguno está Provisional y `✅` en caso contrario. Los **Prerrequisitos** van en un tercer `<details>` anidado y colapsado.
 
-2. **Metadatos obligatorios:** `Original ID`, `Acceptance Criteria cubierto`, `Suite / Área`, `Estado`.
+2. **Metadatos obligatorios:** `Estado` (visible arriba de todo) y `Traza` (bloque `<details>` colapsado por defecto con `Original ID`, `Acceptance Criteria cubierto`, `Suite / Área`).
+   - **Estado** admite tres valores:
+     - `✅Ready`: todo ok, el Test Case está definido y verificado.
+     - `🟡Provisional`: definición actual asumida; hay pasos marcados `🟡 PROVISIONAL/NO DEFINIDO` que requieren confirmación humana antes de ejecutar.
+     - `⛔Blocked`: existe una incidencia grave que ha de resolver el humano (p. ej. AC no inferible, trazabilidad rota no resuelta, dependencia bloqueante).
    - `Original ID` es el ID del documento de entrada (escenario del planner, p. ej. `registration_001`). Si se está en modo no-planning usar `N/A`.
    - En **splits**, `Original ID` se conserva con el valor original (p. ej. los Test Cases `registration_001a` y `registration_001b` ambos con `Original ID: registration_001`).
 

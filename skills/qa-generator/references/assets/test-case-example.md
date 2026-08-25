@@ -46,15 +46,21 @@ El agente **QA.generator** ha generado el set de Test Cases a partir del documen
 ## 🧪 Test Cases
 
 <details>
-<summary><strong>Suite / Área: registration_suite (3 Test Cases)</strong></summary>
+<summary><strong>🟡 Suite / Área: registration_suite (3 Test Cases)</strong></summary>
 
 <details>
-<summary><strong>TEST-registration_001a: Registro exitoso con email válido</strong></summary>
+<summary><strong>✅ TEST-registration_001a: Registro exitoso con email válido</strong></summary>
+
+**Estado:** Ready
+
+<details>
+<summary><strong>Traza</strong></summary>
 
 - **Original ID:** registration_001
 - **Acceptance Criteria cubierto:** AC-001 (registro exitoso con email válido)
 - **Suite / Área:** registration_suite
-- **Estado:** ✅ COMPLETED
+
+</details>
 
 <details>
 <summary><strong>Prerrequisitos</strong></summary>
@@ -77,12 +83,18 @@ El agente **QA.generator** ha generado el set de Test Cases a partir del documen
 ---
 
 <details>
-<summary><strong>TEST-registration_001b: Rechazo de email duplicado</strong></summary>
+<summary><strong>🟡 TEST-registration_001b: Rechazo de email duplicado</strong></summary>
+
+**Estado:** Provisional
+
+<details>
+<summary><strong>Traza</strong></summary>
 
 - **Original ID:** registration_001
 - **Acceptance Criteria cubierto:** AC-002 (rechazo de email duplicado)
 - **Suite / Área:** registration_suite
-- **Estado:** 🟡 PROVISIONAL (ver paso marcado abajo)
+
+</details>
 
 <details>
 <summary><strong>Prerrequisitos</strong></summary>
@@ -107,12 +119,18 @@ El agente **QA.generator** ha generado el set de Test Cases a partir del documen
 ---
 
 <details>
-<summary><strong>TEST-registration_002: Validación de contraseña débil</strong></summary>
+<summary><strong>✅ TEST-registration_002: Validación de contraseña débil</strong></summary>
+
+**Estado:** Ready
+
+<details>
+<summary><strong>Traza</strong></summary>
 
 - **Original ID:** registration_002
 - **Acceptance Criteria cubierto:** AC-003 (validación de contraseña débil)
 - **Suite / Área:** registration_suite
-- **Estado:** ✅ COMPLETED
+
+</details>
 
 <details>
 <summary><strong>Prerrequisitos</strong></summary>
