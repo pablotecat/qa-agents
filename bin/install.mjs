@@ -14,7 +14,7 @@ const SOURCE_REPO = "https://github.com/pablotecat/qa-agent-creation.git";
 const DEFAULT_BRANCH = "main";
 
 // Directorios runtime del repo que se copian al destino/.github/.
-const RUNTIME_DIRS = ["agents", "instructions", "prompts", "skills"];
+const RUNTIME_DIRS = ["agents", "instructions", "prompts", "scripts", "skills"];
 
 // Destino: <cwd>/.github/  (cwd del usuario que ejecuta npx)
 const destRoot = resolve(process.cwd(), ".github");
