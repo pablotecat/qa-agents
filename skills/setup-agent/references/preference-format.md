@@ -1,60 +1,39 @@
 # Formato de preferencias de Proyecto
 
-Esta referencia es la fuente canónica para las colecciones, el registro y el historial del MVP. Todo se guarda bajo `instructions/preferences/`.
+Esta referencia es la fuente canónica del MVP. Cada agente tiene un único archivo Markdown legible en `instructions/preferences/<agente>.md`. Sus secciones bajo `## Ajustes activos` son la fuente de verdad; no hay colecciones, registro de activación ni frontmatter.
 
-## Colecciones
+## Archivo por agente
 
-Ruta: `instructions/preferences/collections/<collection-id>.md`.
-
-Cada colección tiene frontmatter:
-
-```yaml
----
-name: concise-and-actionable
-description: "Controla la síntesis de reportes para agentes QA."
-applyTo:
-  - QA.documentation
-  - QA.planner
----
-```
-
-- `name`: identificador único y estable de la colección.
-- `description`: decisión operativa que controla.
-- `applyTo`: lista de nombres de agente compatibles. Es metadato de selección interna; no es el mecanismo de auto-carga de VS Code.
-- El cuerpo debe describir una decisión operativa y sus instrucciones. No almacena estado de activación.
-
-## Registro activo
-
-Ruta: `instructions/preferences/active-preferences.md`.
-
-Mantiene una sección por agente. Cada entrada activa apunta a una ruta relativa de colección. Ejemplo:
+Cada ajuste activo usa esta estructura:
 
 ```markdown
-## QA.documentation
+### <identificador-estable>
 
-- `collections/concise-and-actionable.md`
+- **Instrucción:** comportamiento futuro, positivo y concreto.
+- **Límite:** regla base que el ajuste no altera, o `Ninguno`.
+- **Evidencia:** carpeta de sesión y artefactos consultados.
+- **Añadido:** timestamp ISO 8601 real.
 ```
 
-Una colección se considera activa solo cuando aparece en la sección del agente. Antes de añadirla, comprueba que el `applyTo` de la colección contiene ese agente.
+- Un ajuste controla un comportamiento operativo material.
+- El identificador es único dentro del archivo del agente.
+- La instrucción debe permitir comprobar en una ejecución futura qué acción cambia.
+- Las secciones permanecen planas y se editan directamente; no uses YAML, JSON ni referencias indirectas.
 
 ## Historial
 
 Ruta: `instructions/preferences/preferences-history.md`.
 
-Agrega una fila por modificación, con timestamp ISO 8601 real:
+Agrega una fila por creación, edición o retirada; nunca reescribas ni elimines filas anteriores:
 
 ```markdown
-| Timestamp | Agente | Colección | Cambio |
-| --- | --- | --- | --- |
-| 2026-08-06T10:15:00Z | QA.documentation | concise-and-actionable | Creada y activada |
+| Timestamp | Agente | Ajuste | Acción | Sesión origen | Resumen |
+| --- | --- | --- | --- | --- | --- |
+| 2026-08-25T10:15:00.000Z | QA.documentation | resumen-ejecutivo | Creado | `tests/.../session_1_x/` | Añade un resumen de decisiones al reporte. |
 ```
 
-No reescribas ni elimines entradas anteriores en el MVP.
+## Conflictos y alcance
 
-## Conflictos
+Dos ajustes entran en conflicto cuando indican acciones incompatibles para el mismo comportamiento. `setup-agent` presenta las alternativas y espera una decisión humana antes de escribir.
 
-Dos colecciones entran en conflicto si dirigen de manera incompatible la misma decisión operativa para el mismo agente. El registro no debe dejar ambas activas sin una respuesta explícita del usuario. No se utiliza prioridad, orden de archivo ni antigüedad como desempate.
-
-## Alcance del MVP
-
-Solo existe el ámbito Proyecto. Los ámbitos Usuario, Sesión y Bajo demanda no tienen rutas ni precedencia en esta versión.
+Solo existe el ámbito Proyecto. Usuario, Sesión y Bajo demanda no tienen rutas ni precedencia en este MVP.

@@ -4,14 +4,13 @@ Esta carpeta contiene la capa configurable de instrucciones para los agentes QA.
 
 ## Contenido
 
-- `collections/` contiene colecciones reutilizables de instrucciones operativas.
-- `active-preferences.md` indica qué colecciones están activas por agente.
+- `QA.documentation.md`, `QA.generator.md` y `QA.planner.md` contienen los ajustes activos de cada agente.
 - `preferences-history.md` conserva el historial cronológico de cambios.
 
-El cargador [QA.preferences-loader.instructions.md](../QA.preferences-loader.instructions.md) resuelve el registro antes del workflow de cada agente QA.
+El cargador [QA.preferences-loader.instructions.md](../QA.preferences-loader.instructions.md) lee el archivo del agente antes de su workflow.
 
 ## Ámbito
 
-El MVP solo admite preferencias de Proyecto. Gestiona esta carpeta mediante la skill `setup-agent`; no actives colecciones editando sus propios `applyTo`.
+El MVP solo admite preferencias de Proyecto. Gestiona cambios mediante `setup-agent` después de una ejecución concreta: aporta el agente, la carpeta de sesión y feedback sobre el comportamiento que quieres ajustar. La skill presenta el texto exacto y solo escribe tras aprobación explícita.
 
 > Una reinstalación forzada de `qa-agents` copia el runtime completo y puede sobrescribir esta carpeta. Conserva una copia antes de reinstalar si necesitas preservar preferencias locales.

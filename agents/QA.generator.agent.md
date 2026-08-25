@@ -1,7 +1,7 @@
 ---
 name: QA.generator
 description: Agente QA que crea Test Cases con pasos numerados Given/When/Then desde un documento de planificación o de requisitos
-tools: [read, search, edit, terminal]
+tools: [read, search, edit, execute]
 user-invocable: true
 argument-hint: Handoff del planner o analysis-report de documentation con requisitos, suites y nombres de tests
 ---

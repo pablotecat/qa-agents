@@ -1,17 +1,16 @@
-# 04 — Consultar y resolver conflictos
+# 04 — Presentar la propuesta y obtener aprobación
 
 ## Acción
 
-1. Presenta las preguntas fijas y dinámicas restantes con la decisión operativa que cambiarán.
-2. Si hay conflicto entre colecciones activas, presenta primero una pregunta de resolución que nombre la decisión afectada y las alternativas incompatibles.
-3. Solicita respuestas concretas, incluyendo si el usuario quiere crear, editar, activar o desactivar una colección existente.
-4. Usa las respuestas del usuario como confirmación implícita de los cambios resultantes.
-5. Si falta una respuesta necesaria para resolver un conflicto, detente sin modificar colecciones ni registro para esa decisión.
+1. Muestra el ajuste completo con: identificador, comportamiento actual, comportamiento propuesto, instrucción exacta, límite, evidencia y acción de persistencia.
+2. Si hay conflicto, presenta las alternativas de conservar, sustituir o reformular antes de pedir aprobación.
+3. Pide una aprobación explícita de la propuesta final. Una respuesta que describe el problema o el ajuste no cuenta como aprobación para escribir.
+4. Si se rechaza o falta aprobación, no modifiques preferencias ni historial.
 
 ## Límite
 
-No establezcas una precedencia automática entre colecciones incompatibles. No hagas preguntas cuya respuesta no alteraría el comportamiento operativo.
+No resuelvas conflictos automáticamente ni persistas un resumen distinto del texto aprobado por el usuario.
 
 ## Criterio de cierre
 
-Cada cambio que se va a persistir cuenta con una respuesta explícita del usuario y no queda un conflicto sin resolver para la misma decisión.
+La propuesta tiene una aprobación explícita y no contiene conflictos pendientes, o la ejecución se detuvo sin escribir.

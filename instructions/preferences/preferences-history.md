@@ -1,7 +1,7 @@
 # Historial de preferencias
 
-Registro cronológico de creaciones, ediciones, activaciones y desactivaciones de colecciones de Proyecto.
+Registro cronológico append-only de ajustes de Proyecto aprobados explícitamente.
 
-| Timestamp | Agente | Colección | Cambio |
-| --- | --- | --- | --- |
-| — | — | — | Sin cambios registrados. |
+| Timestamp | Agente | Ajuste | Acción | Sesión origen | Resumen |
+| --- | --- | --- | --- | --- | --- |
+| — | — | — | — | — | Sin cambios registrados. |

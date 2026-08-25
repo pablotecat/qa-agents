@@ -1,7 +1,7 @@
 ---
 name: QA.documentation
 description: Agente de documentacion QA que extrae y normaliza requisitos para handoff consolidado
-tools: [read, search, edit, terminal]
+tools: [read, search, edit, execute]
 user-invocable: true
 argument-hint: solicitud_qa y fuentes de requisitos (docs, specs, flujos UI/API)
 ---

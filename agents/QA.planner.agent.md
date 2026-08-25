@@ -1,7 +1,7 @@
 ---
 name: QA.planner
 description: Diseña suites de prueba, modelamiento de cobertura y definición de precondiciones
-tools: [read, search, edit, terminal]
+tools: [read, search, edit, execute]
 user-invocable: true
 argument-hint: Handoff de QA.documentation con requisitos consolidados, dependencias y gaps
 ---
