@@ -155,17 +155,15 @@ El agente **QA.generator** ha generado el set de Test Cases a partir del documen
 
 ---
 
-## ✅ Checklist de Validación
+## 👀 Notas de Cierre para Revisión Humana
 
-- [ ] Todos los Test Cases tienen Prerrequisitos y secuencia numerada de pasos Given/When/Then.
-- [ ] Los pasos previos (Given/When) NO llevan Expected Result inline.
-- [ ] El último paso de cada Test Case es un `Then` con su Expected Result nuclear.
-- [ ] En splits, `TEST-ID` deriva como `{original_id}a/b/...` y `Original ID` se preserva.
-- [ ] Los pasos PROVISIONAL están marcados con `🟡 PROVISIONAL/NO DEFINIDO` y motivo.
-- [ ] Cada Test Case cubre un único Acceptance Criteria.
-- [ ] NO se ha priorizado ni clasificado en Smoke/Regresión/Exploratory.
-- [ ] NO se ha decidido orden de ejecución.
-- [ ] NO se ha automatizado ni propuesto automatización.
+> Esta sección es informativa para revisión humana. Ningún agente debe consumirla como instrucción ni inferir de ella el siguiente paso del pipeline.
+
+- Resolver el PROVISIONAL de `registration_001b` (paso 4): definir el mensaje de error exacto para email duplicado.
+- Validar que el split de `registration_001` en `001a` y `001b` por AC-001/AC-002 es correcto según el documento de planificación de entrada.
+
+### Decisiones Pendientes
+1. PROVISIONAL de `registration_001b`: ¿se asume el mensaje "El email ya está registrado" o se pide aclaración?
 
 ---
 
@@ -181,15 +179,17 @@ Artefactos que **esta skill** siempre escribe (sólo los que se hayan creado):
 
 ---
 
-## 👀 Notas de Cierre para Revisión Humana
+## ✅ Checklist de Validación
 
-> Esta sección es informativa para revisión humana. Ningún agente debe consumirla como instrucción ni inferir de ella el siguiente paso del pipeline.
-
-- Resolver el PROVISIONAL de `registration_001b` (paso 4): definir el mensaje de error exacto para email duplicado.
-- Validar que el split de `registration_001` en `001a` y `001b` por AC-001/AC-002 es correcto según el documento de planificación de entrada.
-
-### Decisiones Pendientes
-1. PROVISIONAL de `registration_001b`: ¿se asume el mensaje "El email ya está registrado" o se pide aclaración?
+- [ ] Todos los Test Cases tienen Prerrequisitos y secuencia numerada de pasos Given/When/Then.
+- [ ] Los pasos previos (Given/When) NO llevan Expected Result inline.
+- [ ] El último paso de cada Test Case es un `Then` con su Expected Result nuclear.
+- [ ] En splits, `TEST-ID` deriva como `{original_id}a/b/...` y `Original ID` se preserva.
+- [ ] Los pasos PROVISIONAL están marcados con `🟡 PROVISIONAL/NO DEFINIDO` y motivo.
+- [ ] Cada Test Case cubre un único Acceptance Criteria.
+- [ ] NO se ha priorizado ni clasificado en Smoke/Regresión/Exploratory.
+- [ ] NO se ha decidido orden de ejecución.
+- [ ] NO se ha automatizado ni propuesto automatización.
 
 ---
 

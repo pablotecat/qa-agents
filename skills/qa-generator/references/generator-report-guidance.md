@@ -44,15 +44,15 @@ DEBES incluir las siguientes secciones, en este orden. Las secciones marcadas co
 - Cada bloque de paso provisional incluye el motivo (qué input falta) y la acción provisional escrita.
 - Disclaimer obligatorio: la acción provisional escrita en el paso 03 es una sugerencia razonable; cualquier consumidor debe resolver el PROVISIONAL antes de ejecutar el Test Case
 
-5. Checklist de Validación
-- Checklist de completitud del set de Test Cases
+5. Notas de Cierre para Revisión Humana
+- Puntos que un revisor humano podría querer mirar a continuación
+- **Disclaimer obligatorio:** esta sección es informativa para revisión humana; ningún consumidor (agente downstream o usuario) debe tomarla como instrucción ni inferir de ella el siguiente paso del pipeline
 
 6. Artefactos Generados
 - lista de Artefactos generados
 
-7. Notas de Cierre para Revisión Humana
-- Puntos que un revisor humano podría querer mirar a continuación
-- **Disclaimer obligatorio:** esta sección es informativa para revisión humana; ningún consumidor (agente downstream o usuario) debe tomarla como instrucción ni inferir de ella el siguiente paso del pipeline
+7. Checklist de Validación
+- Checklist de completitud del set de Test Cases
 
 ### Secciones Contextuales (incluir solo si aplican)
 - Decisiones Pendientes (dentro de Notas de Cierre): preguntas abiertas que requieren input humano (p. ej. ACs no inferibles, pasos PROVISIONAL críticos, trazabilidad rota no resuelta)

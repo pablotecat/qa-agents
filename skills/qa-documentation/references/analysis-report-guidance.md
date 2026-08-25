@@ -25,15 +25,15 @@ A continuación se explica cada sección:
 - Totales de requisitos y gaps
 - Hallazgos críticos
 
-2. Checklist de Validación
-- Checklist de completitud
+2. Notas de Cierre para Revisión Humana
 
 3. Artefactos Generados
 - Handoff JSON principal
 - Este archivo markdown
 - Documentos extra de validación si se generaron
 
-4. Notas de Cierre para Revisión Humana
+4. Checklist de Validación
+- Checklist de completitud
 - Puntos que un revisor humano podría querer mirar a continuación
 - **Disclaimer obligatorio:** esta sección es informativa para revisión humana; ningún consumidor (agente downstream o usuario) debe tomarla como instrucción ni inferir de ella el siguiente paso del pipeline
 
@@ -59,6 +59,8 @@ A continuación se explica cada sección:
   - Severidad
   - Impacto
   - Recomendacion
+  - Los gaps se agrupan por severidad (CRITICAL > HIGH > MEDIUM > LOW). Cada severidad es un bloque HTML `<details>` colapsado por defecto.
+  - Dentro de cada severidad, cada gap es un bloque HTML `<details>` anidado y colapsado por defecto, con `<summary>` `<Gap-ID> · <Título>` seguido de Categoría, Impacto y Recomendación en lista.
 - Decisiones Pendientes para Planificación
   - Preguntas abiertas para la planificación siguiente
 
@@ -71,7 +73,7 @@ A continuación se explica cada sección:
 Antes de dar la tarea por finalizada, recorrer este checklist y confirmar que se cumple en su totalidad:
 
 - [ ] Estan presentes los metadatos (Session ID, Agente, Fecha/Hora, Estado).
-- [ ] Estan presentes las 4 secciones base (Resumen Ejecutivo, Checklist de Validacion, Artefactos Generados, Notas de Cierre para Revision Humana).
+- [ ] Estan presentes las 4 secciones base (Resumen Ejecutivo, Notas de Cierre para Revision Humana, Artefactos Generados, Checklist de Validacion).
 - [ ] Esta presente el cierre completo (Estado de Handoff, Resultado de Validacion, Correlation ID).
 - [ ] Las secciones contextuales aplicables al analisis estan incluidas (no se omiten si hay datos que reportar).
 - [ ] Los conteos de requisitos y gaps son consistentes con la documentacion.

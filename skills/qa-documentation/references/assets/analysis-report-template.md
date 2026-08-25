@@ -32,9 +32,9 @@
 - [Requisitos Normalizados por Área](#-requisitos-normalizados-por-área)
 - [API Endpoints Documentados](#-api-endpoints-documentados)
 - [Gaps Identificados (Detalle por Severidad)](#-gaps-identificados-detalle-por-severidad)
-- [Checklist de Validación](#-checklist-de-validación)
-- [Artefactos Generados](#-artefactos-generados)
 - [Notas de Cierre para Revisión Humana](#-notas-de-cierre-para-revisión-humana)
+- [Artefactos Generados](#-artefactos-generados)
+- [Checklist de Validación](#-checklist-de-validación)
 - [Cierre](#-cierre)
 
 ---
@@ -102,33 +102,63 @@ Errors:   <ERROR_SCHEMAS>
 
 ## ⚠️ Gaps Identificados (Detalle por Severidad)
 
-> Detalle completo de todos los gaps identificados, ordenados por severidad descendente. El Resumen Ejecutivo solo lista CRITICAL y HIGH; esta sección los amplía e incluye MEDIUM y LOW.
+> Detalle completo de todos los gaps identificados, ordenado por severidad descendente. El Resumen Ejecutivo solo lista CRITICAL y HIGH; esta sección los amplía e incluye MEDIUM y LOW.
 
-| Gap ID | Severidad | Categoría | Título | Impacto en Testing | Recomendación |
-|--------|-----------|-----------|--------|-------------------|---------------|
-| GAP-<NNN> | CRITICAL | <CATEGORY_1> | <GAP_TITLE_1> | <TEST_IMPACT_1> | <RECOMMENDATION_1> |
-| GAP-<NNN> | HIGH | <CATEGORY_2> | <GAP_TITLE_2> | <TEST_IMPACT_2> | <RECOMMENDATION_2> |
-| GAP-<NNN> | MEDIUM | <CATEGORY_3> | <GAP_TITLE_3> | <TEST_IMPACT_3> | <RECOMMENDATION_3> |
-| GAP-<NNN> | LOW | <CATEGORY_4> | <GAP_TITLE_4> | <TEST_IMPACT_4> | <RECOMMENDATION_4> |
+<details>
+<summary><strong>🔴 CRITICAL (<CRITICAL_COUNT>)</strong></summary>
 
----
+<details>
+<summary><strong>GAP-&lt;NNN&gt; · &lt;GAP_TITLE_1&gt;</strong></summary>
 
-## ✅ Checklist de Validación
+- **Categoría:** &lt;CATEGORY_1&gt;
+- **Impacto en Testing:** &lt;TEST_IMPACT_1&gt;
+- **Recomendación:** &lt;RECOMMENDATION_1&gt;
 
-- [ ] All requirements extracted from source code
-- [ ] Gherkin syntax validation (Given/When/Then format)
-- [ ] Source traceability verified
-- [ ] Gaps identified and classified by severity
-- [ ] No test cases created (documentation-only scope)
+</details>
 
----
+</details>
 
-## 📁 Artefactos Generados
+<details>
+<summary><strong>🟡 HIGH (<HIGH_COUNT>)</strong></summary>
 
-Ruta `output dir`: (sólo los que se hayan creado)
-- **Analysis Report:** `QA.documentation-analysis-report.md` (este archivo)
-- **Work Log:** `QA.documentation-work-log.md`
-- **Handoff JSON:** `QA.documentation-handoff-<TIMESTAMP>.json`
+<details>
+<summary><strong>GAP-&lt;NNN&gt; · &lt;GAP_TITLE_2&gt;</strong></summary>
+
+- **Categoría:** &lt;CATEGORY_2&gt;
+- **Impacto en Testing:** &lt;TEST_IMPACT_2&gt;
+- **Recomendación:** &lt;RECOMMENDATION_2&gt;
+
+</details>
+
+</details>
+
+<details>
+<summary><strong>🔵 MEDIUM (<MEDIUM_COUNT>)</strong></summary>
+
+<details>
+<summary><strong>GAP-&lt;NNN&gt; · &lt;GAP_TITLE_3&gt;</strong></summary>
+
+- **Categoría:** &lt;CATEGORY_3&gt;
+- **Impacto en Testing:** &lt;TEST_IMPACT_3&gt;
+- **Recomendación:** &lt;RECOMMENDATION_3&gt;
+
+</details>
+
+</details>
+
+<details>
+<summary><strong>🟢 LOW (<LOW_COUNT>)</strong></summary>
+
+<details>
+<summary><strong>GAP-&lt;NNN&gt; · &lt;GAP_TITLE_4&gt;</strong></summary>
+
+- **Categoría:** &lt;CATEGORY_4&gt;
+- **Impacto en Testing:** &lt;TEST_IMPACT_4&gt;
+- **Recomendación:** &lt;RECOMMENDATION_4&gt;
+
+</details>
+
+</details>
 
 ---
 
@@ -143,6 +173,25 @@ Ruta `output dir`: (sólo los que se hayan creado)
 1. <DECISION_POINT_1>
 2. <DECISION_POINT_2>
 3. <DECISION_POINT_3>
+
+---
+
+## 📁 Artefactos Generados
+
+Ruta `output dir`: (sólo los que se hayan creado)
+- **Analysis Report:** `QA.documentation-analysis-report.md` (este archivo)
+- **Work Log:** `QA.documentation-work-log.md`
+- **Handoff JSON:** `QA.documentation-handoff-<TIMESTAMP>.json`
+
+---
+
+## ✅ Checklist de Validación
+
+- [ ] All requirements extracted from source code
+- [ ] Gherkin syntax validation (Given/When/Then format)
+- [ ] Source traceability verified
+- [ ] Gaps identified and classified by severity
+- [ ] No test cases created (documentation-only scope)
 
 ---
 

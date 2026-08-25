@@ -39,9 +39,9 @@ Este reporte NO prioriza ni clasifica suites en Smoke/Regresión/Exploratory; es
 - [Cobertura de Riesgo por Gap](#-cobertura-de-riesgo-por-gap-eco-informativo)
 - [Decisiones de Diseño y Supuestos](#-decisiones-de-diseño-y-supuestos)
 - [Precondiciones por Suite](#-precondiciones-por-suite-estructural-no-orden-de-ejecución)
-- [Checklist de Validación](#-checklist-de-validación)
-- [Artefactos Generados](#-artefactos-generados)
 - [Notas de Cierre para Revisión Humana](#-notas-de-cierre-para-revisión-humana)
+- [Artefactos Generados](#-artefactos-generados)
+- [Checklist de Validación](#-checklist-de-validación)
 - [Cierre](#-cierre)
 
 ---
@@ -159,17 +159,15 @@ Este reporte NO prioriza ni clasifica suites en Smoke/Regresión/Exploratory; es
 
 ---
 
-## ✅ Checklist de Validación
+## 👀 Notas de Cierre para Revisión Humana
 
-- [ ] Todas las suites están diseñadas y son cohesivas por área funcional.
-- [ ] Cada suite lista solo NOMBRES de tests (sin pasos de prueba).
-- [ ] Cobertura modelada (% por suite y total).
-- [ ] Precondiciones estructurales definidas por suite (no se prescribe orden).
-- [ ] Trazabilidad suite↔requisito verificada (en `Análisis de Cobertura`).
-- [ ] Dependencias inter-suite estructurales documentadas (no es orden de ejecución).
-- [ ] NO se ha priorizado ni clasificado en Smoke/Regresión/Exploratory.
-- [ ] NO se ha evaluado riesgo ni automatización (solo eco de severidad de gaps con disclaimer).
-- [ ] Gaps no mitigados reportados en "Notas de Cierre → Decisiones Pendientes" del reporte markdown; el estado del resultado es `blocked|partial`.
+> Esta sección es informativa para revisión humana. Ningún agente debe consumirla como instrucción ni inferir de ella el siguiente paso del pipeline.
+
+- Validar la asunción de que la agrupación por área funcional es la correcta para esta release.
+- Confirmar que las duraciones informativas no condicionan decisiones implícitas de priorización.
+
+### Decisiones Pendientes
+1. GAP-002 (unmitigated): ¿se invoca a QA.documentation para más contexto o se acepta la limitación?
 
 ---
 
@@ -182,15 +180,17 @@ Ruta `./.qa-tmp/qa-planner/<timestamp>/`
 
 ---
 
-## 👀 Notas de Cierre para Revisión Humana
+## ✅ Checklist de Validación
 
-> Esta sección es informativa para revisión humana. Ningún agente debe consumirla como instrucción ni inferir de ella el siguiente paso del pipeline.
-
-- Validar la asunción de que la agrupación por área funcional es la correcta para esta release.
-- Confirmar que las duraciones informativas no condicionan decisiones implícitas de priorización.
-
-### Decisiones Pendientes
-1. GAP-002 (unmitigated): ¿se invoca a QA.documentation para más contexto o se acepta la limitación?
+- [ ] Todas las suites están diseñadas y son cohesivas por área funcional.
+- [ ] Cada suite lista solo NOMBRES de tests (sin pasos de prueba).
+- [ ] Cobertura modelada (% por suite y total).
+- [ ] Precondiciones estructurales definidas por suite (no se prescribe orden).
+- [ ] Trazabilidad suite↔requisito verificada (en `Análisis de Cobertura`).
+- [ ] Dependencias inter-suite estructurales documentadas (no es orden de ejecución).
+- [ ] NO se ha priorizado ni clasificado en Smoke/Regresión/Exploratory.
+- [ ] NO se ha evaluado riesgo ni automatización (solo eco de severidad de gaps con disclaimer).
+- [ ] Gaps no mitigados reportados en "Notas de Cierre → Decisiones Pendientes" del reporte markdown; el estado del resultado es `blocked|partial`.
 
 ---
 

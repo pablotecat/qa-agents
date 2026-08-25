@@ -32,9 +32,9 @@
 - [Requisitos Normalizados por Área](#-requisitos-normalizados-por-área)
 - [API Endpoints Documentados](#-api-endpoints-documentados)
 - [Gaps Identificados (Detalle por Severidad)](#-gaps-identificados-detalle-por-severidad)
-- [Checklist de Validación](#-checklist-de-validación)
-- [Artefactos Generados](#-artefactos-generados)
 - [Notas de Cierre para Revisión Humana](#-notas-de-cierre-para-revisión-humana)
+- [Artefactos Generados](#-artefactos-generados)
+- [Checklist de Validación](#-checklist-de-validación)
 - [Cierre](#-cierre)
 
 ---
@@ -104,31 +104,35 @@ Errors:   401 Unauthorized (credenciales incorrectas)
 
 ## ⚠️ Gaps Identificados (Detalle por Severidad)
 
-> Detalle completo de todos los gaps identificados, ordenados por severidad descendente. El Resumen Ejecutivo solo lista CRITICAL y HIGH; esta sección los amplía e incluye MEDIUM y LOW.
+> Detalle completo de todos los gaps identificados, ordenado por severidad descendente. El Resumen Ejecutivo solo lista CRITICAL y HIGH; esta sección los amplía e incluye MEDIUM y LOW.
 
-| Gap ID | Severidad | Categoría | Título | Impacto en Testing | Recomendación |
-|--------|-----------|-----------|--------|-------------------|---------------|
-| GAP-001 | CRITICAL | Cobertura de requisitos | Email duplicado en registro no documentado | No se sabe qué status/respuesta esperar al registrar email ya existente | Clarificar con producto: ¿409 Conflict? ¿mensaje específico? Documentar antes del planner |
-| GAP-002 | MEDIUM | Claridad de criterio | Umbral "24h" de la verificación de email | Podría ser exacto o aproximado | Confirmar si es literal o "ventana de reenvío"; impacta casos de timer |
+<details>
+<summary><strong>🔴 CRITICAL (1)</strong></summary>
 
----
+<details>
+<summary><strong>GAP-001 · Email duplicado en registro no documentado</strong></summary>
 
-## ✅ Checklist de Validación
+- **Categoría:** Cobertura de requisitos
+- **Impacto en Testing:** No se sabe qué status/respuesta esperar al registrar email ya existente
+- **Recomendación:** Clarificar con producto: ¿409 Conflict? ¿mensaje específico? Documentar antes del planner
 
-- [x] All requirements extracted from source code
-- [x] Gherkin syntax validation (Given/When/Then format)
-- [x] Source traceability verified
-- [x] Gaps identified and classified by severity
-- [x] No test cases created (documentation-only scope)
+</details>
 
----
+</details>
 
-## 📁 Artefactos Generados
+<details>
+<summary><strong>🔵 MEDIUM (1)</strong></summary>
 
-Ruta `./qa-tmp/qa-documentation/<timestamp>/`
-- **Analysis Report:** `QA.documentation-analysis-report.md` (este archivo)
-- **Work Log:** `QA.documentation-work-log.md`
-- **Handoff JSON:** `QA.documentation-handoff-<TIMESTAMP>.json`
+<details>
+<summary><strong>GAP-002 · Umbral "24h" de la verificación de email</strong></summary>
+
+- **Categoría:** Claridad de criterio
+- **Impacto en Testing:** Podría ser exacto o aproximado
+- **Recomendación:** Confirmar si es literal o "ventana de reenvío"; impacta casos de timer
+
+</details>
+
+</details>
 
 ---
 
@@ -142,6 +146,25 @@ Ruta `./qa-tmp/qa-documentation/<timestamp>/`
 ### Decisiones Pendientes
 1. Definir respuesta del sistema para registro de email duplicado (GAP-001).
 2. Confirmar si el "24h" de verificación es exacto o ventana flexible (GAP-002).
+
+---
+
+## 📁 Artefactos Generados
+
+Ruta `./qa-tmp/qa-documentation/<timestamp>/`
+- **Analysis Report:** `QA.documentation-analysis-report.md` (este archivo)
+- **Work Log:** `QA.documentation-work-log.md`
+- **Handoff JSON:** `QA.documentation-handoff-<TIMESTAMP>.json`
+
+---
+
+## ✅ Checklist de Validación
+
+- [x] All requirements extracted from source code
+- [x] Gherkin syntax validation (Given/When/Then format)
+- [x] Source traceability verified
+- [x] Gaps identified and classified by severity
+- [x] No test cases created (documentation-only scope)
 
 ---
 

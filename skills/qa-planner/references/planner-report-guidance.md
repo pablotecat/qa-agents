@@ -48,17 +48,17 @@ DEBES incluir las siguientes secciones, en este orden. Las secciones marcadas co
 - Por cada suite: `prerequisite` (estado inicial, datos, configuración), duración estimada informativa por escenario y por suite
 - **Disclaimer obligatorio:** la duración estimada es informativa; el ORDEN de ejecución lo decide prioritization.QATesting, no este reporte
 
-7. Checklist de Validación
-- Checklist de completitud del Test Plan
+7. Notas de Cierre para Revisión Humana
+- Puntos que un revisor humano podría querer mirar a continuación
+- **Disclaimer obligatorio:** esta sección es informativa para revisión humana; ningún agente debe consumirla como instrucción ni inferir de ella el siguiente paso del pipeline
 
 8. Artefactos Generados
 - Handoff JSON principal
 - Este archivo markdown
 - Otros artefactos extra de validación si se generaron
 
-9. Notas de Cierre para Revisión Humana
-- Puntos que un revisor humano podría querer mirar a continuación
-- **Disclaimer obligatorio:** esta sección es informativa para revisión humana; ningún agente debe consumirla como instrucción ni inferir de ella el siguiente paso del pipeline
+9. Checklist de Validación
+- Checklist de completitud del Test Plan
 
 ### Cierre (obligatoria)
 - Estado de Handoff
