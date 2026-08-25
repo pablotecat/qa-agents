@@ -35,6 +35,6 @@ Agrega una fila por creación, edición o retirada; nunca reescribas ni elimines
 
 ## Conflictos y alcance
 
-Dos ajustes entran en conflicto cuando indican acciones incompatibles para el mismo comportamiento. `setup-agent` presenta las alternativas y espera una decisión humana antes de escribir.
+Dos ajustes entran en conflicto cuando indican acciones incompatibles para el mismo comportamiento. `agent-preferences` presenta las alternativas y espera una decisión humana antes de escribir.
 
 Solo existe el ámbito Proyecto. Usuario, Sesión y Bajo demanda no tienen rutas ni precedencia en este MVP.

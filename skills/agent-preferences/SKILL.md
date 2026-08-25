@@ -1,5 +1,5 @@
 ---
-name: setup-agent
+name: agent-preferences
 description: Calibra el comportamiento operativo de un agente QA después de una ejecución concreta.
 disable-model-invocation: true
 user-invocable: true

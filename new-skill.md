@@ -1,8 +1,8 @@
-# Implementación de la skill `setup-agent`
+# Implementación de la skill `agent-preferences`
 
 ## Objetivo
 
-Diseñar e implementar una nueva skill denominada **`setup-agent`** cuyo propósito sea:
+Diseñar e implementar una nueva skill denominada **`agent-preferences`** cuyo propósito sea:
 
 > **Permitir que el usuario adapte el comportamiento operativo del agente sin modificar manualmente sus prompts.**
 
@@ -29,7 +29,7 @@ No implementes funcionalidades que no formen parte del MVP únicamente porque pu
 
 # Funcionamiento esperado
 
-Cuando el usuario invoque la skill `setup-agent`, el agente deberá:
+Cuando el usuario invoque la skill `agent-preferences`, el agente deberá:
 
 1. Analizar:
 

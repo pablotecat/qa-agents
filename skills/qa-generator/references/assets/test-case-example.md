@@ -122,7 +122,6 @@ El agente **QA.generator** ha generado el set de Test Cases a partir del documen
 <summary><strong>✅ TEST-registration_002: Validación de contraseña débil</strong></summary>
 
 **Estado:** Ready
-
 <details>
 <summary><strong>Traza</strong></summary>
 
