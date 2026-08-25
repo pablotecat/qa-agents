@@ -48,26 +48,46 @@ Este reporte NO prioriza ni clasifica suites en Smoke/Regresión/Exploratory; es
 
 ## 🗂️ Suites Diseñadas
 
-### SUITE-001: <SUITE_NAME_1>
+<details>
+<summary><strong>SUITE-001: &lt;SUITE_NAME_1&gt;</strong></summary>
+
 - **suite_id:** `registration_suite`
 - **Descripción:** <SUITE_DESCRIPTION>
 - **Complejidad:** <LOW|MEDIUM|HIGH>
 - **Requisitos origen:** REQ-001, REQ-002, REQ-005
-- **Escenarios (nombres de tests, sin pasos):**
+
+<details>
+<summary><strong>Escenarios (3 nombres de tests, sin pasos)</strong></summary>
+
   - `registration_001` - Registro exitoso con email válido
   - `registration_002` - Rechazo de email duplicado
   - `registration_003` - Validación de contraseña débil
+
+</details>
+
 - **Dependencias inter-suite (estructurales):** ninguna (suite base)
 
-### SUITE-002: <SUITE_NAME_2>
+</details>
+
+<details>
+<summary><strong>SUITE-002: &lt;SUITE_NAME_2&gt;</strong></summary>
+
 - **suite_id:** `listing_suite`
 - **Descripción:** <SUITE_DESCRIPTION>
 - **Complejidad:** <LOW|MEDIUM|HIGH>
 - **Requisitos origen:** REQ-010, REQ-011
-- **Escenarios (nombres de tests, sin pasos):**
+
+<details>
+<summary><strong>Escenarios (2 nombres de tests, sin pasos)</strong></summary>
+
   - `listing_001` - Listado vacío en dataset limpio
   - `listing_002` - Listado con paginación estándar
+
+</details>
+
 - **Dependencias inter-suite (estructurales):** depende de `registration_suite` (requiere usuario creado)
+
+</details>
 
 ---
 

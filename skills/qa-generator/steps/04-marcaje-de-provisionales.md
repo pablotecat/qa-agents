@@ -20,7 +20,7 @@ Durante este paso tu unico objetivo es marcar provisionales con motivo. No redis
    - Si no está claro por falta de definición en el documento de entrada:
      - Marca el paso con `🟡 PROVISIONAL/NO DEFINIDO`.
      - Documenta el motivo: qué input falta (p. ej. "falta definición del estado inicial del dataset", "no se especifica el mensaje de error esperado", "el AC no aclara si el campo es obligatorio").
-3. Recopila un listado de pasos PROVISIONAL con su TEST-ID, número de paso y motivo. Este listado se incluirá posteriormente en el documento de Test Cases (paso 06) y se reflejará como `counts` y `checks` en el handoff JSON.
+3. Recopila los pasos PROVISIONAL por `Suite / Área`. Para cada suite o área, registra cada elemento como `TEST-ID (tipo)`, donde tipo es `Prerrequisito <N>` o `Paso <N>`, incluyendo el motivo y la acción provisional escrita. Esta recopilación se incluirá posteriormente en el documento de Test Cases (paso 06) como bloques HTML `<details>` colapsados por defecto, anidados por suite o área, y se reflejará como `counts` y `checks` en el handoff JSON.
 
 ## Extensibilidad futura
 
@@ -36,5 +36,5 @@ Mientras tanto, la lógica actual es heurística: marca todo lo que no esté cla
 - [ ] Todos los Test Cases del paso 03 han sido recorridos.
 - [ ] Los pasos no claros por falta de definición están marcados como `🟡 PROVISIONAL/NO DEFINIDO`.
 - [ ] Cada paso marcado tiene documentado su motivo (qué input falta).
-- [ ] Se recopiló el listado de pasos PROVISIONAL con TEST-ID, número de paso y motivo.
+- [ ] Se recopilaron los pasos PROVISIONAL por Suite / Área, con `TEST-ID (tipo)`, motivo y acción provisional escrita.
 - [ ] El marcaje no ha implicado rediseño de pasos.

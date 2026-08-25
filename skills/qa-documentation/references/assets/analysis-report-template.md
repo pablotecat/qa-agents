@@ -47,7 +47,9 @@
 
 ---
 
-### Area 1: <AREA_NAME_1> (<REQ_AREA_1_COUNT> requisitos)
+<details>
+<summary><strong>Area 1: &lt;AREA_NAME_1&gt; (&lt;REQ_AREA_1_COUNT&gt; requisitos)</strong></summary>
+
 | ID | Título | Gherkin | Fuente |
 |----|--------|---------|--------|
 | REQ-<NNN> | <REQ_TITLE_1> | Given <...> When <...> Then <...> | <SOURCE_1> |
@@ -56,31 +58,45 @@
 **Blocker Gaps:** <BLOCKER_GAPS_AREA_1>
 **Advisory Gaps:** <ADVISORY_GAPS_AREA_1>
 
+</details>
+
 ---
 
-### Area 2: <AREA_NAME_2> (<REQ_AREA_2_COUNT> requisitos)
+<details>
+<summary><strong>Area 2: &lt;AREA_NAME_2&gt; (&lt;REQ_AREA_2_COUNT&gt; requisitos)</strong></summary>
+
 | ID | Título | Gherkin | Fuente |
 |----|--------|---------|--------|
 | REQ-<NNN> | <REQ_TITLE_3> | Given <...> When <...> Then <...> | <SOURCE_3> |
 
 **Blocker Gaps:** <BLOCKER_GAPS_AREA_2>
 
+</details>
+
 ---
 
 ## 🔗 API Endpoints Documentados
 
-### <METHOD> <ENDPOINT_1>
+<details>
+<summary><strong>&lt;METHOD&gt; &lt;ENDPOINT_1&gt;</strong></summary>
+
 ```json
 Request:  { <REQUEST_SCHEMA> }
 Response: { <RESPONSE_SCHEMA> }
 Errors:   <ERROR_SCHEMAS>
 ```
 
-### <METHOD> <ENDPOINT_2>
+</details>
+
+<details>
+<summary><strong>&lt;METHOD&gt; &lt;ENDPOINT_2&gt;</strong></summary>
+
 ```json
 Response: { <RESPONSE_SCHEMA> }
 Errors:   <ERROR_SCHEMAS>
 ```
+
+</details>
 
 ---
 

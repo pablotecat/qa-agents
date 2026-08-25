@@ -2,22 +2,31 @@
 
 Esta plantilla ES OBLIGATORIA. No es un ejemplo, es el formato que debe seguirse en `QA.generator-test-cases.md`.
 
-Repite un bloque como el siguiente por cada Test Case. Sustituye los `<PLACEHOLDERS>` con valores reales.
+Agrupa los Test Cases por suite o área. Cada suite, cada Test Case y sus Prerrequisitos deben usar los bloques HTML `<details>` mostrados abajo, sin atributo `open`, para permanecer colapsados por defecto. Sustituye los `<PLACEHOLDERS>` con valores reales.
 
 ---
 
-### TEST-<ID>: <Title>
+<details>
+<summary><strong>Suite / Área: &lt;SUITE_OR_AREA&gt; (&lt;TEST_CASE_COUNT&gt; Test Cases)</strong></summary>
+
+Repite el siguiente bloque por cada Test Case de la suite o área.
+
+<details>
+<summary><strong>TEST-&lt;ID&gt;: &lt;Title&gt;</strong></summary>
 
 - **Original ID:** <original_id del documento de entrada | N/A (modo no-planning sin ID original)>
 - **Acceptance Criteria cubierto:** <ref al AC del documento de entrada, p. ej. AC-001 o REQ-NNN>
 - **Suite / Área:** <suite_id del planner | área funcional en modo no-planning>
 - **Estado:** ✅ COMPLETED | 🟡 PROVISIONAL (ver pasos marcados abajo)
 
-**Prerrequisitos**
+<details>
+<summary><strong>Prerrequisitos</strong></summary>
 
 - <Pre-condición 1: estado inicial, datos, configuración necesaria antes de ejecutar el Test Case.>
 - <Pre-condición 2: ...>
 - <(añadir más según convenga; puede estar vacío si el Test Case no requiere prerrequisitos especiales)>
+
+</details>
 
 **Pasos**
 
@@ -28,11 +37,15 @@ Repite un bloque como el siguiente por cada Test Case. Sustituye los `<PLACEHOLD
    🟡 **PROVISIONAL/NO DEFINIDO** — Motivo: <qué input falta del documento de entrada>. Acción provisional escrita: <acción razonable asumida>.
 5. **Then** <verificación final del Test Case> → **Expected Result (nuclear):** <resultado nuclear del Test Case, redactado de forma observable y verificable.>
 
+</details>
+
+</details>
+
 ---
 
 ## Reglas de la plantilla (anatomía B)
 
-1. **Header:** `### TEST-<ID>: <Title>` con el `TEST-ID` asignado. El `<Title>` puede renombrarse respecto al title del documento de entrada si describirá mejor el objetivo del Test Case (preservando siempre `Original ID`).
+1. **Estructura colapsable:** agrupa los Test Cases por `Suite / Área` en un `<details>` colapsado. Dentro, cada Test Case debe tener su propio `<details>` colapsado, con `<summary>` `TEST-<ID>: <Title>`. Los **Prerrequisitos** van en un tercer `<details>` anidado y colapsado.
 
 2. **Metadatos obligatorios:** `Original ID`, `Acceptance Criteria cubierto`, `Suite / Área`, `Estado`.
    - `Original ID` es el ID del documento de entrada (escenario del planner, p. ej. `registration_001`). Si se está en modo no-planning usar `N/A`.

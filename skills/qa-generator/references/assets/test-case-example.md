@@ -45,18 +45,25 @@ El agente **QA.generator** ha generado el set de Test Cases a partir del documen
 
 ## 🧪 Test Cases
 
-### TEST-registration_001a: Registro exitoso con email válido
+<details>
+<summary><strong>Suite / Área: registration_suite (3 Test Cases)</strong></summary>
+
+<details>
+<summary><strong>TEST-registration_001a: Registro exitoso con email válido</strong></summary>
 
 - **Original ID:** registration_001
 - **Acceptance Criteria cubierto:** AC-001 (registro exitoso con email válido)
 - **Suite / Área:** registration_suite
 - **Estado:** ✅ COMPLETED
 
-**Prerrequisitos**
+<details>
+<summary><strong>Prerrequisitos</strong></summary>
 
 - Servidor de la aplicación en ejecución.
 - Dataset de usuarios vacío (sin emails registrados previamente).
 - Navegador en la página de registro (`/register`).
+
+</details>
 
 **Pasos**
 
@@ -65,20 +72,26 @@ El agente **QA.generator** ha generado el set de Test Cases a partir del documen
 3. **When** el usuario pulsa el botón "Registrarse".
 4. **Then** el sistema crea el usuario con email `nuevo@example.com` en el dataset → **Expected Result (nuclear):** el usuario queda autenticado y es redirigido a la home `/` con un mensaje de bienvenida visible.
 
+</details>
+
 ---
 
-### TEST-registration_001b: Rechazo de email duplicado
+<details>
+<summary><strong>TEST-registration_001b: Rechazo de email duplicado</strong></summary>
 
 - **Original ID:** registration_001
 - **Acceptance Criteria cubierto:** AC-002 (rechazo de email duplicado)
 - **Suite / Área:** registration_suite
 - **Estado:** 🟡 PROVISIONAL (ver paso marcado abajo)
 
-**Prerrequisitos**
+<details>
+<summary><strong>Prerrequisitos</strong></summary>
 
 - Servidor de la aplicación en ejecución.
 - Dataset con un usuario ya registrado con email `duplicado@example.com`.
 - Navegador en la página de registro (`/register`).
+
+</details>
 
 **Pasos**
 
@@ -89,20 +102,26 @@ El agente **QA.generator** ha generado el set de Test Cases a partir del documen
    🟡 **PROVISIONAL/NO DEFINIDO** — Motivo: el documento de entrada no especifica el texto exacto del mensaje de error para email duplicado. Acción provisional escrita: se asume un mensaje genérico como "El email ya está registrado".
 5. **Then** el usuario NO queda autenticado y permanece en `/register` con el campo de email conservado → **Expected Result (nuclear):** ningún nuevo usuario se persiste en el dataset y el contador de usuarios del dataset permanece inalterado.
 
+</details>
+
 ---
 
-### TEST-registration_002: Validación de contraseña débil
+<details>
+<summary><strong>TEST-registration_002: Validación de contraseña débil</strong></summary>
 
 - **Original ID:** registration_002
 - **Acceptance Criteria cubierto:** AC-003 (validación de contraseña débil)
 - **Suite / Área:** registration_suite
 - **Estado:** ✅ COMPLETED
 
-**Prerrequisitos**
+<details>
+<summary><strong>Prerrequisitos</strong></summary>
 
 - Servidor de la aplicación en ejecución.
 - Dataset de usuarios vacío.
 - Navegador en la página de registro (`/register`).
+
+</details>
 
 **Pasos**
 
@@ -111,23 +130,26 @@ El agente **QA.generator** ha generado el set de Test Cases a partir del documen
 3. **When** el usuario pulsa el botón "Registrarse".
 4. **Then** el sistema rechaza el registro por contraseña débil y muestra un mensaje inline bajo el campo "contraseña" → **Expected Result (nuclear):** ningún usuario con email `nuevo2@example.com` se persiste en el dataset y el campo de email queda conservado en el formulario.
 
----
+</details>
 
-## 🔗 Índice de Trazabilidad test↔AC↔requisito
-
-| TEST-ID | Original ID | Acceptance Criteria cubierto | Suite / Área | Estado |
-|---------|-------------|------------------------------|--------------|--------|
-| registration_001a | registration_001 | AC-001 (registro exitoso) | registration_suite | ✅ COMPLETED |
-| registration_001b | registration_001 | AC-002 (rechazo duplicado) | registration_suite | 🟡 PROVISIONAL |
-| registration_002 | registration_002 | AC-003 (contraseña débil) | registration_suite | ✅ COMPLETED |
+</details>
 
 ---
 
 ## 🟡 Pasos PROVISIONAL (recopilación)
 
-| TEST-ID | Número de paso | Motivo | Acción provisional escrita |
-|---------|----------------|--------|----------------------------|
-| registration_001b | 4 | El documento de entrada no especifica el texto exacto del mensaje de error para email duplicado. | Se asume un mensaje genérico como "El email ya está registrado". |
+<details>
+<summary><strong>Suite / Área: registration_suite (1 paso PROVISIONAL)</strong></summary>
+
+<details>
+<summary><strong>registration_001b (Paso 4)</strong></summary>
+
+- **Motivo:** el documento de entrada no especifica el texto exacto del mensaje de error para email duplicado.
+- **Acción provisional escrita:** se asume un mensaje genérico como "El email ya está registrado".
+
+</details>
+
+</details>
 
 > **Disclaimer:** la acción provisional escrita en el paso 03 del workflow es una sugerencia razonable. Cualquier consumidor debe resolver el PROVISIONAL (decidir el mensaje exacto, en este caso) antes de ejecutar el Test Case.
 
@@ -141,7 +163,6 @@ El agente **QA.generator** ha generado el set de Test Cases a partir del documen
 - [ ] En splits, `TEST-ID` deriva como `{original_id}a/b/...` y `Original ID` se preserva.
 - [ ] Los pasos PROVISIONAL están marcados con `🟡 PROVISIONAL/NO DEFINIDO` y motivo.
 - [ ] Cada Test Case cubre un único Acceptance Criteria.
-- [ ] Índice de trazabilidad completo y consistente con los Test Cases.
 - [ ] NO se ha priorizado ni clasificado en Smoke/Regresión/Exploratory.
 - [ ] NO se ha decidido orden de ejecución.
 - [ ] NO se ha automatizado ni propuesto automatización.

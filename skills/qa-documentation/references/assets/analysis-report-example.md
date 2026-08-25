@@ -47,7 +47,9 @@
 
 ---
 
-### Area 1: Auth (2 requisitos)
+<details>
+<summary><strong>Area 1: Auth (2 requisitos)</strong></summary>
+
 | ID | Título | Gherkin | Fuente |
 |----|--------|---------|--------|
 | REQ-001 | Registro de usuario | Given un email y password válidos When el usuario se registra Then se crea la cuenta y se retorna 201 Created | docs/auth.md#registro |
@@ -56,9 +58,13 @@
 **Blocker Gaps:** GAP-001 (CRITICAL)
 **Advisory Gaps:** none
 
+</details>
+
 ---
 
-### Area 2: Email (1 requisito)
+<details>
+<summary><strong>Area 2: Email (1 requisito)</strong></summary>
+
 | ID | Título | Gherkin | Fuente |
 |----|--------|---------|--------|
 | REQ-003 | Verificación de email | Given un usuario recién registrado When transcurren 24h sin verificación Then la cuenta queda en estado pendiente hasta verificar el email | docs/email.md#verificacion |
@@ -66,23 +72,33 @@
 **Blocker Gaps:** none
 **Advisory Gaps:** GAP-002 (MEDIUM)
 
+</details>
+
 ---
 
 ## 🔗 API Endpoints Documentados
 
-### POST /api/auth/register
+<details>
+<summary><strong>POST /api/auth/register</strong></summary>
+
 ```json
 Request:  { "email": "string", "password": "string" }
 Response: { "user_id": "uuid", "created_at": "ISO8601" }
 Errors:   400 Bad Request (payload inválido)
 ```
 
-### POST /api/auth/login
+</details>
+
+<details>
+<summary><strong>POST /api/auth/login</strong></summary>
+
 ```json
 Request:  { "email": "string", "password": "string" }
 Response: { } (JWT va en cookie httpOnly, no en body)
 Errors:   401 Unauthorized (credenciales incorrectas)
 ```
+
+</details>
 
 ---
 

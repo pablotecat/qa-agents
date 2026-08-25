@@ -26,7 +26,9 @@ DEBES incluir las siguientes secciones, en este orden. Las secciones marcadas co
 - Subsección interna `Métricas Clave` con la tabla de métricas
 
 2. Suites Diseñadas
+- Cada suite debe estar en un bloque HTML `<details>` colapsado por defecto. Su `<summary>` incluye el identificador y nombre de la suite.
 - Por cada suite: `suite_id`, nombre, descripción, complejidad (LOW/MEDIUM/HIGH), requisitos origen, número de escenarios (NOMBRE de los tests, sin pasos), dependencias inter-suite estructurales
+- La lista de escenarios de cada suite debe estar en un bloque HTML `<details>` anidado y colapsado por defecto, con un `<summary>` que incluya el total de escenarios.
 
 3. Análisis de Cobertura
 - Requisitos cubiertos (lista con suite que los cubre)

@@ -47,11 +47,13 @@ A continuación se explica cada sección:
   - Título del área
   - IDs de requisito y formato Gherkin (Given/When/Then)
   - Trazabilidad a fuentes
+  - Cada área debe estar en un bloque HTML `<details>` colapsado por defecto, con un `<summary>` que incluya su nombre y total de requisitos
 - Endpoints API Documentados
   - Endpoint
   - Resumen de request
   - Resumen de response
   - Resumen de errores
+  - Cada endpoint debe estar en un bloque HTML `<details>` colapsado por defecto, con un `<summary>` que incluya método y ruta
 - Gaps Críticos
   - Gap ID
   - Severidad
