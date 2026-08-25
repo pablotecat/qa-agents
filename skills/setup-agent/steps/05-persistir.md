@@ -2,7 +2,7 @@
 
 ## Acción
 
-1. Consulta `../references/preference-format.md` y actualiza solo `instructions/preferences/<agente>.md` con el texto aprobado.
+1. Consulta `../references/preference-format.md`. Si no existe, crea `instructions/preferences/[NombreAgente].preferences.md` con el ajuste aprobado; si existe, actualiza solo ese archivo.
 2. Añade una entrada append-only con timestamp real en `instructions/preferences/preferences-history.md` por cada ajuste creado, editado o retirado.
 3. Incluye el agente, identificador del ajuste, acción, sesión origen y un resumen conciso en el historial.
 4. Resume el texto persistido y la ruta que lo carga en futuras ejecuciones.

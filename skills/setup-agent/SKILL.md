@@ -28,7 +28,7 @@ Lee y ejecuta los pasos de `steps/` en este orden:
 - Conserva contratos, non-goals, guardarraíles, herramientas y límites de rol como reglas base.
 - Lee los artefactos de la sesión indicada solo para contextualizar el feedback humano.
 - Antes de escribir, presenta el texto exacto que se añadirá, editará o retirará y pide aprobación explícita.
-- Modifica únicamente `instructions/preferences/<agente>.md` y `instructions/preferences/preferences-history.md`.
+- Modifica únicamente `instructions/preferences/[NombreAgente].preferences.md` y `instructions/preferences/preferences-history.md`.
 
 ## Referencias
 

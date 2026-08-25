@@ -4,10 +4,10 @@ Esta carpeta contiene la capa configurable de instrucciones para los agentes QA.
 
 ## Contenido
 
-- `QA.documentation.md`, `QA.generator.md` y `QA.planner.md` contienen los ajustes activos de cada agente.
+- `[NombreAgente].preferences.md` contiene los ajustes activos de un agente y se crea al aprobar su primer ajuste.
 - `preferences-history.md` conserva el historial cronológico de cambios.
 
-El cargador [QA.preferences-loader.instructions.md](../QA.preferences-loader.instructions.md) lee el archivo del agente antes de su workflow.
+Las [instrucciones generales de QA](../QATesting-general.instructions.md) leen el archivo del agente antes de su workflow.
 
 ## Ámbito
 

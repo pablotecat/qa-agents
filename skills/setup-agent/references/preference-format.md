@@ -1,6 +1,6 @@
 # Formato de preferencias de Proyecto
 
-Esta referencia es la fuente canónica del MVP. Cada agente tiene un único archivo Markdown legible en `instructions/preferences/<agente>.md`. Sus secciones bajo `## Ajustes activos` son la fuente de verdad; no hay colecciones, registro de activación ni frontmatter.
+Esta referencia es la fuente canónica del MVP. Un agente obtiene un archivo Markdown legible solo cuando recibe su primer ajuste aprobado: `instructions/preferences/[NombreAgente].preferences.md`. Sus secciones bajo `## Ajustes activos` son la fuente de verdad; no hay colecciones, registro de activación ni frontmatter.
 
 ## Archivo por agente
 
@@ -15,6 +15,7 @@ Cada ajuste activo usa esta estructura:
 - **Añadido:** timestamp ISO 8601 real.
 ```
 
+- Crea el archivo únicamente al persistir el primer ajuste aprobado del agente.
 - Un ajuste controla un comportamiento operativo material.
 - El identificador es único dentro del archivo del agente.
 - La instrucción debe permitir comprobar en una ejecución futura qué acción cambia.
@@ -29,7 +30,7 @@ Agrega una fila por creación, edición o retirada; nunca reescribas ni elimines
 ```markdown
 | Timestamp | Agente | Ajuste | Acción | Sesión origen | Resumen |
 | --- | --- | --- | --- | --- | --- |
-| 2026-08-25T10:15:00.000Z | QA.documentation | resumen-ejecutivo | Creado | `tests/.../session_1_x/` | Añade un resumen de decisiones al reporte. |
+| 2026-08-25T10:15:00.000Z | [NombreAgente] | resumen-ejecutivo | Creado | `tests/.../session_1_x/` | Añade un resumen de decisiones al reporte. |
 ```
 
 ## Conflictos y alcance

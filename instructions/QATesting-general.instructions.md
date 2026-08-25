@@ -8,6 +8,18 @@ applyTo: "*/QA.*.agent.md"
 
 Este documento define los guardarrailes obligatorios para todos los agentes QA. Cada agente puede tener guardarrailes adicionales en su propio `.agent.md`, pero estos son el mínimo común.
 
+## Preferencias de Proyecto
+
+Antes de iniciar el workflow, busca `instructions/preferences/[NombreAgente].preferences.md`.
+
+1. Si el archivo no existe, continúa con las instrucciones base y el workflow.
+2. Localiza la sección `## Ajustes activos` del archivo del agente actual.
+3. Si no contiene ajustes, continúa con las instrucciones base y el workflow.
+4. Aplica cada ajuste activo junto a las instrucciones base.
+5. Si el archivo contiene ajustes incompatibles o ambiguos para el mismo comportamiento, no inicies el workflow: presenta el conflicto al usuario y pide qué ajuste conservar, sustituir o reformular.
+
+Las preferencias complementan las reglas base. Conserva objetivos, contratos, non-goals, guardarraíles, herramientas y requisitos de trazabilidad.
+
 ## Instrucciones de workflow
 - Salvo que se indique lo contrario, todos los agentes QA DEBEN seguir el flujo de trabajo definido en su skill sin saltarse ningún paso. 
 - Sólo se debe persistir en la memoria de sesión y contexto de agente la información que se indica en el paso actual. Al finalizar el paso, todas las instrucciones de ese paso se consideran cumplidas y las instrucciones se olvidan.
