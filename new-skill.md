@@ -1,195 +1,72 @@
-# Implementación de la skill `agent-preferences`
+# Tarea: crear skill `azure-devops-test-cases` + instalar el MCP de Azure DevOps para soporte de Test Plans
 
-## Objetivo
+## Contexto que vienes a resolver
 
-Diseñar e implementar una nueva skill denominada **`agent-preferences`** cuyo propósito sea:
+**IMPORTANTE:**Esto se trabajó con otro agente en otra sesión independiente a esta NO ASUMAS QUE LO QUE PONE AQUÍ ES CORRECTO. DUDA DE TODO Y PREGUNTA SI NECESITAS CONFIRMACIÓN.
 
-> **Permitir que el usuario adapte el comportamiento operativo del agente sin modificar manualmente sus prompts.**
+El objetivo original es subir esos Test Cases a un **Test Plan de Azure DevOps** (no solo crear Work Items sueltos). En la sesión de descubrimiento se verificó lo siguiente:
 
-La implementación debe priorizar un **MVP funcional**, evitando sobreingeniería y dejando preparadas las bases para futuras iteraciones.
+### Hallazgos técnicos ya verificados (no los redescubras)
 
----
+1. **Skill `azure-devops-cli` existente** (viene del repositorio de GitHub `awesome-copilot`, no es propia):
+   - NO cubre Test Plans / Test Suites. Su árbol `az devops` / `az boards` / `az pipelines` / `az repos` / `az artifacts` no incluye gestión de Test Plans.
+   - Sí permite crear Work Items tipo "Test Case" con `az boards work-item create --type "Test Case"` — pero el campo `Description`/`ReproSteps` recibe texto plano, pierde estructura accionable de pasos Given/When/Then y **no asigna el Test Case a ningún Test Suite**.
+   - Para Test Plans queda como escape `az devops invoke --area test --resource ...` apuntando a la Test Management REST API — engorroso y propenso a errores de ruta.
 
-# Primera fase: planificación
+2. `az cli`: PArece no tener comando para crear y administrar test planes ni test cases (comprueba esto, por favor)
 
-Antes de modificar ningún archivo, analiza el proyecto y genera un plan de implementación.
+2. **Existe MCP oficial: `microsoft/azure-devops-mcp`** (repo `microsoft/azure-devops-mcp`, v2.9.0, vivo — commits hace 1 hora):
+   - Es el MCP oficial de Microsoft para Azure DevOps.
+   - El dominio **`test-plans`** está soportado y aparece en `docs/TOOLSET.md` del propio repo. Por tanto, SÍ permite crear Test Cases nativos del Test Plans y asignarlos a suites.
+   - Tiene dos modos de despliegue equivalentes en funcionalidad, Microsoft recomienda el A:
+     - **A) Remoto (HTTP)**: cero instalación, solo un URL `https://mcp.dev.azure.com/{org}` en `.vscode/mcp.json`. Auth OAuth con cuenta Microsoft del VS Code. Updates automáticos server-side.
+     - **B) Local (stdio)**: `npx -y @azure-devops/mcp {org} -d core work work-items test-plans`. Requiere Node 20+ en destino, cache npx por workspace.
 
-El plan debe incluir, como mínimo:
+## Decisión ya tomada
 
-* Archivos que será necesario crear.
-* Archivos que deberán modificarse.
-* Dependencias con otras skills o componentes.
-* Riesgos o posibles conflictos.
-* Orden recomendado de implementación.
-* Posibles mejoras futuras (sin implementarlas).
+- **Modo: Remoto (A).** Razonamiento: el objetivo es distribuir los agentes a otros proyectos. El remoto no impone Node 20+ en el destino, updates son automáticos y no deja caches npx de ~50MB por workspace. El único parámetro a inyectar por proyecto destino es la `{org}` en la URL.
 
-No implementes funcionalidades que no formen parte del MVP únicamente porque puedan resultar útiles en el futuro.
+## Puntos que TÚ debes resolver (tienes el contexto que a mí me falta)
 
----
+1. **Cómo se distribuye actualmente el paquete instalador** y dónde encaja un script instalador del MCP. Explora tu repo y decide el patrón: ¿un `scripts/install-ado-mcp.ps1` que pregunta la org + valida + escribe `.vscode/mcp.json`? ¿O una plantilla `mcp.json.template` con `{org}` que el usuario reemplaza? Mi voto no vale aquí porque no conozco la topología de tu instalador.
 
-# Funcionamiento esperado
+2. **Camino para crear Test Cases en el Plan**: ¿usar las tools MCP `test-plans` nativas (crear TC + asignar a suite en una sola operación) o crear WI con `az boards` y luego `az devops invoke` para asociar a suite? Yo votaría nativo MCP test-plans por coherencia con la decisión de instalar el MCP, pero decide según el toolset real que exponga ese dominio (lee `docs/TOOLSET.md` del repo `microsoft/azure-devops-mcp` antes de comprometerte con tool names concretos).
 
-Cuando el usuario invoque la skill `agent-preferences`, el agente deberá:
+3. **Topología de la skill nueva**. Siguiendo el patrón de tus skills existentes (`steps/` + `references/` + `SKILL.md` con frontmatter), una propuesta inicial:
+   ```
+   .github/skills/azure-devops-test-cases/
+   ├── SKILL.md
+   ├── steps/
+   │   ├── 01-resolver-test-plan-suite.md    # identificar IDs destino (Plan + Suite)
+   │   ├── 02-parsear-test-cases-md.md        # extraer TEST-REQ-xxx, prerrequisitos, pasos, expected
+   │   ├── 03-mapear-a-mcp-tools.md           # field mapping markdown → MCP tool args
+   │   ├── 04-crear-test-cases.md             # crear TCs en Test Plan
+   │   └── 05-asignar-a-suite.md              # add TCs al Test Suite
+   └── references/
+       ├── toolset-mapping.md                  # mapeo campos markdown → MCP tools
+       └── input-anatomy.md                    # anatomía esperada del .md del generator
+   ```
+   Adáptala a la convención que ya uses en tus skills (intro del SKILL.md con description que dispare model-invocation, etc.).
 
-1. Analizar:
+4. **Agente consumidor**. Debes decidir si esto es una skill model-invoked que el `QA.generator` puede disparar al final del pipeline (handoff "listo para subir a ADO"), o si conviene un agente explícito (p. ej. `QA.uploader` o `QA.ado-sync`). Tú conoces el resto de los agentes, decídelo.
 
-   * sus instrucciones globales;
-   * sus instrucciones específicas del rol;
-   * las preferencias existentes (si las hubiera).
+## Reglas operativas que aplica el propietario de este proyecto
 
-2. Identificar qué decisiones de comportamiento requieren criterios del usuario para adaptarse mejor a sus expectativas.
+- Idioma: español neutro (tú, dime, prueba), no voseo argentino. Términos técnicos en inglés.
+- No inflar opciones binarias en tablas comparativas de 4 columnas — si una decisión es A vs B, preséntala como tal.
+- Antes de generar output de una skill nueva con steps/references, **lee los archivos referenciados**; el SKILL.md es un índice, no es autocontenido.
+- En Windows, al componer `az` con `--description`/`--discussion` largos: `azps.ps1` en PowerShell, no `az.cmd` (cap de 8191 chars de `cmd.exe`).
+- Ignora el sufijo `ephemeral` que pueda pegarse al último token de outputs de tools — es un bug conocido del wrapper, no es contenido real.
 
-No debe intentar detectar errores en sí mismo.
+## Entregables esperados
 
-Debe detectar únicamente aspectos de comportamiento configurables.
+1. Decisión escrita sobre las 4 áreas de "Puntos que TÚ debes resolver".
+2. `.vscode/mcp.json` (en este proyecto, para probar — rellena `{org}` con la del usuario).
+3. Skill nueva bajo `.github/skills/azure-devops-test-cases/` con steps y references siguiendo el patrón de tus skills existentes.
+4. Script instalador o plantilla (lo que decidiste en punto 1) que permita replicar la config del MCP en otros proyectos.
+5. Agente o hook que conecte la salida de `QA.generator` con esta skill (lo que decidiste en punto 4).
+6. Work-log de la sesión (si tienes un patrón tipo `qa-worklog` para trazabilidad).
 
----
+## Próximo paso inmediato
 
-# Preferencias
-
-Las preferencias constituyen una nueva capa de instrucciones.
-
-La organización esperada es similar a:
-
-```text
-Instructions/
-    Global/
-    Agent/
-    Preferences/
-```
-
-Las preferencias:
-
-* forman parte de las instrucciones del agente;
-* no son memoria;
-* no modifican el prompt original;
-* simplemente complementan las instrucciones existentes.
-
-Las preferencias deberán almacenarse como archivos Markdown utilizando el mismo estilo que el resto de instrucciones del proyecto.
-
-No es necesario estructurarlas mediante YAML, JSON u otros formatos.
-
-El texto libre en Markdown es suficiente.
-
----
-
-# Tipos de preguntas
-
-El agente podrá utilizar dos tipos de preguntas.
-
-## Preguntas fijas
-
-Definidas por el proyecto.
-
-Aplican a todos los agentes o a un rol determinado.
-
-## Preguntas dinámicas
-
-El propio agente podrá generar nuevas preguntas cuando detecte que existe una decisión relevante de comportamiento que todavía no está cubierta por las preferencias existentes.
-
-Estas preguntas deben estar justificadas por el rol del agente.
-
-No deben ser aleatorias.
-
-En futuras iteraciones podrán convertirse en preguntas fijas, pero esa funcionalidad no forma parte del MVP.
-
----
-
-# Regla para formular preguntas
-
-El agente únicamente formulará una pregunta cuando la respuesta pueda modificar de forma material su comportamiento operativo.
-
-Si la respuesta no cambia ninguna decisión relevante del agente, la pregunta no debe hacerse.
-
-No existe un límite fijo de preguntas.
-
-La calidad y relevancia son más importantes que la cantidad.
-
----
-
-# Resumen inicial
-
-Antes de formular preguntas, el agente mostrará un breve resumen de las preferencias actualmente activas utilizando únicamente unas pocas palabras por preferencia.
-
-El objetivo es que el usuario conozca el modo de funcionamiento actual antes de responder.
-
----
-
-# Confirmación implícita
-
-Las respuestas del usuario durante la conversación constituyen la confirmación de los cambios.
-
-No es necesario mostrar una pantalla adicional de confirmación antes de escribir las preferencias.
-
----
-
-# Resolución de conflictos
-
-Si el agente detecta preferencias incompatibles o ambiguas:
-
-* nunca debe decidir automáticamente;
-* deberá preguntar al usuario.
-
-La resolución automática de conflictos no forma parte del MVP.
-
----
-
-# Persistencia
-
-Las preferencias podrán almacenarse con distintos ámbitos:
-
-* Proyecto
-* Usuario
-* Sesión
-* Bajo demanda
-
-La implementación debe respetar esta organización aunque inicialmente algunos ámbitos compartan comportamiento interno.
-
----
-
-# Historial
-
-Cada modificación de preferencias deberá registrarse en un historial.
-
-El objetivo es poder conocer cómo han evolucionado las preferencias del agente a lo largo del tiempo.
-
-No es necesario implementar funcionalidades avanzadas sobre este historial.
-
-Basta con mantener un registro cronológico.
-
----
-
-# Restricciones
-
-No modificar directamente:
-
-* instrucciones globales;
-* instrucciones específicas del agente.
-
-La skill únicamente deberá crear o modificar archivos de preferencias y su historial correspondiente.
-
----
-
-# Filosofía del diseño
-
-Mantener la implementación sencilla.
-
-Evitar introducir complejidad innecesaria.
-
-Priorizar un MVP fácilmente mantenible y extensible.
-
-Las futuras mejoras (detección automática de desajustes, aprendizaje a partir del uso, generación automática de nuevas preguntas fijas, etc.) deberán documentarse como posibles evoluciones, pero no implementarse en esta primera versión.
-
----
-
-# Resultado esperado
-
-Al finalizar la planificación, presentar:
-
-1. Arquitectura propuesta.
-2. Plan de implementación paso a paso.
-3. Lista de archivos a crear o modificar.
-4. Riesgos detectados.
-5. Orden recomendado de desarrollo.
-
-Una vez aprobado el plan, comenzar la implementación siguiendo dicho orden y manteniendo cambios pequeños, revisables y coherentes con la arquitectura existente del proyecto.
+Empieza por `list_dir` sobre la raíz de tu paquete instalador y sobre `.github/skills/` para entender la topología que sigues. NO asumas que mi propuesta de pasos (`01-...05-...`) es la correcta — tú conoces tus convenciones de naming, orden y carpeta de `references/`.
