@@ -53,7 +53,16 @@ Los tipos, patrones y reglas exactas viven en `assets/handoff-schema.json` (fuen
 
 - Ver [example handoff](./assets/example-handoff.json)
 
-> Nota: las claves concretas dentro de `checks` y `counts` en el ejemplo (`gherkin_format_valid`, `requirements`, etc.) pertenecen a `QA.documentation`, unico agente productor existente hoy. Son ilustrativas, no un catalogo fijo: cada agente define las suyas propias segun lo que objetivamente haya verificado o contado.
+> Nota: las claves concretas dentro de `checks` y `counts` en el ejemplo (`gherkin_format_valid`, `requirements`, etc.) son ilustrativas, no un catalogo fijo: cada agente define las suyas propias segun lo que objetivamente haya verificado o contado.
+
+## Handoff de Priorizacion
+
+Cuando el productor sea `QA.prioritization`, usa `prioritization-report.md` como `summary_md`. El detalle de riesgo, etiquetas, automatizacion y secuencia manual vive exclusivamente en ese reporte.
+
+Las claves objetivas recomendadas son:
+
+- `checks`: `all_evaluable_items_classified`, `dependencies_checked`, `manual_sequence_consistent`, `report_consistent_with_counts`.
+- `counts`: `items_evaluated`, `priority_pending`, `smoke_tagged`, `regression_tagged`, `automation_candidates`, `manual_items`, `deferred_items`, `blocked_sequence_items`.
 
 ## Pasos de Creacion
 

@@ -24,7 +24,8 @@
       "properties": {
         "agent": {
           "type": "string",
-          "pattern": "^[a-z][a-z0-9_]{2,30}$"
+          "pattern": "^[A-Za-z][A-Za-z0-9._-]{2,60}$",
+          "description": "Identificador del agente productor tal como aparece en su frontmatter o nombre de skill."
         },
         "session_id": {
           "type": "string",

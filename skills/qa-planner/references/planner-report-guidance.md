@@ -46,7 +46,7 @@ DEBES incluir las siguientes secciones, en este orden. Las secciones marcadas co
 
 6. Precondiciones por Suite *(estructural, NO orden de ejecución)*
 - Por cada suite: `prerequisite` (estado inicial, datos, configuración), duración estimada informativa por escenario y por suite
-- **Disclaimer obligatorio:** la duración estimada es informativa; el ORDEN de ejecución lo decide prioritization.QATesting, no este reporte
+- **Disclaimer obligatorio:** la duración estimada es informativa; el ORDEN de ejecución se decide en la fase de priorización, no en este reporte
 
 7. Notas de Cierre para Revisión Humana
 - Puntos que un revisor humano podría querer mirar a continuación
