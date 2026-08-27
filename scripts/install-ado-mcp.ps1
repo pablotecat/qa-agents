@@ -11,7 +11,7 @@
     Plans/Cases en Azure DevOps (vs Jira, Excel, etc.). Este script solo se ejecuta
     bajo demanda del usuario.
 
-    Usado por la skill `Skills/azdevops-test-management` (runtime: .github/skills/).
+    Usado por la skill `Skills/azure-devops-testplan` (runtime: .github/skills/).
 .PARAMETER Organization
     Slug de la organizacion de Azure DevOps (ej. 'contoso' para https://dev.azure.com/contoso).
     Si se omite, el script lo pide interactivamente.

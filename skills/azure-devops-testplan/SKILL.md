@@ -1,5 +1,5 @@
 ---
-name: azdevops-test-management
+name: azure-devops-testplan
 description: Azure DevOps Test Plans management. Use when the user asks to create, list, get, update or delete Test Plans, Test Suites or Test Cases in Azure DevOps via the official Azure DevOps MCP server. Branches — Plan (create / list / get), Suite (create / list / add-cases), Case (create / list / get / update steps / import from generator markdown). Requires the Azure DevOps MCP server configured in `.vscode/mcp.json`.
 ---
 
