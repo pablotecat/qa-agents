@@ -6,18 +6,16 @@ Asignar una prioridad auditable a cada elemento evaluable usando evidencia expli
 
 ## Enfoque Exclusivo
 
-Durante este paso evalua riesgo y prioridad; no derives etiquetas, automatizacion ni orden de ejecucion.
+Te limitas a riesgo y prioridad; las etiquetas, automatizacion y orden de ejecucion se tratan en los pasos 04 y 05.
 
 ## Secuencia
 
-1. Lee `references/prioritization-decision-guidance.md` antes de puntuar.
-2. Evalua impacto, probabilidad, alcance y detectabilidad con la evidencia disponible.
-3. Asigna prioridad `P0`, `P1`, `P2` o `P3`, con rationale y confianza.
-4. Separa cualquier coste o esfuerzo observado de la prioridad de riesgo.
-5. Cuando la evidencia no permita una prioridad defendible, registra `PENDIENTE` y la informacion necesaria para resolverla.
+1. Lee `references/prioritization-decision-guidance.md` y aplica sus factores de riesgo y escalas P0-P3.
+2. Mantén riesgo y esfuerzo **desacoplados**: el esfuerzo va como trade-off, no como sustituto de prioridad.
+3. Cuando la evidencia no permita una prioridad defendible, registra `PENDIENTE` con la informacion necesaria para resolverla.
 
 ## Checklist de completitud
 
 - [ ] Cada elemento tiene prioridad o estado PENDIENTE justificado.
 - [ ] Cada prioridad incluye evidencia, rationale y confianza.
-- [ ] El esfuerzo no se uso como sustituto de riesgo.
+- [ ] Riesgo y esfuerzo permanecen **desacoplados** (el segundo no sustituye al primero).

@@ -3,7 +3,7 @@ name: qa-prioritization
 description: Prioriza pruebas, etiqueta smoke y regression, selecciona automatizacion y ordena la ejecucion manual
 disable-model-invocation: true
 user-invocable: true
-argument-hint: "Artefactos de pruebas, planificacion o requisitos. Opcional: 'to <path>' para destino, o 'preview'/'no-save' para chat-only."
+argument-hint: "Artefactos de pruebas, planificacion o requisitos. Opcional: 'to|save|en <path>' para destino, o 'preview'/'no-save' para chat-only."
 compatibility:
   - agents: [QA.prioritization]
 ---

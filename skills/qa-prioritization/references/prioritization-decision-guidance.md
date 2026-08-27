@@ -13,7 +13,7 @@ Evalua de forma separada los factores disponibles:
 - Alcance: usuarios, integraciones o flujos afectados.
 - Detectabilidad: facilidad de detectar el fallo antes de que tenga impacto.
 
-Clasifica la prioridad como `P0`, `P1`, `P2` o `P3`. El esfuerzo de ejecucion o de automatizacion no reduce el riesgo: se registra como trade-off independiente.
+Clasifica la prioridad como `P0`, `P1`, `P2` o `P3`. Riesgo y esfuerzo permanecen **desacoplados**: el esfuerzo va como trade-off, no reduce la prioridad.
 
 ## Etiquetas
 
@@ -23,7 +23,7 @@ Clasifica la prioridad como `P0`, `P1`, `P2` o `P3`. El esfuerzo de ejecucion o 
 
 ## Automatizacion
 
-Registra `AUTOMATE`, `MANUAL` o `POSIBLE` usando determinismo, estabilidad, observabilidad, coste de implementacion, mantenibilidad y retorno esperado. Una prueba manual de alto riesgo conserva su prioridad y su lugar en la secuencia. POSIBLE son tests que no esté clara la posibilidad de implementación automatizada, se mantienen priorizados y pueden ejecutarse manualmente mientras se resuelve.
+Registra `AUTOMATE`, `MANUAL` o `POSIBLE` usando determinismo, estabilidad, observabilidad, coste de implementacion, mantenibilidad y retorno esperado. La automatizacion permanece **desacoplada** del riesgo: una prueba manual de alto riesgo conserva su prioridad y su lugar en la secuencia. POSIBLE son tests que no esté clara la posibilidad de implementación automatizada, se mantienen priorizados y pueden ejecutarse manualmente mientras se resuelve.
 
 ## Secuencia Manual
 

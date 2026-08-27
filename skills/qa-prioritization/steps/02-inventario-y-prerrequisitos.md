@@ -6,7 +6,7 @@ Construir el conjunto evaluable y las relaciones necesarias para secuenciar ejec
 
 ## Enfoque Exclusivo
 
-Durante este paso normaliza identificadores y relaciones existentes; no disenes ni reescribas pruebas.
+Normalizas identificadores y relaciones existentes; conservas el diseno y el contenido de las pruebas tal como vinieron en la evidencia.
 
 ## Secuencia
 

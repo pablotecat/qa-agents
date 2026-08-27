@@ -6,15 +6,13 @@ Proponer una secuencia de ejecucion manual factible que respete prerequisitos y 
 
 ## Enfoque Exclusivo
 
-Durante este paso ordena los elementos existentes; no crees pasos de prueba ni supongas estados iniciales.
+Ordenas los elementos ya inventariados; conservas los estados iniciales y los pasos de prueba tal como estan documentados, sin anadir nuevos.
 
 ## Secuencia
 
-1. Lee `references/prioritization-decision-guidance.md` y parte del inventario de prerequisitos.
-2. Ordena primero los elementos que crean datos, roles o estados requeridos por otros elementos.
-3. Entre elementos desbloqueados, ordena por prioridad `P0`, `P1`, `P2` y `P3`.
-4. Para cada posicion, registra prerequisitos satisfechos, bloqueadores restantes y razon del orden.
-5. Ante ciclos o prerequisitos ausentes, separa el tramo bloqueado y documenta la accion requerida; no inventes una secuencia.
+1. Lee `references/prioritization-decision-guidance.md` y aplica su orden de secuencia manual.
+2. Para cada posicion de la secuencia, registra los prerequisitos satisfechos, los bloqueadores restantes y la razon del orden.
+3. Ante ciclos o prerequisitos ausentes, separa el tramo bloqueado y documenta la accion requerida; si no existen precondiciones ejecutables, registra el bloqueo en vez de forjar una secuencia.
 
 ## Checklist de completitud
 

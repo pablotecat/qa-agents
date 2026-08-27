@@ -6,7 +6,7 @@ Consolidar y persistir un reporte de priorizacion consistente con las decisiones
 
 ## Enfoque Exclusivo
 
-Durante este paso ensambla y verifica el entregable; no reabras las evaluaciones anteriores salvo que detectes una inconsistencia concreta.
+Ensambles y verifiques el entregable; reabres las evaluaciones anteriores solo cuando detectes una inconsistencia concreta entre ellas y el reporte.
 
 ## Resolucion de output
 
@@ -17,9 +17,8 @@ Durante este paso ensambla y verifica el entregable; no reabras las evaluaciones
 ## Secuencia
 
 1. Genera `prioritization-report.md` siguiendo `references/prioritization-report-guidance.md` y la plantilla obligatoria `references/assets/prioritization-report-template.md`.
-2. Incluye evidencia, prioridad, etiquetas, automatizacion, secuencia manual, bloqueadores y decisiones pendientes.
-3. Comprueba que cada elemento, count y decision del reporte es consistente con los pasos 01 a 05.
-4. Cuando el invocador requiera handoff, registra solo hechos objetivos, conteos y las rutas al reporte y work log.
+2. Comprueba que cada elemento, conteo y decision del reporte es consistente con los pasos 01 a 05.
+3. Cuando el invocador requiera handoff, registra solo hechos objetivos, conteos y las rutas al reporte y al work log del invocador (si existe, p. ej. `skills/qa-worklog`).
 
 ## Checklist de completitud
 

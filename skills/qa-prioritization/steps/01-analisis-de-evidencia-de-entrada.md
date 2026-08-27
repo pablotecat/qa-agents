@@ -6,7 +6,7 @@ Determinar que evidencia es util para priorizar y que limites impone antes de em
 
 ## Enfoque Exclusivo
 
-Durante este paso lee e inventaria; no asignes prioridad, etiquetas ni decisiones de automatizacion.
+Te limitas a leer e inventariar; prioridad, etiquetas y automatizacion se tratan en los pasos 03 y 04.
 
 ## Secuencia
 

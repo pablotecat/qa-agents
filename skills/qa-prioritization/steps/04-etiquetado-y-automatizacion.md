@@ -6,15 +6,13 @@ Clasificar cada elemento para smoke, regression y automatizacion sin colapsar de
 
 ## Enfoque Exclusivo
 
-Durante este paso no cambies la prioridad ni el contenido de los tests.
+Mantienes la prioridad y el contenido de los tests tal como quedaron tras los pasos 01-03; trabajas solo sobre etiquetas y automatizacion.
 
 ## Secuencia
 
-1. Lee `references/prioritization-decision-guidance.md` y aplica sus criterios de etiquetas.
-2. Asigna `smoke`, `regression`, ambas o ninguna; registra el criterio y la evidencia para cada etiqueta.
-3. Evalua determinismo, estabilidad, observabilidad, coste, mantenibilidad y retorno para decidir `AUTOMATE`, `POSIBLE` o `MANUAL`.
-4. Conserva una prueba manual de alto riesgo como prioritaria cuando su automatizacion no sea factible.
-5. Registra los factores que deben cambiar para revisar una decision `POSIBLE`.
+1. Lee `references/prioritization-decision-guidance.md` y aplica sus criterios de etiquetas y automatizacion.
+2. Conserva una prueba manual de alto riesgo como prioritaria cuando su automatizacion no sea factible.
+3. Registra los factores que deben cambiar para revisar una decision `POSIBLE`.
 
 ## Checklist de completitud
 
