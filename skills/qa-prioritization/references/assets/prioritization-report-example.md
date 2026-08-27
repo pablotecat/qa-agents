@@ -12,13 +12,9 @@
 
 - **Elementos evaluados:** 3
 - **Prioridades:** 1 P0, 1 P1, 0 P2, 0 P3, 1 pendiente
-- **Etiquetas:** 1 smoke, 2 regression, 1 ambas
-- **Automatizacion:** 1 AUTOMATE, 1 MANUAL, 1 DEFER
-- **Secuencia manual:** 2 elementos secuenciados, 1 bloqueado
-
-### Recomendacion
-
-Ejecutar AUTH-001 como comprobacion inicial y mantener AUTH-002 manual hasta disponer de un proveedor de correo controlable. Diferir PROF-001 hasta confirmar permisos de edicion.
+- **Etiquetas:** 1 smoke, 2 regression
+- **Automatizacion:** 1 AUTOMATE, 1 POSIBLE, 1 MANUAL
+- **Ejecucion manual:** 2 grupos, 1 elemento bloqueado
 
 ---
 
@@ -36,61 +32,95 @@ Ejecutar AUTH-001 como comprobacion inicial y mantener AUTH-002 manual hasta dis
 
 | ID | Elemento | Impacto | Probabilidad | Alcance | Detectabilidad | Prioridad | Evidencia y rationale |
 |----|----------|---------|--------------|---------|----------------|-----------|-----------------------|
-| AUTH-001 | Inicio de sesion valido | alto | medio | Todos los usuarios | alta | P0 | `risk-notes.md`: camino de acceso comun y bloqueo total si falla |
-| AUTH-002 | Recuperacion de acceso | alto | medio | Usuarios sin acceso | media | P1 | `test-cases.md`: recupera acceso, pero depende de correo externo |
-| PROF-001 | Actualizacion de perfil | medio | baja | Usuarios autenticados | alta | PENDIENTE | Requisito incompleto: faltan permisos de edicion |
+| AUTH-001 | Inicio de sesion valido | alto | medio | Todos los usuarios | alta | P0 | `risk-notes.md`: camino critico |
+| AUTH-002 | Recuperacion de acceso | alto | medio | Usuarios sin acceso | media | P1 | `test-cases.md`: depende de correo externo |
+| PROF-001 | Actualizacion de perfil | medio | baja | Usuarios autenticados | alta | PENDIENTE | Requisito incompleto |
 
 ---
 
-## Etiquetas Smoke y Regression
+## Smoke
 
-| ID | Smoke | Regression | Criterio |
-|----|-------|------------|----------|
-| AUTH-001 | si | si | Camino critico, repetible y decisivo para disponibilidad |
-| AUTH-002 | no | si | Comportamiento establecido de alto impacto, no comprobacion minima |
-| PROF-001 | no | no | Riesgo y permisos pendientes de confirmar |
+<details>
+<summary><strong>P0</strong></summary>
+
+- AUTH-001 - Inicio de sesion valido
+
+</details>
+
+---
+
+## Regression
+
+<details>
+<summary><strong>P0</strong></summary>
+
+- AUTH-001 - Inicio de sesion valido
+
+</details>
+
+<details>
+<summary><strong>P1</strong></summary>
+
+- AUTH-002 - Recuperacion de acceso
+
+</details>
 
 ---
 
 ## Seleccion de Automatizacion
 
-| ID | Decision | Determinismo | Estabilidad | Observabilidad | Mantenibilidad | Rationale |
-|----|----------|--------------|-------------|----------------|----------------|-----------|
-| AUTH-001 | AUTOMATE | alta | alta | alta | alta | Credenciales y resultado observables, alto retorno |
-| AUTH-002 | MANUAL | baja | media | media | baja | El correo externo introduce latencia y datos no controlados; conserva prioridad P1 |
-| PROF-001 | DEFER | media | baja | baja | baja | Falta definir permisos y datos de rol |
+<details>
+<summary><strong>AUTOMATE</strong></summary>
+
+- AUTH-001 - Inicio de sesion valido (prioridad P0)
+
+</details>
+
+<details>
+<summary><strong>POSIBLE</strong></summary>
+
+- PROF-001 - Actualizacion de perfil (prioridad pendiente)
+
+</details>
+
+<details>
+<summary><strong>MANUAL</strong></summary>
+
+- AUTH-002 - Recuperacion de acceso (prioridad P1)
+
+</details>
 
 ---
 
 ## Plan de Ejecucion Manual
 
-| Orden | ID | Prerrequisitos satisfechos | Bloqueadores | Razon del orden |
-|-------|----|----------------------------|--------------|-----------------|
-| 1 | AUTH-001 | Usuario activo y credenciales de prueba | ninguno | Valida P0 y establece sesion para pruebas autenticadas |
-| 2 | AUTH-002 | Cuenta con acceso al buzon de prueba | Correo externo no determinista | P1 manual despues de confirmar disponibilidad del buzon |
+<details>
+<summary><strong>Grupo 1 - Sesion autenticada</strong></summary>
+
+**Prerrequisito:** Usuario activo y credenciales de prueba
+
+- AUTH-001 - Inicio de sesion valido
+
+</details>
+
+<details>
+<summary><strong>Grupo 2 - Recuperacion de acceso</strong></summary>
+
+**Prerrequisito:** Cuenta con acceso al buzon de prueba
+
+- AUTH-002 - Recuperacion de acceso
+
+</details>
 
 ### Tramos Bloqueados
 
-| ID o grupo | Dependencia ausente o ciclo | Accion requerida |
-|------------|-----------------------------|------------------|
-| PROF-001 | Rol y permisos de edicion no especificados | Confirmar matriz de permisos |
+<details>
+<summary><strong>PROF-001</strong></summary>
 
----
+- **Dependencia ausente o ciclo:** Rol y permisos de edicion no especificados
+- **Accion requerida:** Confirmar matriz de permisos
 
-## Corte Recomendado y Trade-offs
-
-### Ejecucion Inicial
-
-- AUTH-001 como smoke y regression automatizable.
-- AUTH-002 de forma manual con un buzon de prueba controlado.
-
-### Diferidos
-
-- PROF-001 hasta disponer de permisos de edicion confirmados.
-
-### Trade-offs
-
-- Se acepta la ejecucion manual de AUTH-002 para conservar cobertura de alto impacto mientras no exista un proveedor de correo controlable.
+</details>
 
 ---
 
@@ -106,7 +136,7 @@ Ejecutar AUTH-001 como comprobacion inicial y mantener AUTH-002 manual hasta dis
 
 > Esta seccion es informativa para revision humana. Ningun consumidor debe tomarla como instruccion ni inferir de ella el siguiente paso del pipeline.
 
-- Confirmar si AUTH-002 puede usar un proveedor de correo controlable antes de revisar su decision de automatizacion.
+- Confirmar si AUTH-002 puede ejecutarse con un buzon de prueba controlado.
 
 ---
 
@@ -121,7 +151,8 @@ Ejecutar AUTH-001 como comprobacion inicial y mantener AUTH-002 manual hasta dis
 ## Checklist de Consistencia
 
 - [x] Cada prioridad tiene evidencia o esta marcada como PENDIENTE.
-- [x] Las etiquetas y la automatizacion se justifican por separado.
-- [x] La secuencia manual respeta los prerequisitos conocidos.
+- [x] Las listas de smoke y regression estan colapsadas y ordenadas por prioridad.
+- [x] La lista de automatizacion esta agrupada como AUTOMATE, POSIBLE y MANUAL.
+- [x] Los grupos del plan manual estan colapsados y ordenados por dependencias.
 - [x] Los bloqueos y decisiones pendientes estan visibles.
 - [x] Los conteos y comprobaciones del handoff, si existe, coinciden con el reporte.

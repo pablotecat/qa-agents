@@ -12,13 +12,9 @@
 
 - **Elementos evaluados:** <ITEM_COUNT>
 - **Prioridades:** <P0_COUNT> P0, <P1_COUNT> P1, <P2_COUNT> P2, <P3_COUNT> P3, <PENDING_COUNT> pendientes
-- **Etiquetas:** <SMOKE_COUNT> smoke, <REGRESSION_COUNT> regression, <BOTH_COUNT> ambas
-- **Automatizacion:** <AUTOMATE_COUNT> AUTOMATE, <MANUAL_COUNT> MANUAL, <DEFER_COUNT> DEFER
-- **Secuencia manual:** <SEQUENCED_COUNT> elementos secuenciados, <BLOCKED_COUNT> bloqueados
-
-### Recomendacion
-
-<DECISION_Y_RATIONALE>
+- **Etiquetas:** <SMOKE_COUNT> smoke, <REGRESSION_COUNT> regression
+- **Automatizacion:** <AUTOMATE_COUNT> AUTOMATE, <POSSIBLE_COUNT> POSIBLE, <MANUAL_COUNT> MANUAL
+- **Ejecucion manual:** <GROUP_COUNT> grupos, <BLOCKED_COUNT> elementos bloqueados
 
 ---
 
@@ -38,49 +34,129 @@
 
 ---
 
-## Etiquetas Smoke y Regression
+## Smoke
 
-| ID | Smoke | Regression | Criterio |
-|----|-------|------------|----------|
-| <id> | <si/no> | <si/no> | <justificacion> |
+> Lista colapsada ordenada por prioridad, de P0 a P3.
+
+<details>
+<summary><strong>P0</strong></summary>
+
+- <ID> - <titulo>
+
+</details>
+
+<details>
+<summary><strong>P1</strong></summary>
+
+- <ID> - <titulo>
+
+</details>
+
+<details>
+<summary><strong>P2</strong></summary>
+
+- <ID> - <titulo>
+
+</details>
+
+<details>
+<summary><strong>P3</strong></summary>
+
+- <ID> - <titulo>
+
+</details>
+
+---
+
+## Regression
+
+> Lista colapsada ordenada por prioridad, de P0 a P3.
+
+<details>
+<summary><strong>P0</strong></summary>
+
+- <ID> - <titulo>
+
+</details>
+
+<details>
+<summary><strong>P1</strong></summary>
+
+- <ID> - <titulo>
+
+</details>
+
+<details>
+<summary><strong>P2</strong></summary>
+
+- <ID> - <titulo>
+
+</details>
+
+<details>
+<summary><strong>P3</strong></summary>
+
+- <ID> - <titulo>
+
+</details>
 
 ---
 
 ## Seleccion de Automatizacion
 
-| ID | Decision | Determinismo | Estabilidad | Observabilidad | Mantenibilidad | Rationale |
-|----|----------|--------------|-------------|----------------|----------------|-----------|
-| <id> | <AUTOMATE|MANUAL|DEFER> | <alta|media|baja> | <alta|media|baja> | <alta|media|baja> | <alta|media|baja> | <justificacion> |
+<details>
+<summary><strong>AUTOMATE</strong></summary>
+
+- <ID> - <titulo> (prioridad <P0-P3>)
+
+</details>
+
+<details>
+<summary><strong>POSIBLE</strong></summary>
+
+- <ID> - <titulo> (prioridad <P0-P3>)
+
+</details>
+
+<details>
+<summary><strong>MANUAL</strong></summary>
+
+- <ID> - <titulo> (prioridad <P0-P3>)
+
+</details>
 
 ---
 
 ## Plan de Ejecucion Manual
 
-| Orden | ID | Prerrequisitos satisfechos | Bloqueadores | Razon del orden |
-|-------|----|----------------------------|--------------|-----------------|
-| <n> | <id> | <datos, rol, estado> | <ninguno o item> | <justificacion> |
+<details>
+<summary><strong>Grupo 1 - <nombre></strong></summary>
+
+**Prerrequisito:** <prerrequisito del grupo>
+
+- <ID> - <test a ejecutar>
+- <ID> - <test a ejecutar>
+
+</details>
+
+<details>
+<summary><strong>Grupo 2 - <nombre></strong></summary>
+
+**Prerrequisito:** <prerrequisito del grupo>
+
+- <ID> - <test a ejecutar>
+
+</details>
 
 ### Tramos Bloqueados
 
-| ID o grupo | Dependencia ausente o ciclo | Accion requerida |
-|------------|-----------------------------|------------------|
-| <id> | <detalle> | <accion humana> |
+<details>
+<summary><strong><ID o grupo></strong></summary>
 
----
+- **Dependencia ausente o ciclo:** <detalle>
+- **Accion requerida:** <accion humana>
 
-## Corte Recomendado y Trade-offs
-
-### Ejecucion Inicial
-
-- <elementos P0/P1 factibles>
-
-### Diferidos
-
-- <elementos y razon>
-
-### Trade-offs
-
-- <riesgo o coste aceptado con rationale>
+</details>
 
 ---
 
@@ -113,7 +189,8 @@ Ruta `output_dir`: <OUTPUT_DIR>
 ## Checklist de Consistencia
 
 - [ ] Cada prioridad tiene evidencia o esta marcada como PENDIENTE.
-- [ ] Las etiquetas y la automatizacion se justifican por separado.
-- [ ] La secuencia manual respeta los prerequisitos conocidos.
+- [ ] Las listas de smoke y regression estan colapsadas y ordenadas por prioridad.
+- [ ] La lista de automatizacion esta agrupada como AUTOMATE, POSIBLE y MANUAL.
+- [ ] Los grupos del plan manual estan colapsados y ordenados por dependencias.
 - [ ] Los bloqueos y decisiones pendientes estan visibles.
 - [ ] Los conteos y comprobaciones del handoff, si existe, coinciden con el reporte.

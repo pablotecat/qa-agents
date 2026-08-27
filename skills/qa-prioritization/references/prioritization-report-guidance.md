@@ -18,18 +18,19 @@ DEBES utilizar la estructura y formato de `assets/prioritization-report-template
 4. Etiquetas Smoke y Regression
 5. Seleccion de Automatizacion
 6. Plan de Ejecucion Manual
-7. Corte Recomendado y Trade-offs
-8. Bloqueadores y Decisiones Pendientes
-9. Notas de Cierre para Revision Humana
-10. Artefactos Generados
-11. Checklist de Consistencia
+7. Bloqueadores y Decisiones Pendientes
+8. Notas de Cierre para Revision Humana
+9. Artefactos Generados
+10. Checklist de Consistencia
 
 ## Reglas de Contenido
 
 - Cada prioridad debe tener evidencia y rationale, o declararse `PENDIENTE` con la informacion necesaria para resolverla.
-- Smoke, regression y automatizacion se justifican por separado. Un elemento puede pertenecer a ambas etiquetas.
-- El orden manual debe mostrar prerequisitos satisfechos, bloqueadores y razon de secuenciacion. No debe inventar una secuencia para ciclos o dependencias ausentes.
-- Los elementos manuales de alto riesgo permanecen visibles en la matriz, en el corte recomendado y en el plan manual cuando sus prerequisitos lo permitan.
+- Smoke y regression se muestran como listas colapsadas independientes, ordenadas por prioridad de `P0` a `P3`. No es necesario mostrar los criterios de seleccion en esas listas.
+- La automatizacion se muestra como listas colapsadas en este orden: `AUTOMATE`, `POSIBLE`, `MANUAL`.
+- El plan manual se muestra como grupos colapsados ordenados por dependencias. Cada grupo incluye su prerequisito y una lista de tests.
+- El orden manual debe mostrar prerequisitos y bloqueadores. No debe inventar una secuencia para ciclos o dependencias ausentes.
+- Los elementos manuales de alto riesgo permanecen visibles en la matriz y en el plan manual cuando sus prerequisitos lo permitan.
 - Las decisiones detalladas viven en este reporte. El handoff solo contiene hechos objetivos, conteos y rutas.
 
 ## Plantilla y Ejemplo
@@ -41,9 +42,10 @@ DEBES utilizar la estructura y formato de `assets/prioritization-report-template
 
 Antes de dar la tarea por finalizada, confirmar:
 
-- [ ] Estan presentes los metadatos y las 11 secciones base.
+- [ ] Estan presentes los metadatos y las 10 secciones base.
 - [ ] Cada elemento evaluable tiene prioridad o limitacion documentada.
-- [ ] Las etiquetas y la automatizacion conservan rationales independientes.
+- [ ] Las listas de smoke y regression estan colapsadas y ordenadas por prioridad.
+- [ ] La lista de automatizacion esta agrupada como AUTOMATE, POSIBLE y MANUAL.
+- [ ] Los grupos del plan manual estan colapsados y ordenados por dependencias.
 - [ ] La secuencia manual respeta los prerequisitos conocidos y separa bloqueos.
-- [ ] El corte recomendado explica trade-offs y riesgos aceptados.
 - [ ] Los conteos y comprobaciones del handoff, si existe, coinciden con el reporte.

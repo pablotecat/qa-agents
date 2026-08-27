@@ -23,7 +23,7 @@ Clasifica la prioridad como `P0`, `P1`, `P2` o `P3`. El esfuerzo de ejecucion o 
 
 ## Automatizacion
 
-Registra `AUTOMATE`, `MANUAL` o `POSIBLE` usando determinismo, estabilidad, observabilidad, coste de implementacion, mantenibilidad y retorno esperado. Una prueba manual de alto riesgo conserva su prioridad y su lugar en la secuencia. Posilbe son tests que no esté clara la posibilidad de implementación automatizada, se mantienen priorizados y pueden ejecutarse manualmente mientras se resuelve.
+Registra `AUTOMATE`, `MANUAL` o `POSIBLE` usando determinismo, estabilidad, observabilidad, coste de implementacion, mantenibilidad y retorno esperado. Una prueba manual de alto riesgo conserva su prioridad y su lugar en la secuencia. POSIBLE son tests que no esté clara la posibilidad de implementación automatizada, se mantienen priorizados y pueden ejecutarse manualmente mientras se resuelve.
 
 ## Secuencia Manual
 

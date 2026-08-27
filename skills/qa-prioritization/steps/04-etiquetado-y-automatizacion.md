@@ -12,9 +12,9 @@ Durante este paso no cambies la prioridad ni el contenido de los tests.
 
 1. Lee `references/prioritization-decision-guidance.md` y aplica sus criterios de etiquetas.
 2. Asigna `smoke`, `regression`, ambas o ninguna; registra el criterio y la evidencia para cada etiqueta.
-3. Evalua determinismo, estabilidad, observabilidad, coste, mantenibilidad y retorno para decidir `AUTOMATE`, `MANUAL` o `DEFER`.
+3. Evalua determinismo, estabilidad, observabilidad, coste, mantenibilidad y retorno para decidir `AUTOMATE`, `POSIBLE` o `MANUAL`.
 4. Conserva una prueba manual de alto riesgo como prioritaria cuando su automatizacion no sea factible.
-5. Registra los factores que deben cambiar para revisar una decision `DEFER`.
+5. Registra los factores que deben cambiar para revisar una decision `POSIBLE`.
 
 ## Checklist de completitud
 

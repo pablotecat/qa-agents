@@ -62,7 +62,7 @@ Cuando el productor sea `QA.prioritization`, usa `prioritization-report.md` como
 Las claves objetivas recomendadas son:
 
 - `checks`: `all_evaluable_items_classified`, `dependencies_checked`, `manual_sequence_consistent`, `report_consistent_with_counts`.
-- `counts`: `items_evaluated`, `priority_pending`, `smoke_tagged`, `regression_tagged`, `automation_candidates`, `manual_items`, `deferred_items`, `blocked_sequence_items`.
+- `counts`: `items_evaluated`, `priority_pending`, `smoke_tagged`, `regression_tagged`, `automation_candidates`, `manual_items`, `possible_items`, `blocked_sequence_items`.
 
 ## Pasos de Creacion
 
