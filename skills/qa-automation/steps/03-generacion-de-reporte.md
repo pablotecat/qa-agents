@@ -4,10 +4,6 @@
 
 Generar el documento markdown `QA.automation-generation-report.md`, persistirlo correctamente y emitir el handoff JSON mínimo. Este paso solo persiste lo ya implementado en el paso 02; no redacta nuevos tests, ni resuelve PROVISIONAL, ni replantea decisiones.
 
-## Modelo Recomendado
-
-Usa el modelo de razonamiento más potente disponible. Este paso produce el entregable final que otros consumidores leerán sin acceso al documento de entrada original: exige máxima precisión y consistencia.
-
 ## Enfoque Exclusivo
 
 Durante este paso tu ÚNICO objetivo es ensamblar, validar y persistir el entregable final y el handoff. No redactes nuevos tests ni marques nuevos PROVISIONAL.

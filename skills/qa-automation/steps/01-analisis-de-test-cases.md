@@ -4,10 +4,6 @@
 
 Leer y comprender de forma exhaustiva el documento de entrada, identificando si los Test Cases tienen trazabilidad formal (`TEST-ID`, prerrequisitos) o si son Test Cases sueltos (caso alternativo, con baja trazabilidad). Extraer los Test Cases, sus pasos Given/When/Then, sus prerrequisitos y cualquier GAP que afecte la implementación.
 
-## Modelo Recomendado
-
-Usa el modelo de razonamiento más potente disponible. Este paso produce la base de todo el código generado: prioriza comprensión y precisión sobre velocidad.
-
 ## Enfoque Exclusivo
 
 Durante este paso tu único objetivo es leer y entender. No escribas código `.spec.ts` todavía, ni elijas locators, ni diseñes fixtures. Asimila cada Test Case con sus pasos y prerrequisitos, y registra los gaps que afectarán la implementación.

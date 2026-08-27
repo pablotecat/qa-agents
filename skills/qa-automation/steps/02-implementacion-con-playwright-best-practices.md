@@ -2,11 +2,7 @@
 
 ## Objetivo del Paso
 
-Generar código Playwright ejecutable `.spec.ts` para cada Test Case del paso 01, delegando TODAS las decisiones técnicas de implementación a la skill `playwright-best-practices`.
-
-## Modelo Recomendado
-
-Usa el modelo de razonamiento más potente disponible. Este paso produce los entregables principales que el usuario ejecutará: exige precisión y alineación con las guías de `playwright-best-practices`.
+Generar código Playwright ejecutable `.spec.ts` para cada Test Case del paso 01, **delegando** las decisiones técnicas de implementación a la skill `playwright-best-practices`.
 
 ## Enfoque Exclusivo
 
@@ -25,19 +21,19 @@ Esta skill resuelve el directorio de salida del código (`code_output_dir`) así
 
 **OBLIGATORIO**: antes de escribir cualquier línea de código, ejecuta la skill `.github/skills/playwright-best-practices/SKILL.md` y consulta sus referencias para cada actividad de implementación. NO tomes decisiones de diseño de Playwright por tu cuenta: si `playwright-best-practices` cubre el caso, síguelo; si no, registra una decisión pendiente y aplica el patrón más próximo documentado.
 
-Mapa de referencias clave (no exhaustivo) según la actividad:
+Mapa de referencias clave (no exhaustivo) según la actividad. Todas viven dentro de `playwright-best-practices/`:
 
 | Actividad del Test Case | Referencia a consultar |
 |--------------------------|------------------------|
-| Estructura del test `.spec.ts` | `references/core/test-suite-structure.md` |
-| Locators estables | `references/core/locators.md` |
-| Aserciones y auto-waiting | `references/core/assertions-waiting.md` |
-| Fixtures y hooks | `references/core/fixtures-hooks.md` |
-| POM vs fixtures inline | `references/architecture/pom-vs-fixtures.md` |
-| Autenticación (si los prerrequisitos la requieren) | `references/advanced/authentication.md` |
-| Datos de prueba | `references/core/test-data.md` |
-| Framework específico (React/Vue/Next.js/Angular) | `references/frameworks/<framework>.md` |
-| Bugs flaky / aislamiento | `references/debugging/flaky-tests.md` |
+| Estructura del test `.spec.ts` | `playwright-best-practices/references/core/test-suite-structure.md` |
+| Locators estables | `playwright-best-practices/references/core/locators.md` |
+| Aserciones y auto-waiting | `playwright-best-practices/references/core/assertions-waiting.md` |
+| Fixtures y hooks | `playwright-best-practices/references/core/fixtures-hooks.md` |
+| POM vs fixtures inline | `playwright-best-practices/references/architecture/pom-vs-fixtures.md` |
+| Autenticación (si los prerrequisitos la requieren) | `playwright-best-practices/references/advanced/authentication.md` |
+| Datos de prueba | `playwright-best-practices/references/core/test-data.md` |
+| Framework específico (React/Vue/Next.js/Angular) | `playwright-best-practices/references/frameworks/<framework>.md` |
+| Bugs flaky / aislamiento | `playwright-best-practices/references/debugging/flaky-tests.md` |
 
 ## Marcaje temporal de archivos (obligatorio)
 
@@ -63,15 +59,15 @@ Todo `.spec.ts` que crees o editas lleva un marcaje temporal. Obten la fecha eje
      - Imports y `test()` o `test.describe()` según estructura decidida (un `test()` por Test Case, o `test.describe()` si el archivo agrupa varios de la misma suite).
    - Pasos Given/When/Then mapeados a acciones de Playwright.
    - Aserciones basadas en `expect()` con auto-waiting (no uses `waitForTimeout` ni esperas implícitas).
-   - Locators estables: prefiere rol, texto accesible o `data-testid` (sigue `references/core/locators.md`).
+   - Locators estables: prefiere rol, texto accesible o `data-testid` (sigue `playwright-best-practices/references/core/locators.md`).
    - **Para cada GAP del paso 01**: inserta un comentario `// 🟡 PROVISIONAL/NO DEFINIDO: <motivo>` en el lugar afectado y aplica un patrón razonable del que dispongas, sin inventar datos sensibles.
    - Persiste el archivo `.spec.ts` en `code_output_dir`.
-4. **POM**: Decide por `playwright-best-practices/references/architecture/pom-vs-fixtures.md` y `references/core/page-object-model.md`. Si se opta por POM o ya existe POM en el proyecto:
+4. **POM**: Decide por `playwright-best-practices/references/architecture/pom-vs-fixtures.md` y `playwright-best-practices/references/core/page-object-model.md`. Si se opta por POM o ya existe POM en el proyecto:
    - **Amplía o edita** page objects existentes para reflejar nuevos locators o flujos; NO dupliques page objects para el mismo área.
    - Si creas un page object nuevo, aplica el marcaje temporal en su archivo (`*.page.ts`).
    - Registra en el reporte del paso 03 (sección “POM”) qué archivos se crearon, editaron o ampliaron, con sus rutas absolutas o relativas al workspace.
-5. Si el proyecto destino no tiene `playwright.config.ts`, genera uno mínimo siguiendo `references/core/configuration.md` y `references/core/projects-dependencies.md` y aplica marcaje temporal al inicio.
-6. Si los prerrequisitos de los Test Cases requieren fixtures globales o setup, créalos siguiendo `references/core/global-setup.md` y `references/core/fixtures-hooks.md` y aplica marcaje temporal.
+5. Si el proyecto destino no tiene `playwright.config.ts`, genera uno mínimo siguiendo `playwright-best-practices/references/core/configuration.md` y `playwright-best-practices/references/core/projects-dependencies.md` y aplica marcaje temporal al inicio.
+6. Si los prerrequisitos de los Test Cases requieren fixtures globales o setup, créalos siguiendo `playwright-best-practices/references/core/global-setup.md` y `playwright-best-practices/references/core/fixtures-hooks.md` y aplica marcaje temporal.
 
 ## Bloqueos por gaps de implementación
 
@@ -95,7 +91,7 @@ Todo `.spec.ts` que crees o editas lleva un marcaje temporal. Obten la fecha eje
 - [ ] Cada test lleva el comentario `// TEST-ID: <id>` de trazabilidad.
 - [ ] Los tests deprecados usan `test.fixme('deprecado: <motivo>')` y no se borraron.
 - [ ] No se usó `page.waitForTimeout` ni esperas arbitrarias.
-- [ ] Los locators siguen `references/core/locators.md` (role, text, `data-testid`).
+- [ ] Los locators siguen `playwright-best-practices/references/core/locators.md` (role, text, `data-testid`).
 - [ ] Los gaps del paso 01 se materializaron como comentarios `PROVISIONAL` en el código.
 - [ ] El POM existente se amplió/editó (si aplica) sin duplicar page objects.
 - [ ] Los archivos `.spec.ts` (y page objects/`playwright.config.ts` si se tocaron) se persistieron en `code_output_dir`.

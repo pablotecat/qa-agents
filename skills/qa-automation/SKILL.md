@@ -8,6 +8,10 @@ compatibility:
   - agents: [QA.automation]
 ---
 
+## Modelo
+
+Usa el modelo de razonamiento más potente disponible en todos los pasos: el workflow produce código y reportes que otros consumidores leerán sin acceso a la fuente original.
+
 ## Mapa de pasos
 
 DEBES leer y ejecutar los pasos de la carpeta `steps/` en este orden:
