@@ -21,13 +21,13 @@ Because the gap exists, the only deletion paths available are:
 1. **Manual deletion via the web portal** (preferred — safe, auditable).
 2. **REST API `DELETE`** outside the MCP (the truly irreversible path — only when the user explicitly insists after being warned).
 
-`mcp_ado_wit_work_item_*` tools do NOT delete Test Plans/Suites even though they are backed by work items. Do not improvise deletion with `mcp_ado_wit_work_item_*`; the structural entity in the Test Plans UI can survive the work-item deletion and create silent orphans.
+`wit_work_item_*` tools do NOT delete Test Plans/Suites even though they are backed by work items. Do not improvise deletion with `wit_work_item_*`; the structural entity in the Test Plans UI can survive the work-item deletion and create silent orphans.
 
 ## Mandatory workflow before any delete
 
 Always, in order:
 
-1. **Identify the exact target.** Resolve and display: `organization`, `project`, and the `id` AND the `name` of the artefact to delete. For a Suite, also the parent `plan_id`. For a Case, also the parent `suite_id`. If any ID is missing, run `mcp_ado_testplan`'s `list_plans` / `list_suites` / `list_cases` first — do not guess.
+1. **Identify the exact target.** Resolve and display: `organization`, `project`, and the `id` AND the `name` of the artefact to delete. For a Suite, also the parent `plan_id`. For a Case, also the parent `suite_id`. If any ID is missing, run `testplan`'s `list_plans` / `list_suites` / `list_cases` first — do not guess.
 
 2. **Surface the orphan risk specific to the entity** (see table below) and explicitly tell the user what gets orphaned or broken.
 
@@ -61,7 +61,7 @@ Always, in order:
 - **REST DELETE:** `DELETE https://dev.azure.com/{org}/{project}/_apis/test/plans/{id}?api-version=7.1`.
 - **Orphan risk:** all suites and Test Cases under the plan; the Test Plans UI may show broken references; every run that referenced the plan is affected.
 - **Portal link (path B):** `https://dev.azure.com/{org}/{project}/_testPlans?planId={id}` → menu `... → Delete`.
-- **`mcp_ado_wit_*` rule:** never use `mcp_ado_wit_work_item_*` to delete a plan — the structural entity in the Test Plans UI survives the work-item deletion and creates silent orphans.
+- **`wit_*` rule:** never use `wit_work_item_*` to delete a plan — the structural entity in the Test Plans UI survives the work-item deletion and creates silent orphans.
 
 ### Test Suite
 
@@ -69,7 +69,7 @@ Always, in order:
 - **REST DELETE:** `DELETE https://dev.azure.com/{org}/{project}/_apis/test/Plans/{plan_id}/suites/{suite_id}?api-version=7.1`.
 - **Orphan risk:** child suites become orphans; Test Cases stay as work items but dangle between parent suites; runs that targeted the suite are affected.
 - **Portal link (path B):** `https://dev.azure.com/{org}/{project}/_testPlans?planId={plan_id}` → enter the plan → select the suite → menu `... → Delete`.
-- **`mcp_ado_wit_*` rule:** never use `mcp_ado_wit_work_item_*` to delete a suite — the structural entity in the Test Plans UI can survive the work-item deletion and creates silent orphans.
+- **`wit_*` rule:** never use `wit_work_item_*` to delete a suite — the structural entity in the Test Plans UI can survive the work-item deletion and creates silent orphans.
 
 ### Test Case
 
@@ -77,7 +77,7 @@ Always, in order:
 - **REST DELETE:** `DELETE https://dev.azure.com/{org}/_apis/wit/workitems/{id}?api-version=7.1`.
 - **Orphan risk:** breaks references in every suite/plan that contains it; test runs that recorded results against this TC keep a dangling pointer; coverage reports may corrupt.
 - **Portal link (path B):** open the TC from the plan/suite → menu `... → Delete`.
-- **`mcp_ado_wit_*` rule:** never use `mcp_ado_wit_work_item_*` to "delete" without going through the confirmation gate — the TC may still be referenced in suites and create orphans.
+- **`wit_*` rule:** never use `wit_work_item_*` to "delete" without going through the confirmation gate — the TC may still be referenced in suites and create orphans.
 
 > `api-version` is illustrative; pin the value the user's org supports at the time of the call. Do not use `api-version=preview` unless the user explicitly asks.
 
@@ -93,8 +93,8 @@ Always, in order:
 ## What not to do
 
 - Do not delete based on a summary confirmation ("delete the obsolete stuff") — always per-ID and per-name.
-- Do not use `mcp_ado_wit_work_item_*` to delete plans or suites — they survive as structural entities in the Test Plans UI and create silent orphans.
+- Do not use `wit_work_item_*` to delete plans or suites — they survive as structural entities in the Test Plans UI and create silent orphans.
 - Do not assume the user's earlier confirmation carries over to a different artefact or a later turn. Re-confirm.
 - Do not offer "automatic" or "bulk" REST deletion paths — each delete is a separate confirmation.
-- Do not run `DELETE` with `destroy=true` (the `mcp_ado_wit_*` work-items endpoint) unless the user requests it and shows they understand it bypasses the recycle bin.
+- Do not run `DELETE` with `destroy=true` (the `wit` work-items endpoint) unless the user requests it and shows they understand it bypasses the recycle bin.
 - Do not present setting `State=Closed` as a delete — it is not a delete. If the user asks about it, answer factually but do not route it through this flow.
