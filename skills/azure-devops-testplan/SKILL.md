@@ -27,7 +27,12 @@ CRUD over Azure DevOps Test Plans, Test Suites, and Test Cases through the offic
 
 ## Prerequisites
 
-Before running any operation, verify that the server `ado-remote-mcp` is configured in `.vscode/mcp.json` (remote: `https://mcp.dev.azure.com/{organization}`, `type: http`) and starts correctly from the VS Code MCP view. Details and troubleshooting in `references/mcp-setup.md`. If it is not configured, do not improvise: instruct the user to configure it manually following that reference.
+Before running any operation, verify that the server `ado-remote-mcp` is configured in `.vscode/mcp.json` (remote: `https://mcp.dev.azure.com/{organization}`, `type: http`) and starts correctly from the VS Code MCP view. If it is not configured:
+
+- **Recommended:** run `.\scripts\install-ado-mcp.ps1` from the skill folder in a terminal. The script prompts for the Azure DevOps organization, validates the slug, and writes `.vscode/mcp.json` idempotently (preserving other MCP servers). Requires PowerShell 5.1+.
+- **Manual:** follow the steps in `references/mcp-setup.md`.
+
+Details and troubleshooting in `references/mcp-setup.md`. If it is not configured, do not improvise: instruct the user to configure it via the script or manually following that reference.
 
 ## Workflow
 

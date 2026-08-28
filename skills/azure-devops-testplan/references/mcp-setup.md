@@ -22,6 +22,18 @@ Replace `{organization}` with the Azure DevOps organization slug (no `https://`,
 
 > This skill does not create this file by default. MCP configuration is opt-in: the user decides whether they want Azure DevOps management (vs Jira, Excel, etc.).
 
+## Recommended: setup script
+
+Run from the skill folder:
+
+```powershell
+.\scripts\install-ado-mcp.ps1
+```
+
+The script prompts for the organization slug, validates the format (alphanumeric with hyphens, 2–50 chars), and writes `.vscode/mcp.json` idempotently — preserving other MCP servers. Requires PowerShell 5.1+. Pass `-Organization contoso -Force` for non-interactive use.
+
+If you prefer to configure manually, follow the steps below.
+
 ## Manual configuration
 
 1. Create `.vscode/mcp.json` at the root of the project (or edit it if it already exists).
