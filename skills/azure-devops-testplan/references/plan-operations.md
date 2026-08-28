@@ -1,41 +1,35 @@
 # Test Plan operations
 
-Detalle de cada operación CRUD sobre Test Plans. Supone leído `SKILL.md` (pasos universales + árbol de ramas) y `toolset.md` (mapeo general de tools).
+Detail of each CRUD operation on Test Plans. Assumes `SKILL.md` (universal steps + branch table) and `toolset.md` (general tool mapping) have been read.
 
 ## list plans
 
 - **Tool:** `testplan` / `list_plans`.
 - **Args:** `project`.
-- **Retorno:** array de Test Plans con `id`, `name`, `areaPath`, `startDate`, `endDate`, etc.
-- **Uso típico:** el usuario pide "qué test plans hay en {project}". Devuelve tabla plan | id | url al portal.
+- **Return:** array of Test Plans with `id`, `name`, `areaPath`, `startDate`, `endDate`, etc.
+- **Typical use:** the user asks "what test plans are in {project}". Return a table: plan | id | portal URL.
 
 ## create plan
 
 - **Tool:** `testplan_test_plan_write` / `create`.
-- **Args mínimos:** `project`, `name`. Opcionales: `startDate`, `endDate`, `areaPath`, `iteration`, `areaPath`.
-- **Flujo:** confirma nombre y proyecto con el usuario → ejecuta → devuelve `id` + enlace `https://dev.azure.com/{org}/{project}/_testPlans?planId={id}`.
-- **Confirmación requerida:** sí (crea artefacto persistente).
+- **Minimum args:** `project`, `name`. Optional: `startDate`, `endDate`, `areaPath`, `iteration`, `areaPath`.
+- **Flow:** confirm name and project with the user → execute → return `id` + link `https://dev.azure.com/{org}/{project}/_testPlans?planId={id}`.
+- **Confirmation required:** yes (creates a persistent artefact).
 
-## get (uno concreto)
+## get (one specific plan)
 
-- **No hay tool directa** de get-by-id en `testplan_*`. Workaround:
-  1. `testplan` / `list_plans` con `project`.
-  2. Filtra por `name` o `id` en memoria.
-- Si ya tienes el `plan_id` y necesitas detalles que `list_plans` no retorna, no hay atajo limpio en el toolset — considera el portal web osalir a la REST API fuera del MCP.
+- **There is no direct get-by-id tool** in `testplan_*`. Workaround:
+  1. `testplan` / `list_plans` with `project`.
+  2. Filter by `name` or `id` in memory.
+- If you already have the `plan_id` and need details that `list_plans` does not return, there is no clean shortcut in the toolset — consider the web portal or fall back to the REST API outside the MCP.
 
 ## update
 
-- **Tool:** `wit_work_item_write` / `update` (un Test Plan es internamente un work item).
-- **Args:** `id` del plan (work item id), `fields` (title, area, etc.).
-- **Confirmación requerida:** sí.
-- **Limitación:** vía `wit_work_item_update` se actualizan fields genéricos; no hay tool específica para propiedades del plan como fechas de cobertura. Para esos, vuelve al portal web.
+- **Tool:** `wit_work_item_write` / `update` (a Test Plan is internally a work item).
+- **Args:** `id` of the plan (work item id), `fields` (title, area, etc.).
+- **Confirmation required:** yes.
+- **Limitation:** via `wit_work_item_update` you update generic fields; there is no specific tool for plan properties like coverage dates. For those, fall back to the web portal.
 
 ## delete
 
-❌ **Gap verificado en el toolset del MCP.** Ninguna tool expuesta para eliminar Test Plans.
-
-**Workaround documentado al usuario:**
-1. Vía portal: `https://dev.azure.com/{org}/{project}/_testPlans?planId={id}` → menú `... → Delete`.
-2. Fuera del MCP: llamar a la Test Management REST API (`DELETE https://dev.azure.com/{org}/{project}/_apis/test/plans/{id}?api-version=...`). No hay tool wrapper, debe hacerse con `az devops invoke` o cliente HTTP autenticado.
-
-Cuando el usuario pida delete de plan, NO improvises con `wit_*` (eso borra el work item "Test Plan" pero puede dejar huérfanos en Test Plans UI). Informa del gap y ofrece el workaround.
+To delete a Test Plan, load and follow `references/delete-instructions.md`.

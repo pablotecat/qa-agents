@@ -1,10 +1,10 @@
-# Setup del MCP de Azure DevOps
+# Azure DevOps MCP server setup
 
-Configuración del servidor remoto `microsoft/azure-devops-mcp` necesario para esta skill. Modalidad **remota (HTTP)** — cero instalación local, updates automáticos server-side, auth OAuth con la cuenta Microsoft firmada en VS Code.
+Configuration of the `microsoft/azure-devops-mcp` remote server required by this skill. **Remote (HTTP) mode** — zero local installation, automatic server-side updates, OAuth with the Microsoft account signed in to VS Code.
 
-## Archivo `.vscode/mcp.json`
+## `.vscode/mcp.json` file
 
-La skill espera un servidor con `type: http` apuntando a `https://mcp.dev.azure.com/{organization}`.
+The skill expects a server with `type: http` pointing to `https://mcp.dev.azure.com/{organization}`.
 
 ```jsonc
 {
@@ -18,53 +18,41 @@ La skill espera un servidor con `type: http` apuntando a `https://mcp.dev.azure.
 }
 ```
 
-Reemplaza `{organization}` por el nombre de la organización Azure DevOps (slug, sin `https://`, sin `dev.azure.com/`). Ejemplo: para `https://dev.azure.com/contoso` → `contoso`.
+Replace `{organization}` with the Azure DevOps organization slug (no `https://`, no `dev.azure.com/`). Example: for `https://dev.azure.com/contoso` → `contoso`.
 
-> La skill **NO crea este archivo por defecto** en el repo — la configuración del MCP es opt-in. El usuario decide si quiere gestión en Azure DevOps (vs Jira, Excel, etc.). Ver `SKILL.md` del repo raíz, decisión 1.
+> This skill does not create this file by default. MCP configuration is opt-in: the user decides whether they want Azure DevOps management (vs Jira, Excel, etc.).
 
-## Vía 1: script de configuración (recomendada)
+## Manual configuration
 
-Corre desde la raíz del proyecto:
+1. Create `.vscode/mcp.json` at the root of the project (or edit it if it already exists).
+2. Paste the block above replacing `{organization}`.
+3. Save and from VS Code: MCP view → Start server `ado-remote-mcp`.
+4. When VS Code prompts, sign in with a Microsoft account that has access to the target Azure DevOps organization.
 
-```powershell
-./.github/scripts/install-ado-mcp.ps1
-```
+## Connectivity verification
 
-El script pregunta la organización valida el formato (alfanumérico y guiones), y escribe/mergea `.vscode/mcp.json` preservando otros servidores MCP que ya estén configurados. Idempotente.
+After configuring, verify the server responds before using the skill:
 
-## Vía 2: configuración manual
-
-Si prefieres no correr el script:
-
-1. Crea `.vscode/mcp.json` en la raíz del proyecto (o edítalo si existe).
-2. Pega el bloque de arriba reemplazando `{organization}`.
-3. Guarda y desde VS Code: vista MCP → Start server `ado-remote-mcp`.
-4. Cuando VS Code lo pida, inicia sesión con una cuenta Microsoft que tenga acceso a la organización Azure DevOps indicada.
-
-## Verificación de conectividad
-
-Tras configurar, verifica que el servidor responde antes de usar la skill:
-
-- Abre Copilot Chat en modo agente.
-- Pregunta algo simple: `"List ADO projects"`.
-- Si la tool `mcp_ado_core_list_projects` responde con tu lista de proyectos, la skill está usable.
-- Si recibe errores de auth, vuelve a iniciar sesión en VS Code con la cuenta Microsoft correcta.
+- Open Copilot Chat in agent mode.
+- Ask something simple: `"List ADO projects"`.
+- If the `mcp_ado_core_list_projects` tool responds with your project list, the skill is usable.
+- If you receive auth errors, sign in again in VS Code with the correct Microsoft account.
 
 ## Troubleshooting
 
-- **HTTP 401/403:** la cuenta Microsoft firmada en VS Code no tiene acceso a la organización. Switch account en VS Code.
-- **HTTP 404 al invocar tools:** revisa que `{organization}` sea el slug correcto (sin protocolo, sin slashes).
-- **Tools no aparecen:** desde VS Code → Command Palette → `MCP: List Servers` y verifica que `ado-remote-mcp` esté `running`. Si no, arráncalo manualmente.
-- **Quieres domains filtrados (solo test-plans, no todo):** el modo remoto expone todo el toolset; los domains (`-d core work work-items test-plans`) son una opción del **local** (stdio), no del remoto. Si necesitas acotar tools, migra a local (ver Alternativa local abajo).
+- **HTTP 401/403:** the Microsoft account signed in to VS Code does not have access to the organization. Switch account in VS Code.
+- **HTTP 404 when invoking tools:** check that `{organization}` is the correct slug (no protocol, no slashes).
+- **Tools do not appear:** from VS Code → Command Palette → `MCP: List Servers` and verify that `ado-remote-mcp` is `running`. If not, start it manually.
+- **You want filtered domains (only test-plans, not everything):** the remote mode exposes the full toolset; domains (`-d core work work-items test-plans`) are a **local** (stdio) option, not a remote one. If you need to narrow the loaded tools, switch to local mode (see Local alternative below).
 
-## Alternativa local (stdio) — solo si tu escenario lo requiere
+## Local alternative (stdio) — only if your scenario requires it
 
-El modo remoto cubre esta skill. Solo migra a local si necesitas un setup `stdio` (por ejemplo,air-gapped, o querer limitar tools cargadas con domains). En ese caso la config es:
+The remote mode covers this skill. Only switch to local if you need a `stdio` setup (for example, air-gapped, or to limit the loaded tools with domains). In that case the config is:
 
 ```jsonc
 {
   "inputs": [
-    { "id": "ado_org", "type": "promptString", "description": "Azure DevOps organization name (ej. 'contoso')" }
+    { "id": "ado_org", "type": "promptString", "description": "Azure DevOps organization name (e.g. 'contoso')" }
   ],
   "servers": {
     "ado-local": {
@@ -76,4 +64,4 @@ El modo remoto cubre esta skill. Solo migra a local si necesitas un setup `stdio
 }
 ```
 
-Requiere Node 20+ en destino. Caches npx (~50MB) por workspace. Para los fines de esta skill, **el remoto es la opción recomendada** y la única documentada con detalle.
+Requires Node 20+ on the target. Caches npx (~50MB) per workspace. For this skill, **the remote mode is the recommended option** and the only one documented in detail.

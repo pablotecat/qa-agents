@@ -1,59 +1,98 @@
 ---
 name: azure-devops-testplan
-description: Azure DevOps Test Plans management. Use when the user asks to create, list, get, update or delete Test Plans, Test Suites or Test Cases in Azure DevOps via the official Azure DevOps MCP server. Branches — Plan (create / list / get), Suite (create / list / add-cases), Case (create / list / get / update steps / import from generator markdown). Requires the Azure DevOps MCP server configured in `.vscode/mcp.json`.
+description: "Plain Concepts Quality: create, list, get, update, or import Test Plans, Test Suites, and Test Cases in Azure DevOps via the official Azure DevOps MCP server. Use when managing test artefacts in ADO Test Plans, importing test cases from markdown, Excel/CSV, or another Test Plan, or syncing generated test cases into a test suite. Requires the Azure DevOps MCP server configured in `.vscode/mcp.json`."
+metadata:
+  plugin: pc-quality
+  author: "Pablo Otero Catrufo"
 ---
 
 # Azure DevOps Test Management
 
-CRUD sobre Test Plans, Test Suites y Test Cases de Azure DevOps a través del MCP oficial `microsoft/azure-devops-mcp` (remote server, modo HTTP). La skill no depende del pipeline QA: es standalone y usable on-demand.
+CRUD over Azure DevOps Test Plans, Test Suites, and Test Cases through the official `microsoft/azure-devops-mcp` server (remote HTTP mode). The skill is standalone and usable on-demand; it is not tied to any specific QA pipeline or workflow.
 
-## Prerequisito: MCP server
+## When to use
 
-Antes de ejecutar cualquier operación, verifica que el servidor `ado-remote-mcp` esté configurado en `.vscode/mcp.json` (remoto: `https://mcp.dev.azure.com/{organization}`, `type: http`) y arranque correctamente desde la vista MCP de VS Code. Detalle y troubleshooting en `references/mcp-setup.md`. Si no está configurado, NO improvises: indícale al usuario que corra `scripts/install-ado-mcp.ps1` o lo configure manualmente siguiendo esa referencia.
+- The user asks to create, list, get, or update Test Plans, Test Suites, or Test Cases in Azure DevOps.
+- The user wants to import test cases from an external source: a structured markdown document, an Excel/CSV file, or another Azure DevOps Test Plan.
+- The user needs to update test case steps while preserving the structured step format (one action/expected-result pair per step, rendered as a pass/fail checklist by the Test Plans UI).
+- The user asks to create a Test Suite and add existing Test Cases to it.
+- The user asks to sync generated or external test cases into a target Test Suite.
 
-## Árbol de ramas
+## When not to use
 
-Cada invocación se posiciona en una combinación verbo × entidad. Antes de ejecutar nada, identifica la rama activa:
+- Managing Azure DevOps boards, work items, iterations, or area paths — use the `azure-devops-boards` skill in `pc-delivery`.
+- Committing, pushing, branching, or managing pull requests in Azure DevOps repos — use the `azure-devops-repos` skill in `pc-delivery`.
+- Writing or updating a PR description or linking work items to a PR — use the dedicated `pr-description` or `pr-workitems` skills in `pc-delivery`.
+- General code-quality review or static analysis — use other `pc-quality` skills like `audit-repo` or `code-smells-clean-architecture`.
 
-| Entidad \ Operación | create | list | get (uno concreto) | update | delete/remove |
-|---|---|---|---|---|---|
-| **Test Plan** | ✅ | ✅ | ✅ (list + filtra) | ⚠️ (vía `wit_work_item_update`) | ⚠️ gap verificado |
-| **Test Suite** | ✅ | ✅ | ✅ (list + filtra) | ⚠️ (vía `wit_work_item_update`) | ⚠️ gap verificado |
-| **Test Case** | ✅ | ✅ | ✅ (vía `wit_work_item_get`) | ✅ (`update_steps`) | ⚠️ (vía work item) |
+## Prerequisites
 
-El detalle de cada celda (tools MCP concretas, argumentos, mapeo desde inputs comunes) vive en los references por entidad — la skill solo las dispara. NO recachear aquí el toolset: el single source of truth es `references/toolset.md`, que a su vez apunta a `docs/TOOLSET.md` del repo upstream.
+Before running any operation, verify that the server `ado-remote-mcp` is configured in `.vscode/mcp.json` (remote: `https://mcp.dev.azure.com/{organization}`, `type: http`) and starts correctly from the VS Code MCP view. Details and troubleshooting in `references/mcp-setup.md`. If it is not configured, do not improvise: instruct the user to configure it manually following that reference.
 
-## Pasos universales (aplican a toda rama)
+## Workflow
 
-1. **Resolver contexto.** Identifica y confirma con el usuario: `organization` (debe estar en `mcp.json`), `project` (nombre o ID de Azure DevOps), y los IDs necesarios según la operación:
-   - operaciones sobre Plan: solo `project`.
-   - operaciones sobre Suite: `project` + `plan_id` (si no lo sabe, ejecuta `testplan / list_plans` primero).
-   - operaciones sobre Case: `project` + `plan_id` + `suite_id` (si no los sabe, lista primero) — o `case_id` para get/update.
-2. **Confirmar antes de escribir.** Para operaciones destructivas o que crean artefactos persistentes (create, update, delete, add-cases), muestra al usuario un resumen plano de lo que vas a hacer y pide confirmación explícita antes de ejecutar. Operaciones read-only (list, get) no requieren confirmación.
-3. **Ejecutar la operación** invocando la(s) tool(s) del MCP según el mapeo del reference de la entidad. Consulta el reference correspondiente para no improvisar argumentos.
-4. **Reportar resultado.** Devuelve al usuario un resumen conciso: IDs creados/modificados/eliminados, enlaces al portal de Azure DevOps cuando aplique (`https://dev.azure.com/{org}/{project}/_testPlans`), y cualquier warning.
+### Step 1: Resolve context
+
+Before any operation, identify and confirm with the user: `organization` (must be in `mcp.json`), `project` (Azure DevOps project name or ID), and the IDs required by the operation:
+
+| Operation target | Required IDs |
+|---|---|
+| Test Plan | `project` |
+| Test Suite | `project` + `plan_id` (if unknown, run `testplan / list_plans` first) |
+| Test Case | `project` + `plan_id` + `suite_id` (if unknown, list first) — or `case_id` for get/update |
+
+### Step 2: Discover project-specific fields (before creating or updating cases)
+
+Before creating or updating Test Cases, run the Field discovery flow in `references/case-operations.md` — Azure DevOps allows custom fields per process and project, so hardcoded field names cannot be assumed.
+
+### Step 3: Confirm before writing
+
+For operations that create, update, or delete persistent artefacts (create, update, delete, add-cases, import), show the user a plain summary of what will happen and ask for explicit confirmation before executing. Read-only operations (list, get) do not require confirmation.
+
+### Step 4: Execute the operation
+
+Invoke the MCP tool(s) according to the entity reference. Consult the matching reference to avoid improvising arguments:
+
+| Entity | Reference |
+|---|---|
+| Test Plan | `references/plan-operations.md` |
+| Test Suite | `references/suite-operations.md` |
+| Test Case | `references/case-operations.md` (includes the import operation) |
+
+For the exact tool names and arguments for each operation, consult `references/toolset.md` (which maps to `docs/TOOLSET.md` of the upstream `microsoft/azure-devops-mcp` repository). Tool names differ between remote and local modes, so list the tools available in the current MCP session before invoking.
+
+### Step 5: Report the result
+
+Return a concise summary: created/modified/deleted IDs, links to the Azure DevOps portal when applicable (`https://dev.azure.com/{org}/{project}/_testPlans`), and any warnings or gaps encountered.
 
 ## References
 
-| Reference | Cuándo cargarlo |
+| Reference | When to load it |
 |---|---|
-| `references/mcp-setup.md` | Si el MCP no está configurado o hay errores de conexión. Siempre en primera ejecución. |
-| `references/toolset.md` | Cuando necesites los nombres exactos y args de las tools del dominio test-plans. Fuente única — no la dupliques en otros references. |
-| `references/plan-operations.md` | Operaciones CRUD sobre Test Plan (rama de la tabla: columna Plan × operación). |
-| `references/suite-operations.md` | Operaciones CRUD sobre Test Suite (columna Suite × operación). |
-| `references/case-operations.md` | Operaciones CRUD sobre Test Case, incluida la operación "import desde `QA.generator-test-cases.md`". |
+| `references/mcp-setup.md` | If the MCP is not configured or there are connection errors. Always on first run. |
+| `references/toolset.md` | When you need the exact tool names and args for the test-plans domain. Single source — do not duplicate in other references. |
+| `references/plan-operations.md` | CRUD operations on Test Plan. |
+| `references/suite-operations.md` | CRUD operations on Test Suite. |
+| `references/case-operations.md` | CRUD operations on Test Case, including the "import from external sources" operation. |
+| `references/delete-instructions.md` | Deletion of Plans/Suites/Cases (verified MCP gap). Loads ALWAYS before executing or suggesting REST DELETE on any of the three entities. |
 
-## Completion criteria
+## Validation
 
-Antes de declarar cerrada una operación:
+- [ ] The context (organization, project, and the relevant IDs) is confirmed with the user.
+- [ ] For write operations, a summary was shown and explicit confirmation was obtained.
+- [ ] For case create/update, project-specific fields were discovered before invoking the tool (no hardcoded field names assumed).
+- [ ] The MCP tool(s) executed correctly without routing or argument errors.
+- [ ] The result was reported to the user with IDs and, where applicable, a portal link.
+- [ ] If the requested operation is not supported by the toolset (e.g. `delete`/`remove` gaps), the user was informed of the limitation and offered the alternative documented in the reference.
+- [ ] For ALL delete operations (Plan, Suite, Case), `references/delete-instructions.md` was loaded and its workflow followed end to end.
 
-- [ ] El contexto (organization, project y los IDs relevantes) está confirmado con el usuario.
-- [ ] Para operaciones de escritura, se mostró resumen y se obtuvo confirmación explícita.
-- [ ] La(s) tool(s) del MCP se ejecutó correctamente sin errores de routing ni de args.
-- [ ] El resultado se reportó al usuario con IDs y, cuando aplique, enlace al portal.
-- [ ] Si la operación pedida no está soportada por el toolset (casos `delete`/`remove` marcados como gap), se informó al usuario de la limitación y se ofreció la vía alternativa documentada en el reference.
+## Common pitfalls
 
-## Notas operativas
-
-- **Windows + args largos:** este skill no compone comandos `az` CLI — todo pasa por MCP. La regla de `azps.ps1` no aplica aquí. Si eventualmente necesitas migrar a modo local con `npx @azure-devops/mcp`, recuerda el cap de 8191 chars de `cmd.exe` (usar PowerShell, no `cmd`).
-- Importar Test Cases desde `QA.generator-test-cases.md` es una operación de Case (branch import), documentada en `references/case-operations.md`. No es un agente consumidor ni un hook automático — el usuario decide cuándo importar.
+| Pitfall | Fix |
+|---|---|
+| Tool name mismatch between remote and local MCP modes | List the available tools in the current MCP session and adapt names to what you see. The remote server exposes tools with a prefix for some and without for others. |
+| Updating test case steps via `wit_work_item_update` | Use `testplan_test_case_write / update_steps` to preserve the per-step structure — see `references/case-operations.md` (update other fields) for why `wit_work_item_update` on `Description`/`ReproSteps` fails. |
+| Assuming hardcoded field names without discovery | Azure DevOps allows custom fields per process/project. Always list work item types and fields before creating or updating Test Cases. |
+| Importing test cases with non-Ready status | If a source test case has a provisional or blocked status, pause and inform the user before importing. Resolve or explicitly confirm before proceeding. |
+| Using `wit_work_item_*` to delete plans/suites/cases | The toolset has no delete tool for these entities — follow `references/delete-instructions.md` for the confirmed gap and the safe deletion paths. |
+| Composing long CLI commands on Windows | This skill does not compose `az` CLI commands — everything goes through MCP. If you eventually need to switch to local mode with `npx @azure-devops/mcp`, remember the `cmd.exe` 8191-char limit (use PowerShell, not `cmd`). |

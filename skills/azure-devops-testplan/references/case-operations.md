@@ -1,99 +1,110 @@
 # Test Case operations
 
-Detalle de cada operación CRUD sobre Test Cases. Supone leído `SKILL.md` (pasos universales + árbol de ramas) y `toolset.md` (mapeo general de tools).
+Detail of each CRUD operation on Test Cases. Assumes `SKILL.md` (universal steps + branch table) and `toolset.md` (general tool mapping) have been read.
 
 ## list cases
 
 - **Tool:** `testplan` / `list_cases`.
-- **Args:** `project`, `plan_id`, opcional `suite_id`.
-- **Retorno:** array de Test Cases con `id`, `name` (título), y referencia al suite padre.
-- **Uso típico:** "qué casos tiene el plan X" o "qué casos hay en la suite Y del plan Z".
+- **Args:** `project`, `plan_id`, optional `suite_id`.
+- **Return:** array of Test Cases with `id`, `name` (title), and reference to the parent suite.
+- **Typical use:** "what cases does plan X have" or "what cases are in suite Y of plan Z".
 
 ## create case
 
 - **Tool:** `testplan_test_case_write` / `create`.
-- **Args mínimos:** `project`, `title`. Opcionales: `areaPath`, `iterationPath`, `priority`, `description`.
-- **Confirmación requerida:** sí (crea artefacto persistente).
-- **Limitación:** la tool `create` crea el work item Test Case con título y fields pero **sin pasos estructurados**. Para incluir pasos Given/When/Then, ejecuta `update_steps` a continuación.
-- **Para añadirlo a una suite:** tras crear, ejecuta `testplan_test_suite_write / add_test_cases` (ver `suite-operations.md`).
+- **Minimum args:** `project`, `title`. Optional and project-dependent: `areaPath`, `iterationPath`, `priority`, `description`, and any custom fields the project's process defines.
+- **Confirmation required:** yes (creates a persistent artefact).
+- **Limitation:** the `create` tool creates the Test Case work item with a title and fields but **without structured steps**. To include steps, run `update_steps` afterwards. Each step is a discrete record with an `action` and an `expectedResult`, rendered as a numbered checklist by the Test Plans UI.
+- **To add it to a suite:** after creating, run `testplan_test_suite_write / add_test_cases` (see `suite-operations.md`).
+- **Field names are project-specific** — discover them via "Field discovery" below before creating or updating.
 
-## get (uno concreto)
+## Field discovery (before creating or updating cases)
 
-- **Tool:** `wit_work_item` / `get` (un Test Case es un work item).
-- **Args:** `id` (work item id del TC).
-- **Retorno:** fields del work item incluyendo título, área, estado, description — pero los pasos estructurados pueden venir serializados en un field especial; ver el campo correspondiente al tipo `Test Case` en el proyecto.
+Azure DevOps allows custom fields per process and project. Do not assume hardcoded field names. Before creating or updating Test Cases:
+
+1. List the work item types of the project to confirm the "Test Case" type name.
+2. List the fields available on that work item type (system fields and custom fields).
+3. Ask the user for the values of any non-default fields the project expects (area path, iteration path, priority, custom fields, etc.).
+
+This mirrors the convention used by the `azure-devops-boards` skill in `pc-delivery`: "Work item types and states vary per project. Do not assume hardcoded type or state names."
+
+## get (one specific case)
+
+- **Tool:** `wit_work_item` / `get` (a Test Case is a work item).
+- **Args:** `id` (work item id of the TC).
+- **Return:** fields of the work item including title, area, state, description — but structured steps may come serialised in a special field; check the field corresponding to the `Test Case` type in the project.
 
 ## update steps
 
 - **Tool:** `testplan_test_case_write` / `update_steps`.
 - **Args:** `project`, `test_case_id`, `steps[]`.
-- **Estructura de `steps[]`:** sigue el formato esperado por la Test Management REST API — array de pasos, cada uno con `action` (lo que se hace) y `expectedResult`. Para modelar Given/When/Then acciones compuestas, añádelas dentro del `action` del paso correspondiente.
-- **Mapeo desde `QA.generator-test-cases.md`:** ver sección "Operación: import desde generator markdown" más abajo — convierte la lista numerada Given/When/Then en `steps[]` con `action` = texto del paso (incluyendo `**Given**` / `**When**` / `**Then**` como prefijo preservando el keyword gherkin) y `expectedResult` = el Expected Result nuclear del último paso `Then`.
+- **Structure of `steps[]`:** follows the format expected by the Test Management REST API — an array of steps, each with `action` (what is done) and `expectedResult` (what is expected). The Test Plans UI renders these as a numbered checklist that can be passed/failed individually during a test run.
+- **Source format is not assumed to be Gherkin.** Sources may be a structured markdown document, an Excel/CSV file, or another Azure DevOps Test Plan. If the source uses Given/When/Then (or any other prefix convention), preserve the prefix as part of the `action` text — e.g. `**Given** the user accesses...` — but do not require it. Plain numbered steps ("1. Log in. 2. Open the dashboard.") are equally valid; map each to a separate `action`, and set `expectedResult` from the expected outcome of that step if the source provides one. See "Operation: import test cases from external sources" below for the full mapping guidance.
 
-## update otros fields
+## update other fields
 
 - **Tool:** `wit_work_item_write` / `update`.
 - **Args:** `id`, `fields` (title, area, priority, etc.).
-- **Confirmación requerida:** sí.
-- **No uses esta tool para pasos** — `update_steps` es la vía correcta para preservar la estructura accionable de pasos. Usar `wit_work_item_update` con texto en `Description`/`ReproSteps` pierde la estructura (mismo problema que `az boards work-item create` con `--type "Test Case"`).
+- **Confirmation required:** yes.
+- **Do not use this tool for steps** — `update_steps` is the correct path to preserve the structured step format (one `action`/`expectedResult` pair per step). Using `wit_work_item_update` with text in `Description`/`ReproSteps` dumps all steps as a single text blob and loses the per-step structure (the same problem `az boards work-item create` with `--type "Test Case"` has).
 
 ## delete
 
-❌ **Gap verificado en el toolset del MCP.** Ninguna tool expuesta para eliminar Test Cases.
-
-**Workaround documentado al usuario:**
-1. Portal: abrir el TC desde el plan/suite → menú `... → Delete` (soft-delete o permanente según permisos).
-2. REST API fuera del MCP: `DELETE https://dev.azure.com/{org}/_apis/wit/workitems/{id}?api-version=...` (requiere cliente HTTP autenticado).
-3. Soft-vía: cambiar `State` del work item a `Closed` (no elimina pero retira de suites activas visualmente).
-
-NO uses `wit_work_item_*` directo para "borrar" sin avisar — el TC puede quedar referenciado en suites y dar huérfanos. Informa del gap al usuario.
+To delete a Test Case, load and follow `references/delete-instructions.md`.
 
 ---
 
-## Operación: import desde `QA.generator-test-cases.md`
+## Operation: import test cases from external sources
 
-Esta es la operación "de alto nivel" que da cabida al caso de uso principal (subir TCs generados por el pipeline QA a un Test Plan existente). No es un agente consumidor ni un hook técnico — el usuario decide cuándo invocarla desde chat.
+This is the "high-level" operation that supports the main use case: uploading externally-defined test cases into an existing Test Plan. It is not a consumer agent or a technical hook — the user decides when to invoke it from chat.
 
-### Prerequisitos de la operación
+### Supported sources
 
-- Archivo `QA.generator-test-cases.md` ya generado por `QA.generator` (anatomía B: Prerrequisitos + pasos numerados Given/When/Then sin expecteds inline + último `Then` con Expected Result nuclear).
-- IDs ya resueltos con el usuario: `project`, `plan_id`, `suite_id` (la suite destino debe existir — si no, créala primero con `suite-operations.md / create`).
-- Para cada TC: `areaPath` e `iterationPath` (si no se especifican, resolve los defaults del proyecto consultando los defaults de team; el suite hereda el área del plan por defecto).
+- **Structured markdown document** — each test case block contains a test ID, a status, and numbered steps with expected results. Steps may or may not use a Given/When/Then convention; plain numbered steps are equally valid.
+- **Excel or CSV file** — rows represent test cases; columns map to test case fields. The agent must inspect the headers, infer the mapping (title, steps, expected result, area, iteration, etc.), and confirm it with the user before creating anything.
+- **Another Azure DevOps Test Plan** — read the source plan's suites and cases (via `testplan / list_cases` or `wit_work_item / get`), then recreate them in the target plan/suite.
 
-### Pasos de la operación
+### Prerequisites
 
-1. **Parsea el markdown** del archivo `QA.generator-test-cases.md`. Para cada Test Case (bloque `✅`/`🟡`/`⛔` de la sección "Test Cases"), extrae:
-   - `TEST-ID` local (ej. `TEST-registration_001a`) — ÚSALO como prefijo del `title` del TC en ADO: `[TEST-registration_001a] Título humano del TC`, para preservar trazabilidad cuando el usuario no tenga tooling cross-link.
-   - `Estado` (Ready / Provisional / Blocked) — si no es `Ready`, **pausa e informa al usuario**; los TCs provisionales pueden importarse pero se sugiere resolverlos primero. Pregunta confirmación explícita antes de seguir.
-   - `Original ID`, `Acceptance Criteria cubierto`, `Suite / Área` (del bloque "Traza") — ponlos en el `description` del TC o en un field personalizado según el proceso del proyecto.
-   - `Prerrequisitos` (lista en `<details>`) — concaténalos como prefacio del `action` del primer paso (un paso "Precondiciones") o como `description` del TC.
-   - `Pasos numerados` (lista 1..N con prefijo Given/When/Then) — cada paso se convierte en un elemento de `steps[]`:
-     - `action` = el texto del paso, preservando el keyword gherkin como prefijo en bold (`**Given** el usuario accede a...`).
-     - El último paso `Then` con el "Expected Result nuclear": el `expectedResult` de ese paso = el texto del Expected Result nuclear; NO duplicarlo en el `action`.
-     - Los pasos marcados `🟡 PROVISIONAL / NO DEFINIDO`: el `action` debe contener el marker y el motivo; el `expectedResult` queda vacío o con la "acción provisional escrita" del markdown.
+- The target IDs already resolved with the user: `project`, `plan_id`, `suite_id` (the target suite must exist — if not, create it first with `suite-operations.md / create`).
+- For each TC: the project-specific fields discovered via Field discovery above (area path, iteration path, custom fields, etc.). Do not assume default values without confirming with the user.
 
-2. **Confirma el plan de importación con el usuario** antes de crear nada: número de TCs a crear, cuántos son provisionales (si los hubo), suite destino. Pide confirmación explícita (reutiliza el patrón del paso universal 2 del `SKILL.md`).
+### Operation steps
 
-3. **Crea cada Test Case:**
-   - Para cada TC parseado, llama a `testplan_test_case_write / create` con `project`, `title` (con prefijo TEST-ID) y opcionalmente `description` con la traza.
-   - Recoge el `id` retornado por cada llamada.
+1. **Parse or read the source**. For each Test Case, extract:
+   - A test identifier (if present) — use it as a prefix of the TC `title` in ADO (e.g. `[TEST-registration_001a] Human title of the TC`) to preserve traceability when the user has no cross-link tooling.
+   - A status, if present (Ready / Provisional / Blocked) — if not `Ready`, **pause and inform the user**; provisional TCs can be imported but it is recommended to resolve them first. Ask for explicit confirmation before proceeding.
+   - Original ID, covered acceptance criteria, suite/area (if present) — put them in the `description` of the TC or in a custom field according to the project's process.
+   - Prerequisites (if present) — concatenate them as a preface of the `action` of the first step (a "Preconditions" step) or as the `description` of the TC.
+   - Numbered steps (list 1..N) — each step becomes an element of `steps[]`. Steps may or may not use a Given/When/Then (Gherkin) convention; plain numbered steps are equally valid.
+     - `action` = the step text. If the source uses a prefix convention (Given/When/Then, or any other), preserve it as part of the text — e.g. `**Given** the user accesses...` — but do not require or assume a specific convention.
+     - `expectedResult` = the expected outcome of that step if the source provides one. If the source folds the expected result into the last step (e.g. a final `Then` step with a "nuclear expected result"), put it in the `expectedResult` of that step; do not duplicate it in the `action`.
+     - Steps marked as provisional/undefined: the `action` must contain the marker and the reason; the `expectedResult` remains empty or with the "provisional written action" from the source.
+   - For Excel/CSV sources: map columns to fields based on the header inspection and the user-confirmed mapping.
+   - For another Test Plan source: read each TC via `wit_work_item / get` and extract its fields and steps.
 
-4. **Actualiza los pasos** de cada TC creado:
-   - Llama a `testplan_test_case_write / update_steps` con el `test_case_id` y el `steps[]` mapeado en paso 1.
-   - Si el `steps[]` está vacío (TC sin pasos, anomalía), informa al usuario y salta ese TC.
+2. **Confirm the import plan with the user** before creating anything: number of TCs to create, how many are provisional (if any), target suite. Ask for explicit confirmation (reuse the pattern of universal step 3 of the `SKILL.md`).
 
-5. **Asocia los TCs a la suite destino:**
-   - Recopila todos los `test_case_id` creados en paso 3.
-   - Llama a `testplan_test_suite_write / add_test_cases` con `project`, `plan_id`, `suite_id`, `test_case_ids[]`.
+3. **Create each Test Case:**
+   - For each parsed TC, call `testplan_test_case_write / create` with `project`, `title` (with test ID prefix if available), and the project-specific fields discovered earlier.
+   - Collect the `id` returned by each call.
 
-6. **Reporta al usuario:**
-   - N TCs creados (con IDs de work items).
-   - N TCs provisionales (si los hubo — lista con IDs y motivos para resolver después).
-   - Suite destino con el total de TCs asociados.
-   - Enlace al portal: `https://dev.azure.com/{org}/{project}/_testPlans?planId={plan_id}`.
+4. **Update the steps** of each created TC:
+   - Call `testplan_test_case_write / update_steps` with the `test_case_id` and the `steps[]` mapped in step 1.
+   - If `steps[]` is empty (TC without steps, anomaly), inform the user and skip that TC.
 
-### Errores y continuación
+5. **Associate the TCs with the target suite:**
+   - Collect all the `test_case_id` created in step 3.
+   - Call `testplan_test_suite_write / add_test_cases` with `project`, `plan_id`, `suite_id`, `test_case_ids[]`.
 
-- Si `update_steps` falla para un TC concreto, **NO abortes todo**: el TC ya existe como work item. Reporta al usuario qué TCs quedaron sin pasos, sigue con el resto y deja una lista de IDs para revisión manual.
-- Si `add_test_cases` falla por una fracción de IDs, reintenta solo con los IDs que fallaron; los que sí se asociaron quedan válidos.
-- Si el archivo `QA.generator-test-cases.md` no sigue la anatomía B (sin `<details>` con traza, sin pasos numerados, sin expected nuclear), **detente e informa al usuario** — no improvises parseo sobre formatos desconocidos.
+6. **Report to the user:**
+   - N TCs created (with work item IDs).
+   - N provisional TCs (if any — list with IDs and reasons to resolve later).
+   - Target suite with the total associated TCs.
+   - Portal link: `https://dev.azure.com/{org}/{project}/_testPlans?planId={plan_id}`.
+
+### Errors and continuation
+
+- If `update_steps` fails for a specific TC, **do NOT abort everything**: the TC already exists as a work item. Report to the user which TCs were left without steps, continue with the rest, and leave a list of IDs for manual review.
+- If `add_test_cases` fails for a fraction of IDs, retry only with the IDs that failed; the ones that were associated remain valid.
+- If the source does not follow any of the supported formats (no parseable structure, no recognisable columns, no readable Test Plan), **stop and inform the user** — do not improvise parsing over unknown formats.

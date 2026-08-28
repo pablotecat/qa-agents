@@ -1,51 +1,51 @@
-# Toolset del dominio `test-plans` — MCP Azure DevOps
+# `test-plans` domain toolset — Azure DevOps MCP
 
-**Fuente canónica:** `docs/TOOLSET.md` del repo `microsoft/azure-devops-mcp` (rama `main`). URL: https://github.com/microsoft/azure-devops-mcp/blob/main/docs/TOOLSET.md
+**Canonical source:** `docs/TOOLSET.md` of the `microsoft/azure-devops-mcp` repository (`main` branch). URL: https://github.com/microsoft/azure-devops-mcp/blob/main/docs/TOOLSET.md
 
-Este archivo es un mapa operativo: para cada operación CRUD sobre Test Plans/Suites/Cases, indica qué tool del MCP invocar. **No recachear aquí el detalle de cada arg** — consulta la fuente canónica upstream para los argumentos exactos y últimos cambios. Lo que sí cacheo aquí es el mapeo verbo-operación → tool, porque ese cruce NO está en TOOLSET.md (listado por tool, no por operación) y el agente no puede inferirlo mirando.
+This file is an operational map: for each CRUD operation on Test Plans/Suites/Cases, it indicates which MCP tool to invoke. **Do not cache the detail of each argument here** — consult the upstream canonical source for exact arguments and latest changes. What is cached here is the verb-operation → tool mapping, because that cross-reference is NOT in TOOLSET.md (which is listed by tool, not by operation) and the agent cannot infer it by inspection.
 
-> ℹ️ Los nombres de tools pueden diferir entre modo remoto y local. En modo remoto, las tools se exponen con prefijo `mcp_ado_*` para algunas y sin prefijo para otras. Al ejecutar, lista las tools disponibles en la sesión MCP y adapta los nombres a lo que veas — no asumas que el nombre en este archivo es literal. La asignación funcional es:
+> ℹ️ Tool names may differ between remote and local modes. In remote mode, tools are exposed with the `mcp_ado_*` prefix for some tools and without a prefix for others. When executing, list the available tools in the current MCP session and adapt the names to what you see — do not assume the name in this file is literal. The functional mapping is:
 
-## Resumen de tools por entidad
+## Tool summary by entity
 
 ### Test Plan
 
-| Operación | Tool (modo local) | Args clave |
+| Operation | Tool (local mode) | Key args |
 |---|---|---|
 | list plans | `testplan` / `list_plans` | `project` |
-| create plan | `testplan_test_plan_write` / `create` | `project`, `name`, y otros campos del plan |
-| get (uno) | `testplan` / `list_plans` + filtra por nombre | (no hay tool directa de get-by-id; usa list y filtra) |
-| update | `wit_work_item_write` / `update` | `id` del plan (es un work item), fields a actualizar |
-| delete | ❌ **gap verificado** — el toolset no expone `delete_plan`. Workaround: eliminar vía portal web, o POST a la Test Management REST API fuera del MCP. |
+| create plan | `testplan_test_plan_write` / `create` | `project`, `name`, and other plan fields |
+| get (one) | `testplan` / `list_plans` + filter by name | (no direct get-by-id tool; use list and filter) |
+| update | `wit_work_item_write` / `update` | `id` of the plan (it is a work item), fields to update |
+| delete | ❌ **verified gap** — no `delete_plan` tool on ADO MCP. Follow `references/delete-instructions.md`. |
 
 ### Test Suite
 
-| Operación | Tool (modo local) | Args clave |
+| Operation | Tool (local mode) | Key args |
 |---|---|---|
 | list suites | `testplan` / `list_suites` | `project`, `plan_id` |
-| create suite | `testplan_test_suite_write` / `create` | `project`, `plan_id`, `suite_type`, `name`, `parent_suite_id` (si anidada) |
-| get (uno) | `testplan` / `list_suites` + filtra por nombre | (no hay tool directa de get-by-id; usa list y filtra) |
+| create suite | `testplan_test_suite_write` / `create` | `project`, `plan_id`, `suite_type`, `name`, `parent_suite_id` (if nested) |
+| get (one) | `testplan` / `list_suites` + filter by name | (no direct get-by-id tool; use list and filter) |
 | add cases to suite | `testplan_test_suite_write` / `add_test_cases` | `project`, `plan_id`, `suite_id`, `test_case_ids[]` |
-| update | `wit_work_item_write` / `update` (un suite se gestiona en parte como work item) | `id` del suite, fields |
-| delete | ❌ **gap verificado** — no tool `delete_suite`. Workaround: portal web o REST API fuera del MCP. |
+| update | `wit_work_item_write` / `update` (a suite is partly managed as a work item) | `id` of the suite, fields |
+| delete | ❌ **verified gap** — no `delete_suite` tool on ADO MCP. Follow `references/delete-instructions.md`. |
 
 ### Test Case
 
-| Operación | Tool (modo local) | Args clave |
+| Operation | Tool (local mode) | Key args |
 |---|---|---|
-| list cases | `testplan` / `list_cases` | `project`, `plan_id` (mínimo), opcional `suite_id` |
-| create case | `testplan_test_case_write` / `create` | `project`, `title`, área/iteración, etc. |
-| get (uno) | `wit_work_item` / `get` (un Test Case es un work item) | `id` |
-| update steps | `testplan_test_case_write` / `update_steps` | `project`, `test_case_id`, `steps[]` (estructura de pasos Given/When/Then) |
-| update otros fields | `wit_work_item_write` / `update` | `id`, fields (title, area, etc.) |
-| delete | ❌ **gap verificado** — no tool `delete_case`. Workaround: `wit_work_item` Delete vía REST API fuera del MCP, o soft-delete desde el portal. |
+| list cases | `testplan` / `list_cases` | `project`, `plan_id` (minimum), optional `suite_id` |
+| create case | `testplan_test_case_write` / `create` | `project`, `title`, area/iteration, etc. |
+| get (one) | `wit_work_item` / `get` (a Test Case is a work item) | `id` |
+| update steps | `testplan_test_case_write` / `update_steps` | `project`, `test_case_id`, `steps[]` (structured steps: each with `action` and `expectedResult`) |
+| update other fields | `wit_work_item_write` / `update` | `id`, fields (title, area, etc.) |
+| delete | ❌ **verified gap** — no `delete_case` tool on ADO MCP. Follow `references/delete-instructions.md`. |
 
-## Notas de mapeo
+## Mapping notes
 
-- **Test Case es también Work Item.** Cualquier operación de "get" o "update de fields genéricos" puede usar `wit_*` en vez de `testplan_*`. `testplan_test_case_*` solo para operaciones específicas del dominio Test Plans (crear TC en contexto de plan/suite, actualizar pasos estructurados).
-- **update_steps** es la tool que preserva la estructura accionable Given/When/Then. NO uses `wit_work_item_update` con `Description`/`ReproSteps` si quieres mantener pasos separados — esa vía pierde la estructura (es el mismo problema `az boards` historicamente tenía).
-- **add_test_cases** no crea los TCs, los asocia a una suite existente. Para "crear TCs y asociarlos a suite de una sola vez" debe encadenarse: `testplan_test_case_write/create` por cada TC → luego `testplan_test_suite_write/add_test_cases` con los IDs resultantes. Es el patrón que usa la operación "import desde `QA.generator-test-cases.md`".
+- **A Test Case is also a Work Item.** Any "get" or "generic field update" operation can use `wit_*` instead of `testplan_*`. Use `testplan_test_case_*` only for operations specific to the Test Plans domain (create a TC in the context of a plan/suite, update structured steps).
+- **update_steps** is the tool that preserves the structured step format (each step a discrete `action`/`expectedResult` pair rendered as a pass/fail checklist). Do not substitute `wit_work_item_update` for steps — see `case-operations.md` (update other fields) for why it dumps them as a single text blob. The source format is not assumed to be Gherkin: plain numbered steps, Excel/CSV rows, or steps copied from another Test Plan are all valid inputs.
+- **add_test_cases** associates existing Test Cases with a suite (it does not create them). See `suite-operations.md` (add cases to suite) for the chain pattern used by the "import test cases from external sources" operation.
 
-## Verificación al ejecutar
+## Execution verification
 
-Antes de asumir un nombre de tool, lista las tools del servidor `ado-remote-mcp` disponibles en la sesión. Si alguna tool esperada no aparece, probablemente el server remoto tenga un subconjunto distinto al local (el remoto está en proceso de alineación según el warning en `TOOLSET.md` upstream). Reporta el mismatch al usuario y documenta para que la skill se mantenga sincronizada.
+Before assuming a tool name, list the tools of the `ado-remote-mcp` server available in the session. If an expected tool does not appear, the remote server likely exposes a different subset than the local one (the remote is in the process of alignment per the warning in the upstream `TOOLSET.md`). Report the mismatch to the user and document it so the skill stays synchronised.
