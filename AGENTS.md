@@ -7,11 +7,11 @@
 
 ## Project Overview
 
-`qa-agents` es un paquete npm (v2.1.1) que instala los **agentes QA de GitHub Copilot** en cualquier proyecto consumidor. El runtime no se empaqueta dentro del tarball: el binario `bin/install.mjs` hace un `git clone --depth 1` del repo `pablotecat/qa-agent-creation` y copia los directorios runtime a `<cwd>/.github/`.
+`qa-agents` es un paquete npm (v2.1.1) que instala los **agentes QA de GitHub Copilot** en cualquier proyecto consumidor. El runtime no se empaqueta dentro del tarball: el binario `bin/install.mjs` hace un `git clone --depth 1` del repo `pablotecat/qa-agent-creation` y copia los directorios runtime a `<cwd>/.agents/`.
 
 El paquete está pensado para distribuirse por dos vías:
 
-1. **Runner completo** → `npx qa-agents` (instala agentes + instrucciones + prompts + scripts + skills en `.github/`).
+1. **Runner completo** → `npx qa-agents` (instala agentes + instrucciones + prompts + scripts + skills en `.agents/`).
 2. **Solo skills** → `npx skills add pablotecat/qa-agents` (estándar del ecosistema `skills`; solo carpetas con `SKILL.md`).
 
 ### Stack y arquitectura
@@ -67,7 +67,7 @@ git --version
 El instalador es el binario del paquete. Para validarlo contra el repo local sin publicar:
 
 ```bash
-# corre el binario contra el cwd actual; copiará el runtime a ./.github/
+# corre el binario contra el cwd actual; copiará el runtime a ./.agents/
 node bin/install.mjs
 
 # con rama alternativa del repo fuente
@@ -77,7 +77,7 @@ node bin/install.mjs --branch <rama>
 node bin/install.mjs --help
 ```
 
-> El instalador siempre sobrescribe `.github/` en el destino (overwrite forzado, idempotente, sin confirmación interactiva). Excluye archivos vestigiales con prefijo `old.`.
+> El instalador siempre sobrescribe `.agents/` en el destino (overwrite forzado, idempotente, sin confirmación interactiva). Excluye archivos vestigiales con prefijo `old.`.
 
 ### Configuración del MCP de Azure DevOps (opcional, opt-in)
 
@@ -147,17 +147,17 @@ Este repositorio no tiene suite de tests automatizados. La validación es manual
 ### Validación del instalador
 
 ```bash
-# 1. en un proyecto vacío, corre el binario y verifica que .github/ se llene
+# 1. en un proyecto vacío, corre el binario y verifica que .agents/ se llene
 node bin/install.mjs
 
 # 2. verifica que los directorios runtime existan en el destino
-ls .github/   # agents/, instructions/, prompts/, scripts/, skills/
+ls .agents/   # agents/, instructions/, prompts/, scripts/, skills/
 
 # 3. re-ejecuta: debe ser idempotente (overwrite forzado, sin errores)
 node bin/install.mjs
 
 # 4. verifica que los archivos con prefijo `old.` NO se copien
-ls .github/skills/<cualquier-skill>/   # no debe haber archivos old.*
+ls .agents/skills/<cualquier-skill>/   # no debe haber archivos old.*
 ```
 
 ### Validación de skills y agentes

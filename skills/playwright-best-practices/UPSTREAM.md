@@ -25,4 +25,4 @@ Después de copiar:
 
 1. Anota el nuevo `git -C $tmp rev-parse HEAD` y actualízalo en este archivo.
 2. Verifica que el frontmatter del `SKILL.md` sigue intacto (`name`, `metadata.version`, `license`).
-3. Ejecuta `npx qa-agents` en un directorio temporal limpio para confirmar que la skill se instala correctamente en `.github/skills/playwright-best-practices/`.
+3. Ejecuta `npx qa-agents` en un directorio temporal limpio para confirmar que la skill se instala correctamente en `.agents/skills/playwright-best-practices/`.

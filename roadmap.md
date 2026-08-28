@@ -40,7 +40,7 @@ Este documento es la fuente canónica de features del proyecto `qa-agents`. Se o
 | 4 agentes QA | `QA.documentation`, `QA.planner`, `QA.generator`, `QA.prioritization` — pipeline manual, cada uno `user-invocable` | 👤 🛠 |
 | Pipeline manual con handoff JSON | Flujo de agente a agente vía handoff estructurado (`handoff-schema.json`). Decisión humana en cada transición. | 👤 🛠 |
 | Sistema de sesiones | Estructura canónica en `tests/Documentation/sessions/` con subcarpetas por agente, session counter y manifest | 👤 🛠 |
-| npm package | `qa-agents@2.1.0` — instalador que clona el repo y copia agentes, instrucciones, prompts, scripts y skills a `.github/` | 👤 |
+| npm package | `qa-agents@2.1.0` — instalador que clona el repo y copia agentes, instrucciones, prompts, scripts y skills a `.agents/` | 👤 |
 | Script de timestamp | `scripts/current-time.mjs` — JSON con UTC, local, offset y timezone para worklogs | 🛠 |
 
 ### Fase 2 — Skills operativas
@@ -131,7 +131,7 @@ Este documento es la fuente canónica de features del proyecto `qa-agents`. Se o
 |---------|---------|
 | Azure DevOps | Push de test cases a test plans, actualización de resultados de ejecución |
 | Jira/Xray | Creación de test issues, sincronización de estados |
-| Config | Variables de entorno o `.github/qa-connections.json` |
+| Config | Variables de entorno o `.agents/qa-connections.json` |
 | Perfil | 👤 🛠 |
 
 ---

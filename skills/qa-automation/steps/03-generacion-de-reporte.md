@@ -28,7 +28,7 @@ Esta skill resuelve el directorio de salida del reporte (`report_output_dir`) as
    - `no_code_in_report`: el reporte no incluye el contenido de ningún `.spec.ts` ni de page objects.
    - `deprecated_tests_use_fixme`: todo test deprecado usa `test.fixme('deprecado: <motivo>')`.
    - Conteos: `test_cases_total`, `tests_created`, `tests_edited`, `tests_deprecated`, `tests_provisional`, `pom_edited`, `pom_created`, `gaps_resolved`, `gaps_pending`.
-3. Construye el handoff JSON mínimo siguiendo la skill `.github/skills/qa-handoff-creation/SKILL.md`:
+3. Construye el handoff JSON mínimo siguiendo la skill `.agents/skills/qa-handoff-creation/SKILL.md`:
    - `agent`: `QA.automation`.
    - `summary_md`: ruta a `QA.automation-generation-report.md`.
    - `work_log_md`: ruta al work-log (construido durante los pasos 01–03 vía `qa-worklog`).

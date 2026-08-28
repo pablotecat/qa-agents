@@ -19,7 +19,7 @@ Esta skill resuelve el directorio de salida del código (`code_output_dir`) así
 
 ## Invocación de playwright-best-practices
 
-**OBLIGATORIO**: antes de escribir cualquier línea de código, ejecuta la skill `.github/skills/playwright-best-practices/SKILL.md` y consulta sus referencias para cada actividad de implementación. NO tomes decisiones de diseño de Playwright por tu cuenta: si `playwright-best-practices` cubre el caso, síguelo; si no, registra una decisión pendiente y aplica el patrón más próximo documentado.
+**OBLIGATORIO**: antes de escribir cualquier línea de código, ejecuta la skill `.agents/skills/playwright-best-practices/SKILL.md` y consulta sus referencias para cada actividad de implementación. NO tomes decisiones de diseño de Playwright por tu cuenta: si `playwright-best-practices` cubre el caso, síguelo; si no, registra una decisión pendiente y aplica el patrón más próximo documentado.
 
 Mapa de referencias clave (no exhaustivo) según la actividad. Todas viven dentro de `playwright-best-practices/`:
 

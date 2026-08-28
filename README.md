@@ -1,6 +1,6 @@
 # qa-agents
 
-Paquete npm que instala los **agentes QA de GitHub Copilot** en cualquier proyecto. El runtime no va dentro del paquete: el binario lo **descarga desde GitHub** (`pablotecat/qa-agents`) en cada ejecución. Los agentes, skills, instrucciones y prompts quedan en `.github/`, listos para ser invocados desde Copilot.
+Paquete npm que instala los **agentes QA de GitHub Copilot** en cualquier proyecto. El runtime no va dentro del paquete: el binario lo **descarga desde GitHub** (`pablotecat/qa-agents`) en cada ejecución. Los agentes, skills, instrucciones y prompts quedan en `.agents/`, listos para ser invocados desde Copilot.
 
 Para futuras implementaciones y mejoras planeadas ver roadmap.md
 
@@ -8,7 +8,7 @@ Para futuras implementaciones y mejoras planeadas ver roadmap.md
 
 ### Modo 1 — Runner completo (recomendado para el pipeline QA)
 
-Instala todo el runtime en `.github/` (overwrite forzado, idempotente, sin confirmación interactiva):
+Instala todo el runtime en `.agents/` (overwrite forzado, idempotente, sin confirmación interactiva):
 
 ```bash
 npx qa-agents

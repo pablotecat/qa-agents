@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// qa-agents — Descarga el runtime de agentes QA desde GitHub y lo copia a .github/.
+// qa-agents — Descarga el runtime de agentes QA desde GitHub y lo copia a .agents/.
 // El runtime NO va dentro del paquete npm: se descarga con shallow clone para obtener siempre
 // la última versión del repo pablotecat/qa-agent-creation. Overwrite forzado idempotente.
 // Sin dependencias npm externas; requiere `git` instalado. Node >= 16.7 (fs.cpSync).
@@ -13,11 +13,11 @@ import { resolve, join, relative, basename } from "node:path";
 const SOURCE_REPO = "https://github.com/pablotecat/qa-agent-creation.git";
 const DEFAULT_BRANCH = "main";
 
-// Directorios runtime del repo que se copian al destino/.github/.
+// Directorios runtime del repo que se copian al destino/.agents/.
 const RUNTIME_DIRS = ["agents", "instructions", "prompts", "scripts", "skills"];
 
-// Destino: <cwd>/.github/  (cwd del usuario que ejecuta npx)
-const destRoot = resolve(process.cwd(), ".github");
+// Destino: <cwd>/.agents/  (cwd del usuario que ejecuta npx)
+const destRoot = resolve(process.cwd(), ".agents");
 
 function fail(message) {
   console.error(`✖ ${message}`);
@@ -37,7 +37,7 @@ function parseArgs(argv) {
       console.log(`Uso: npx qa-agents [--branch <rama>]
 
 Descarga el runtime QA (agentes, instrucciones, prompts, skills) desde
-${SOURCE_REPO} (rama "${DEFAULT_BRANCH}" por defecto) y lo copia a ./.github/.
+${SOURCE_REPO} (rama "${DEFAULT_BRANCH}" por defecto) y lo copia a ./.agents/.
 
 Opciones:
   --branch, -b <rama>   Rama alternativa a clonar (default: ${DEFAULT_BRANCH})
@@ -100,7 +100,7 @@ function main() {
   const { branch } = parseArgs(process.argv);
 
   console.log(
-    `qa-agents — instalando runtime QA en .github/\n` +
+    `qa-agents — instalando runtime QA en .agents/\n` +
       `  fuente: ${SOURCE_REPO}\n` +
       `  rama:   ${branch}\n`
   );
@@ -188,10 +188,10 @@ function main() {
   cleanup();
 
   console.log(
-    `\n✔ ${totalFiles} ${totalFiles === 1 ? "archivo copiado" : "archivos copiados"} en ${copiedDirs} ${copiedDirs === 1 ? "carpeta" : "carpetas"} → ${relative(process.cwd(), destRoot) || ".github"}`
+    `\n✔ ${totalFiles} ${totalFiles === 1 ? "archivo copiado" : "archivos copiados"} en ${copiedDirs} ${copiedDirs === 1 ? "carpeta" : "carpetas"} → ${relative(process.cwd(), destRoot) || ".agents"}`
   );
   console.log(
-    `\nLos agentes QA están disponibles en .github/. Ya puedes invocarlos desde GitHub Copilot.`
+    `\nLos agentes QA están disponibles en .agents/. Ya puedes invocarlos desde GitHub Copilot.`
   );
 }
 

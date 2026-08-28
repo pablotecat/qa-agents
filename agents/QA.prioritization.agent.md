@@ -31,9 +31,9 @@ Si una fuente remota no esta accesible o su formato no puede leerse con las herr
 
 ## Flujo de trabajo
 
-1. DEBES ejecutar esta skill de workflow: `.github/skills/qa-prioritization/SKILL.md`, pasandole la carpeta del agente como `<output_dir>`.
-2. DEBES usar la skill `.github/skills/qa-worklog/SKILL.md` para registrar los pasos del workflow.
-3. DEBES crear un handoff usando esta skill: `.github/skills/qa-handoff-creation/SKILL.md`.
+1. DEBES ejecutar esta skill de workflow: `.agents/skills/qa-prioritization/SKILL.md`, pasandole la carpeta del agente como `<output_dir>`.
+2. DEBES usar la skill `.agents/skills/qa-worklog/SKILL.md` para registrar los pasos del workflow.
+3. DEBES crear un handoff usando esta skill: `.agents/skills/qa-handoff-creation/SKILL.md`.
 
 ## Criterios de Finalizacion
 
