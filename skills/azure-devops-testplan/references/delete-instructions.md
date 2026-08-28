@@ -83,6 +83,8 @@ Always, in order:
 
 ## Execution notes for path C (REST DELETE)
 
+> **Exception to the 'no CLI' rule.** The skill's general guidance says it does not compose `az` CLI commands — everything goes through MCP. However, the MCP toolset has no `delete` tool for Test Plans, Suites, or Cases (verified gap). When the user has been warned about the cost and the irreversibility of deletion, has explicitly chosen path C, and the `az devops` CLI is available and authenticated, invoking `az devops invoke` with a `DELETE` is the documented exception. It is invoked at the explicit user request after the gap has been surfaced, not as a routine operation, and it operates outside the MCP channel. The general 'no CLI' rule still applies to every other operation in this skill.
+
 - Do NOT invent the HTTP path. Take it from the entity data above, substituting the resolved IDs.
 - Use `az devops invoke` (preferred, uses the user's existing auth) or, if the user provides an authenticated HTTP client, that client. Do not craft raw `curl` with a manually pasted PAT — PATs must never transit through the agent. If the user has no `az devops` configured and no authenticated client, refuse path C and offer path B (portal).
 - Remember the Windows `cmd.exe` 8191-char limit if composing a long `az devops invoke` command: run it via PowerShell or the integrated terminal, not `cmd.exe`.

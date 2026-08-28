@@ -43,7 +43,7 @@ Before any operation, identify and confirm with the user: `organization` (must b
 
 ### Step 2: Discover project-specific fields (before creating or updating cases)
 
-Before creating or updating Test Cases, run the Field discovery flow in `references/case-operations.md` — Azure DevOps allows custom fields per process and project, so hardcoded field names cannot be assumed.
+Before creating or updating Test Cases, run the Field discovery flow in `references/case-operations.md`. Concretely: call `wit_work_item` with action `get_type` (passing `project` and `workItemType: "Test Case"`) to retrieve the list of fields available on that work item type. Azure DevOps allows custom fields per process and project, so hardcoded field names cannot be assumed.
 
 ### Step 3: Confirm before writing
 
@@ -91,7 +91,7 @@ Return a concise summary: created/modified/deleted IDs, links to the Azure DevOp
 | Pitfall | Fix |
 |---|---|
 | Tool name mismatch between remote and local MCP modes | List the available tools in the current MCP session and adapt names to what you see. The remote server exposes tools with a prefix for some and without for others. |
-| Updating test case steps via `wit_work_item_update` | Use `testplan_test_case_write / update_steps` to preserve the per-step structure — see `references/case-operations.md` (update other fields) for why `wit_work_item_update` on `Description`/`ReproSteps` fails. |
+| Updating test case steps via `wit_work_item_write / update` | Use `testplan_test_case_write / update_steps` to preserve the per-step structure — see `references/case-operations.md` (update other fields) for why `wit_work_item_write / update` on `Description`/`ReproSteps` fails. |
 | Assuming hardcoded field names without discovery | Azure DevOps allows custom fields per process/project. Always list work item types and fields before creating or updating Test Cases. |
 | Importing test cases with non-Ready status | If a source test case has a provisional or blocked status, pause and inform the user before importing. Resolve or explicitly confirm before proceeding. |
 | Using `wit_work_item_*` to delete plans/suites/cases | The toolset has no delete tool for these entities — follow `references/delete-instructions.md` for the confirmed gap and the safe deletion paths. |

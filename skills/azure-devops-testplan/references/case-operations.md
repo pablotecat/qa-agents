@@ -22,9 +22,9 @@ Detail of each CRUD operation on Test Cases. Assumes `SKILL.md` (universal steps
 
 Azure DevOps allows custom fields per process and project. Do not assume hardcoded field names. Before creating or updating Test Cases:
 
-1. List the work item types of the project to confirm the "Test Case" type name.
-2. List the fields available on that work item type (system fields and custom fields).
-3. Ask the user for the values of any non-default fields the project expects (area path, iteration path, priority, custom fields, etc.).
+1. Call `wit_work_item` with action `get_type`, passing `project` and `workItemType: "Test Case"`. The response includes the field list for that work item type (system and custom fields).
+2. From the returned field list, identify the fields the project expects (title, area path, iteration path, priority, custom fields, etc.).
+3. Ask the user for the values of any non-default fields the project expects (area path, iteration path, priority, custom fields, etc.). Do not assume default values without confirming with the user.
 
 This mirrors the convention used by the `azure-devops-boards` skill in `pc-delivery`: "Work item types and states vary per project. Do not assume hardcoded type or state names."
 
@@ -46,11 +46,11 @@ This mirrors the convention used by the `azure-devops-boards` skill in `pc-deliv
 - **Tool:** `wit_work_item_write` / `update`.
 - **Args:** `id`, `fields` (title, area, priority, etc.).
 - **Confirmation required:** yes.
-- **Do not use this tool for steps** — `update_steps` is the correct path to preserve the structured step format (one `action`/`expectedResult` pair per step). Using `wit_work_item_update` with text in `Description`/`ReproSteps` dumps all steps as a single text blob and loses the per-step structure (the same problem `az boards work-item create` with `--type "Test Case"` has).
+- **Do not use this tool for steps** — `update_steps` is the correct path to preserve the structured step format (one `action`/`expectedResult` pair per step). Using `wit_work_item_write / update` with text in `Description`/`ReproSteps` dumps all steps as a single text blob and loses the per-step structure (the same problem `az boards work-item create` with `--type "Test Case"` has).
 
 ## delete
 
-To delete a Test Case, load and follow `references/delete-instructions.md`.
+To delete a Test Case, load and follow `references/delete-instructions.md`. The toolset exposes no `delete_case` tool, and deletion is the highest-risk write operation in this skill.
 
 ---
 

@@ -39,9 +39,9 @@ Every operation on suites requires `project` + `plan_id`. If the user does not k
 
 ## update
 
-- **Tool:** `wit_work_item_write` / `update` (a "typical" suite is partly managed as a work item of a certain type; structural properties of the suite such as `parent_id` or `suite_type` are not changed via `wit_work_item_update`).
-- **Real limitation:** the toolset does not provide a clean tool to re-parent suites or change their type. To rename or change `areaPath`, `wit_work_item_update` may suffice. To restructure, fall back to the portal.
+- **Tool:** `wit_work_item_write` / `update` (a "typical" suite is partly managed as a work item of a certain type; structural properties of the suite such as `parent_id` or `suite_type` are not changed via `wit_work_item_write / update`).
+- **Real limitation:** the toolset does not provide a clean tool to re-parent suites or change their type. To rename or change `areaPath`, `wit_work_item_write / update` may suffice. To restructure, fall back to the portal.
 
 ## delete
 
-To delete a Test Suite, load and follow `references/delete-instructions.md`.
+To delete a Test Suite, load and follow `references/delete-instructions.md`. The toolset exposes no `delete_suite` tool, and deletion is the highest-risk write operation in this skill.
