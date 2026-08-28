@@ -81,7 +81,7 @@ node bin/install.mjs --help
 
 ### Configuración del MCP de Azure DevOps (opcional, opt-in)
 
-La skill `skills/azure-devops-testplan/` gestiona ella misma el setup del servidor MCP **local (stdio)** `@azure-devops/mcp`, que funciona en cualquier cliente MCP soportado (VS Code, Cursor, OpenCode, Claude Code, Codex, Kilo Code, etc.) vía autenticación interactiva por browser. No hay script de instalación: el agente detecta el cliente (por marcadores de filesystem) y escribe/mergea la config en el fichero correcto de ese cliente siguiendo los bloques por cliente de `skills/azure-devops-testplan/references/mcp-setup.md`.
+La skill `skills/azure-devops-mcp-setup/` gestiona el setup del servidor MCP **local (stdio)** `@azure-devops/mcp`, que funciona en cualquier cliente MCP soportado (VS Code, Cursor, OpenCode, Claude Code, Codex, Kilo Code, etc.) vía autenticación interactiva por browser. No hay script de instalación: el agente detecta el cliente (por marcadores de filesystem) y escribe/mergea la config en el fichero correcto de ese cliente siguiendo los bloques por cliente de `skills/azure-devops-mcp-setup/references/mcp-setup.md`.
 
 - **Requisito**: Node.js 20+ en la máquina destino (el paquete se ejecuta vía `npx`).
 - **Dominios**: `-d core work-items test-plans` (filtrado del toolset al alcance de la skill).
