@@ -43,12 +43,12 @@ Before any operation, identify and confirm with the user: `organization` (must b
 | Operation target | Required IDs |
 |---|---|
 | Test Plan | `project` |
-| Test Suite | `project` + `plan_id` (if unknown, run `testplan / list_plans` first) |
+| Test Suite | `project` + `plan_id` (if unknown, run `mcp_ado_testplan` / `list_plans` first) |
 | Test Case | `project` + `plan_id` + `suite_id` (if unknown, list first) — or `case_id` for get/update |
 
 ### Step 2: Discover project-specific fields (before creating or updating cases)
 
-Before creating or updating Test Cases, run the Field discovery flow in `references/case-operations.md`. Concretely: call `wit_work_item` with action `get_type` (passing `project` and `workItemType: "Test Case"`) to retrieve the list of fields available on that work item type. Azure DevOps allows custom fields per process and project, so hardcoded field names cannot be assumed.
+Before creating or updating Test Cases, run the Field discovery flow in `references/case-operations.md`. Concretely: call `mcp_ado_wit_work_item` with action `get_type` (passing `project` and `workItemType: "Test Case"`) to retrieve the list of fields available on that work item type. Azure DevOps allows custom fields per process and project, so hardcoded field names cannot be assumed.
 
 ### Step 3: Confirm before writing
 
@@ -64,7 +64,7 @@ Invoke the MCP tool(s) according to the entity reference. Consult the matching r
 | Test Suite | `references/suite-operations.md` |
 | Test Case | `references/case-operations.md` (includes the import operation) |
 
-For the exact tool names and arguments for each operation, consult `references/toolset.md` (which maps to `docs/TOOLSET.md` of the upstream `microsoft/azure-devops-mcp` repository). Tool names differ between remote and local modes, so list the tools available in the current MCP session before invoking.
+For the exact tool names and arguments for each operation, consult `references/toolset.md` (which maps to `docs/TOOLSET.md` of the upstream `microsoft/azure-devops-mcp` repository).
 
 ### Step 5: Report the result
 
@@ -95,9 +95,8 @@ Return a concise summary: created/modified/deleted IDs, links to the Azure DevOp
 
 | Pitfall | Fix |
 |---|---|
-| Tool name mismatch between remote and local MCP modes | List the available tools in the current MCP session and adapt names to what you see. The remote server exposes tools with a prefix for some and without for others. |
-| Updating test case steps via `wit_work_item_write / update` | Use `testplan_test_case_write / update_steps` to preserve the per-step structure — see `references/case-operations.md` (update other fields) for why `wit_work_item_write / update` on `Description`/`ReproSteps` fails. |
+| Updating test case steps via `mcp_ado_wit_work_item_write / update` | Use `mcp_ado_testplan_test_case_write / update_steps` to preserve the per-step structure — see `references/case-operations.md` (update other fields) for why `mcp_ado_wit_work_item_write / update` on `Description`/`ReproSteps` fails. |
 | Assuming hardcoded field names without discovery | Azure DevOps allows custom fields per process/project. Always list work item types and fields before creating or updating Test Cases. |
 | Importing test cases with non-Ready status | If a source test case has a provisional or blocked status, pause and inform the user before importing. Resolve or explicitly confirm before proceeding. |
-| Using `wit_work_item_*` to delete plans/suites/cases | The toolset has no delete tool for these entities — follow `references/delete-instructions.md` for the confirmed gap and the safe deletion paths. |
+| Using `mcp_ado_wit_work_item_*` to delete plans/suites/cases | The toolset has no delete tool for these entities — follow `references/delete-instructions.md` for the confirmed gap and the safe deletion paths. |
 | Composing long CLI commands on Windows | This skill does not compose `az` CLI commands — everything goes through MCP. If you eventually need to switch to local mode with `npx @azure-devops/mcp`, remember the `cmd.exe` 8191-char limit (use PowerShell, not `cmd`). |
