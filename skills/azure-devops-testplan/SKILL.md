@@ -38,7 +38,7 @@ On the first use of the skill in a workspace, load `references/mcp-setup.md` and
 5. Instruct the user to restart the MCP client so the config takes effect.
 6. Verify connectivity with a read-only call (`mcp_ado_core_list_projects`) before running any skill operation.
 
-Do not improvise config outside the per-client blocks in `references/mcp-setup.md`. If the user's client is not listed there, report the gap and fall back to the upstream Getting Started guide linked from that reference. An optional remote (HTTP) mode exists for VS Code-only use with a Microsoft account; it does not work in non-Microsoft clients and is documented as a fallback in `mcp-setup.md`.
+Do not improvise config outside the per-client blocks in `references/mcp-setup.md`. If the user's client is not listed there, report the gap and fall back to the upstream Getting Started guide linked from that reference.
 
 ## Workflow
 
@@ -106,5 +106,4 @@ Return a concise summary: created/modified/deleted IDs, links to the Azure DevOp
 | Importing test cases with non-Ready status | If a source test case has a provisional or blocked status, pause and inform the user before importing. Resolve or explicitly confirm before proceeding. |
 | Using `wit_work_item_*` to delete plans/suites/cases | The toolset has no delete tool for these entities — follow `references/delete-instructions.md` for the confirmed gap and the safe deletion paths. |
 | Assuming `.vscode/mcp.json` is the only config location | Config location depends on the MCP client: VS Code → `.vscode/mcp.json`, Cursor → `.cursor/mcp.json`, OpenCode → `opencode.json`, Codex → `~/.codex/config.toml`, Claude Code → CLI-registered, Claude Desktop → `claude_desktop_config.json`, etc. Detect the client per `references/mcp-setup.md` (first-run flow) before writing config. |
-| Trying to use the remote HTTP endpoint in a non-Microsoft client | Entra ID does not support OAuth Dynamic Client Registration for non-Microsoft clients; the remote `mcp.dev.azure.com` endpoint fails to authenticate. Use the local stdio mode (`npx -y @azure-devops/mcp`) — it works in every supported client via interactive browser sign-in. |
 | Composing long CLI commands on Windows | This skill does not compose `az` CLI commands — everything goes through MCP. The local `npx @azure-devops/mcp` server has no `az` CLI surface; if you ever compose a long shell command, remember the `cmd.exe` 8191-char limit (use PowerShell, not `cmd`). |

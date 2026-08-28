@@ -31,7 +31,7 @@ El paquete está pensado para distribuirse por dos vías:
 │   └── preferences/             # historial y README de preferencias calibradas
 ├── prompts/                     # slash commands (.md)
 ├── skills/                      # skills de workflow + transversales (SKILL.md + steps/ + references/)
-├── scripts/                     # utilidades: current-time.mjs, install-ado-mcp.ps1
+├── scripts/                     # utilidades: current-time.mjs
 ├── presentación/                # docs auxiliares en español (roadmap, diagramas, links)
 ├── new-skill.md                 # tarea viva: creación de skill azdevops-test-management
 ├── roadmap.md                   # fuente canónica de features (realizado + horizontes)
@@ -48,7 +48,7 @@ El paquete está pensado para distribuirse por dos vías:
 
 - **Node.js ≥16.7** (uso de `fs.cpSync`).
 - **Git** en el PATH (el instalador hace shallow clone).
-- Para el script de MCP de Azure DevOps: **PowerShell 5.1** (Windows).
+- Para el servidor MCP local de Azure DevOps en proyectos destino: **Node.js 20+** (requerido por `npx @azure-devops/mcp`).
 
 ### Instalación de dependencias
 
@@ -79,21 +79,14 @@ node bin/install.mjs --help
 
 > El instalador siempre sobrescribe `.github/` en el destino (overwrite forzado, idempotente, sin confirmación interactiva). Excluye archivos vestigiales con prefijo `old.`.
 
-### Instalación del MCP de Azure DevOps (opcional, opt-in)
+### Configuración del MCP de Azure DevOps (opcional, opt-in)
 
-Solo se ejecuta bajo demanda del usuario. Configura el servidor MCP remoto HTTP en `.vscode/mcp.json`:
+La skill `skills/azure-devops-testplan/` gestiona ella misma el setup del servidor MCP **local (stdio)** `@azure-devops/mcp`, que funciona en cualquier cliente MCP soportado (VS Code, Cursor, OpenCode, Claude Code, Codex, Kilo Code, etc.) vía autenticación interactiva por browser. No hay script de instalación: el agente detecta el cliente (por marcadores de filesystem) y escribe/mergea la config en el fichero correcto de ese cliente siguiendo los bloques por cliente de `skills/azure-devops-testplan/references/mcp-setup.md`.
 
-```powershell
-# interactivo: pide la organización
-.\scripts\install-ado-mcp.ps1
-
-# no interactivo
-.\scripts\install-ado-mcp.ps1 -Organization contoso -Force
-```
-
-- Idempotente: si `ado-remote-mcp` ya existe en `.vscode/mcp.json`, lo reemplaza y preserva los demás servidores.
-- Valida el slug: alfanumérico, guiones, sin protocolo, sin slashes, 2-50 caracteres.
-- Usado por la skill `skills/azdevops-test-management/`.
+- **Requisito**: Node.js 20+ en la máquina destino (el paquete se ejecuta vía `npx`).
+- **Dominios**: `-d core work-items test-plans` (filtrado del toolset al alcance de la skill).
+- **Idempotente**: si un server `ado` con `@azure-devops/mcp` ya existe y apunta a la misma organización, no se sobrescribe; se preservan los demás servidores.
+- El skill solo soporta el modo local (stdio); no existe un modo remoto soportado.
 
 ## Development Workflow
 

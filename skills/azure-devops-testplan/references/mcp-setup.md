@@ -1,10 +1,8 @@
 # Azure DevOps MCP server setup
 
-Configuration of the `microsoft/azure-devops-mcp` server required by this skill. The **local (stdio) mode** is the primary and recommended setup: it works in every supported MCP client, requires no Entra app registration, and authenticates with a browser prompt on first tool call.
+Configuration of the `microsoft/azure-devops-mcp` server required by this skill. The **local (stdio) mode** is the only setup this skill supports: it works in every supported MCP client, requires no app registration, and authenticates with a browser prompt on first tool call.
 
-The remote (HTTP) mode exists as a Microsoft-recommended option for VS Code with a Microsoft account, but **it does not work in non-Microsoft clients** because Entra ID does not support OAuth Dynamic Client Registration (RFC 7591) for those clients. See the *Remote alternative* section at the bottom of this file.
-
-## Local server (primary)
+## Local server
 
 The local server runs the official npm package `@azure-devops/mcp` as a `stdio` process. For this skill, load only the domains it needs:
 
@@ -12,7 +10,7 @@ The local server runs the official npm package `@azure-devops/mcp` as a `stdio` 
 - `work-items` — `wit_work_item` / `wit_work_item_write` for field discovery and generic work-item updates.
 - `test-plans` — `testplan_*` and `testplan_test_*_write` for Test Plans / Suites / Cases CRUD.
 
-Authentication is **interactive by default**: on the first Azure DevOps tool call, the server opens a browser for Microsoft account sign-in. Use an account that has access to the target organization. No `--authentication` argument is required for this default flow; alternative auth methods (Azure CLI, managed identity, bearer-token env var, PAT) are documented in the upstream [Getting Started guide](https://github.com/microsoft/azure-devops-mcp/blob/main/docs/GETTINGSTARTED.md#authentication).
+Authentication is **interactive by default**: on the first Azure DevOps tool call, the server opens a browser for sign-in. Use the account that has access to the target organization. No `--authentication` argument is required for this default flow; alternative auth methods (Azure CLI, managed identity, bearer-token env var, PAT) are documented in the upstream [Getting Started guide](https://github.com/microsoft/azure-devops-mcp/blob/main/docs/GETTINGSTARTED.md#authentication).
 
 Prerequisites: **Node.js 20 or later** on the machine that runs the MCP client. The first run downloads and caches the package (~50 MB) per workspace.
 
@@ -189,7 +187,7 @@ After the client has restarted (and the server is running), verify it responds b
 
 - Open the chat in agent mode and ask: `"List ADO projects"`.
 - The expected tool is `mcp_ado_core_list_projects` (the `core` domain is always loaded). If it returns the user's project list, the skill is usable.
-- If a browser sign-in prompt appears, complete it with the Microsoft account that has access to the organization, then retry.
+- If a browser sign-in prompt appears, complete it with the account that has access to the organization, then retry.
 - If auth errors persist after sign-in, the account has no access to that organization — ask the user to confirm the slug and the account.
 
 Only after `list_projects` returns data, proceed with the `SKILL.md` workflow.
@@ -202,25 +200,3 @@ Only after `list_projects` returns data, proceed with the `SKILL.md` workflow.
 - **Wrong domain loaded:** re-check the `-d core work-items test-plans` segment of the args. Omitting `-d` loads all domains (works, but bloats the tool list and may hit client tool limits).
 - **`npx` not found:** Node.js 20+ is not on the PATH. Install it from <https://nodejs.org/> and restart the client.
 - **Server key conflict:** if the user already has another server named `ado` serving a different purpose, do not silently overwrite. Report the conflict and let the user choose a different key (the key does not affect the tool prefix the package exposes).
-
-## Remote alternative (VS Code only, Microsoft account)
-
-> ⚠️ **Does not work in non-Microsoft clients.** The remote endpoint authenticates with Microsoft Entra ID, which does not support OAuth Dynamic Client Registration (RFC 7591) for non-Microsoft clients. Tools like OpenCode, Cursor, Claude Code, Codex, and Kilo Code cannot authenticate to `mcp.dev.azure.com`. Use this mode only inside VS Code, signed in with a Microsoft account that has access to the organization.
-
-If the user is in VS Code and explicitly prefers the remote server, configure it in `.vscode/mcp.json`:
-
-```jsonc
-{
-  "servers": {
-    "ado-remote-mcp": {
-      "url": "https://mcp.dev.azure.com/{organization}",
-      "type": "http"
-    }
-  },
-  "inputs": []
-}
-```
-
-Replace `{organization}` with the slug. Start the server from the MCP view and complete the Microsoft account sign-in when prompted. The remote mode exposes the full toolset (domains are a local-only feature), so it cannot be narrowed to `test-plans`; treat it as a fallback, not the default.
-
-Links to the upstream remote-server documentation: <https://learn.microsoft.com/en-us/azure/devops/mcp-server/remote-mcp-server>.
