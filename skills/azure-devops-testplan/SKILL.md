@@ -1,6 +1,6 @@
 ---
 name: azure-devops-testplan
-description: "Plain Concepts Quality: create, list, get, update, or import Test Plans, Test Suites, and Test Cases in Azure DevOps via the official Azure DevOps MCP server. Use when managing test artefacts in ADO Test Plans, importing test cases from markdown, Excel/CSV, or another Test Plan, or syncing generated test cases into a test suite. Requires the local Azure DevOps MCP server (stdio) configured and connected (see the azure-devops-mcp-setup skill for configuration)."
+description: "Plain Concepts Quality: create, list, get, update, or import Test Plans, Test Suites, and Test Cases in Azure DevOps via the official Azure DevOps MCP server. Use when managing test artefacts in ADO Test Plans, importing test cases from markdown, Excel/CSV, or another Test Plan, or syncing generated test cases into a test suite. Requires the local Azure DevOps MCP server (stdio) configured and connected."
 metadata:
   plugin: pc-quality
   author: "Pablo Otero Catrufo"

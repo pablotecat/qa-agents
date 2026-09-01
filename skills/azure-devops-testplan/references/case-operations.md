@@ -26,7 +26,7 @@ Azure DevOps allows custom fields per process and project. Do not assume hardcod
 2. From the returned field list, identify the fields the project expects (title, area path, iteration path, priority, custom fields, etc.).
 3. Ask the user for the values of any non-default fields the project expects (area path, iteration path, priority, custom fields, etc.). Do not assume default values without confirming with the user.
 
-This mirrors the convention used by the `azure-devops-boards` skill in `pc-delivery`: "Work item types and states vary per project. Do not assume hardcoded type or state names."
+This rule is universal across Azure DevOps: work item types and states vary per project. Do not assume hardcoded type or state names.
 
 ## get (one specific case)
 
