@@ -74,7 +74,7 @@ Always, in order:
 ### Test Case
 
 - **Required IDs:** `project` + `id` of the Test Case work item (and, for context to show the user, the parent `plan_id` and `suite_id` where it lives).
-- **REST DELETE:** `DELETE https://dev.azure.com/{org}/_apis/wit/workitems/{id}?api-version=7.1`.
+- **REST DELETE:** `DELETE https://dev.azure.com/{organization}/{project}/_apis/test/testcases/{testCaseId}?api-version=7.1`.
 - **Orphan risk:** breaks references in every suite/plan that contains it; test runs that recorded results against this TC keep a dangling pointer; coverage reports may corrupt.
 - **Portal link (path B):** open the TC from the plan/suite → menu `... → Delete`.
 - **`wit_*` rule:** never use `wit_work_item_*` to "delete" without going through the confirmation gate — the TC may still be referenced in suites and create orphans.

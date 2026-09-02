@@ -52,7 +52,7 @@ Before creating or updating Test Cases, run the Field discovery flow in `referen
 
 ### Step 3: Confirm before writing
 
-For operations that create, update, or delete persistent artefacts (create, update, delete, add-cases, import), show the user a plain summary of what will happen and ask for explicit confirmation before executing. Read-only operations (list, get) do not require confirmation.
+For operations that create, update, or delete persistent artefacts (create, update, delete, add-cases, import), show the user a plain summary of ALL the changes and actions that will happen and ask for explicit confirmation at once before executing. Read-only operations (list, get) do not require confirmation.
 
 ### Step 4: Execute the operation
 
