@@ -63,6 +63,7 @@ Estas skills complementan los workflows principales. Se invocan explícitamente 
 | Skill | Descripción |
 |-------|-------------|
 | **playwright-best-practices** | Guía completa de mejores prácticas para Playwright (E2E, component, API, visual, accessibility, security testing). No es un workflow QA; se consulta como referencia al escribir o depurar tests. |
+| **wcag-aa-guidance** | Guía operativa WCAG 2.2 A+AA para desarrollar, testear, revisar y remediar accesibilidad web. Enruta tareas Front y QA a requisitos, patrones, métodos de prueba y fuentes por guideline. |
 
 ### Rutas de salida
 
